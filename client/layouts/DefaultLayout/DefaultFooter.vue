@@ -5,7 +5,6 @@
         <div class="flex justify-center text-xs">
         </div>
         <div class="mt-1 flex justify-center text-xs">
-          @nakamu.life
         </div>
       </div>
       <div class="w-4" />
