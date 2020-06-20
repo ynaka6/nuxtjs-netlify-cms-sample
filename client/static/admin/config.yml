@@ -9,7 +9,7 @@ collections:
   - name: 'blog'
     label: 'Blog'
     format: 'json'
-    folder: 'assets/content/blog'
+    folder: 'client/assets/content/blog'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
@@ -19,15 +19,33 @@ collections:
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-      - {label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "title"}
+      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "title"　}
 
+  - name: 'plan'
+    label: 'Plan'
+    format: 'json'
+    folder: 'client/assets/content/plan'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    editor:
+      preview: false
+    fields:
+      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Status', name: 'status', widget: 'select', options: ["Active", "Hidden" ] }
+      - { label: 'Description', name: 'description', widget: 'string' }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "title"　}
+  
   - name: "author"
     label: "Author"
-    folder: "src/authors"
+    format: 'json'
+    folder: "client/assets/content//author"
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: false
     fields:
-      - {label: "Layout", name: "layout", widget: "hidden", default: "author"}
-      - {label: "Name", name: "title", widget: "string"}
-      - {label: "Profile Picture", name: "profilePicture", widget: "image"}
-      - {label: "Email", name: "email", widget: "string"}
+      - { label: "Name", name: "title", widget: "string" }
+      - { label: "Profile Picture", name: "profilePicture", widget: "image" }
+      - { label: "Email", name: "email", widget: "string" }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
