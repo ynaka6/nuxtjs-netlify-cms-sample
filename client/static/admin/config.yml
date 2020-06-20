@@ -26,7 +26,7 @@ collections:
     format: 'json'
     folder: 'client/assets/content/plan'
     create: true
-    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    slug: '{{slug}}'
     editor:
       preview: false
     fields:
@@ -39,7 +39,7 @@ collections:
   - name: "author"
     label: "Author"
     format: 'json'
-    folder: "client/assets/content//author"
+    folder: "client/assets/content/author"
     create: true
     slug: "{{slug}}"
     editor:
