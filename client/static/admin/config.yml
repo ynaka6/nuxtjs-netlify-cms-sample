@@ -7,7 +7,24 @@ publish_mode: editorial_workflow
 media_folder: static/img
 public_folder: /img
 
-collections:
+collections:  
+  - name: "author"
+    identifier_field: username
+    label: "Author"
+    format: 'json'
+    folder: "client/assets/content/author"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Username", name: "username", widget: "string", pattern: ['[a-zA-Z0-9_-+].{2,20}', "Must have at least 2 ~ 20 characters"] }
+      - { label: "Name", name: "title", widget: "string" }
+      - { label: "Profile Picture", name: "profilePicture", widget: "image" }
+      - { label: 'Category', name: 'category', widget: 'list', allow_add: false, default: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"] }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+
+
   - name: 'blog'
     label: 'Blog'
     format: 'json'
@@ -37,19 +54,3 @@ collections:
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "{{slug}}", displayFields: ["{{title}} - {{username}}"]}
-  
-  - name: "author"
-    identifier_field: username
-    label: "Author"
-    format: 'json'
-    folder: "client/assets/content/author"
-    create: true
-    slug: "{{slug}}"
-    displayFields: ["{{title}} - {{username}}"]
-    editor:
-      preview: false
-    fields:
-      - { label: "Username", name: "username", widget: "string" }
-      - { label: "Name", name: "title", widget: "string" }
-      - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
