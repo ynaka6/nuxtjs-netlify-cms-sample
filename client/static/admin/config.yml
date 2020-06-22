@@ -21,7 +21,7 @@ collections:
       - { label: "Username", name: "username", widget: "string", pattern: ['[a-zA-Z0-9_-+].{2,20}', "Must have at least 2 ~ 20 characters"] }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: 'Category', name: 'category', widget: 'list', allow_add: false, default: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"] }
+      - { label: 'Category', name: 'category', widget: 'list', default: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"] }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
 
