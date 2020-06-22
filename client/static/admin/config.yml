@@ -47,7 +47,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Username"", name: "username", widget: "string" }
+      - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
       - { label: 'Body', name: 'body', widget: 'markdown' }
