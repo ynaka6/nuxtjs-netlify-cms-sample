@@ -18,7 +18,7 @@ collections:
     editor:
       preview: false
     fields:
-      - { label: "Username", name: "username", widget: "string", pattern: ['[a-zA-Z0-9_-+].{2,20}', "Must have at least 2 ~ 20 characters"] }
+      - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
       - { label: 'Category', name: 'category', widget: 'list', default: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"] }
