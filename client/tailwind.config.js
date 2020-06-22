@@ -13,6 +13,7 @@ module.exports = {
     enabled: process.env.NODE_ENV === 'production',
     content: [
       'client/components/**/*.vue',
+      'client/elements/**/*.vue',
       'client/layouts/**/*.vue',
       'client/pages/**/*.vue',
       'client/plugins/**/*.js',
