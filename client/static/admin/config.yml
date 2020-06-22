@@ -21,7 +21,13 @@ collections:
       - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: 'Category', name: 'category', widget: 'list', default: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"] }
+      - {
+        label: 'Category',
+        name: 'category',
+        widget: 'select',
+        options: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"],
+        multiple: true,
+      }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
 
