@@ -39,6 +39,7 @@ collections:
       - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "username" }
   
   - name: "author"
+    identifier_field: username
     label: "Author"
     format: 'json'
     folder: "client/assets/content/author"
