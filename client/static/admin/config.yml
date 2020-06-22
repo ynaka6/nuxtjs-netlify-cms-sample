@@ -21,7 +21,7 @@ collections:
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "username" }
+      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "{{slug}}", displayFields: ["{{title}} - {{username}}"] }
 
   - name: 'plan'
     label: 'Plan'
@@ -36,7 +36,7 @@ collections:
       - { label: 'Status', name: 'status', widget: 'select', options: ["Active", "Hidden"] }
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "username" }
+      - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "{{slug}}", displayFields: displayFields: ["{{title}} - {{username}}"]}
   
   - name: "author"
     identifier_field: username
@@ -45,6 +45,7 @@ collections:
     folder: "client/assets/content/author"
     create: true
     slug: "{{slug}}"
+    displayFields: displayFields: ["{{title}} - {{username}}"]
     editor:
       preview: false
     fields:
