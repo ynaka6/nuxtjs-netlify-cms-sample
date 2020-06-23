@@ -23,18 +23,7 @@ collections:
       - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - {
-        label: 'Category',
-        name: 'category',
-        widget: 'select',
-        options: [
-          { label: "システムエンジニア", value: "systemEngineer" },
-          { label: "プログラマー", value: "programmer" },
-          { label: "デザイナー", value: "designer" },
-          { label: "DBA", value: "dba" }
-        ],
-        multiple: true,
-      }
+      - { label: "Category", name: "category", widget: "relation", collection: "settings.category", searchFields: ["categories.label"], valueField: "{{categories.value}}", displayFields: ["{{categories.label}}"] }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
   - name: 'blog'
@@ -93,11 +82,22 @@ collections:
         label: 'Category'
         format: 'json'
         file: 'client/assets/content/category.json'
-        description: 'サポーターがどんな職種なのかを示すカテゴリー'
         fields:
           - name: categories
             label: Categories
             label_singular: 'Category'
+            widget: list
+            fields:
+              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+      - name: 'hashtag'
+        label: 'Hashtag'
+        format: 'json'
+        file: 'client/assets/content/hashtag.json'
+        fields:
+          - name: hashtags
+            label: Hashtags
+            label_singular: 'Hashtag'
             widget: list
             fields:
               - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
