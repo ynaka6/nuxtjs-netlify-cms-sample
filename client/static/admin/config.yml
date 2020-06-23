@@ -60,3 +60,38 @@ collections:
       - { label: 'Description', name: 'description', widget: 'string' }
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "{{slug}}", displayFields: ["{{title}} - {{username}}"]}
+
+  - name: 'settings'
+    label: 'Settings'
+    format: 'json'
+    delete: false # Prevent users from deleting documents in this collection
+    editor:
+      preview: false
+    files:
+      - name: 'general'
+        label: 'Site Settings'
+        file: 'client/assets/content/settings.json'
+        description: 'General Site Settings'
+        fields:
+          - label: 'Master Settings'
+            name: master
+            widget: 'object'
+            fields:
+              - {
+                label: 'Category',
+                name: 'category',
+                widget: 'select',
+                options: ["システムエンジニア", "DBA", "プログラマー", "デザイナー"],
+                multiple: true,
+              }
+              - {
+                label: 'Hashtag',
+                name: 'hashtag',
+                widget: 'select',
+                options: [
+                  { label: "Laravel", value: "laravel" },
+                  { label: "コードレビュー", value: "reviewCode" },
+                  { label: "エラー解決", value: "solvedError" }
+                ],
+                multiple: true,
+              }

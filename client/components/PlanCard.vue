@@ -4,8 +4,8 @@
       <img src="https://randomuser.me/api/portraits/women/17.jpg" alt="" class="h-10 w-10 block rounded-full" />
       <p class="ml-2 font-semibold text-xs text-gray-800">名前です名前です名前です名前です</p>
     </div>
-    <p class="text-lg font-bold mb-1">気軽にチャットで相談コース</p>
-    <p class="text-xs text-gray-700 mb-1">SlackのDMを利用してマンツーマンでサポートします。</p>
+    <p class="text-lg font-bold mb-1" v-text="plan.title" />
+    <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
     <div class="mb-4">
       <hashtag text="#Laravel" class="mr-2" @click="onClickHashtag(`Laravel`)" />
       <hashtag text="#設計" class="mr-2" @click="onClickHashtag(`設計`)" />
@@ -21,12 +21,16 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
+import Vue, { PropOptions } from 'vue'
 import Hashtag from '../elements/Hashtag.vue'
+import { Plan } from '../types/entities'
 
 export default Vue.extend({
   components: {
     Hashtag
+  },
+  props: {
+    plan: { type: Object } as PropOptions<Plan>
   },
   methods: {
     onClickHashtag(hashtag: string): void {
