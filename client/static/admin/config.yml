@@ -68,7 +68,7 @@ collections:
       - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: "Category", name: "category", widget: "relation", collection: "settings", file: category, target_field: categories, searchFields: ["label"], valueField: "{{value}}", displayFields: ["{{label}}"] }
+      - { label: "Category", name: "category", widget: "relation", collection: "settings", file: category, searchFields: ["categories"], valueField: "{{value}}", displayFields: ["{{label}}"] }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
   - name: 'settings'
