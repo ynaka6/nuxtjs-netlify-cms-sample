@@ -11,6 +11,8 @@ collections:
   - name: "author"
     identifier_field: username
     label: "Author"
+    description: >
+      サポートするメンターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
     format: 'json'
     folder: "client/assets/content/author"
     create: true
@@ -37,6 +39,8 @@ collections:
 
   - name: 'blog'
     label: 'Blog'
+    description: >
+      技術情報を共有するためのブログ。メンターとしてのアピールや説明に利用してください。
     format: 'json'
     folder: 'client/assets/content/blog'
     create: true
@@ -52,6 +56,8 @@ collections:
 
   - name: 'plan'
     label: 'Plan'
+    description: >
+      ユーザーに販売するプランの詳細を登録します。
     format: 'json'
     folder: 'client/assets/content/plan'
     create: true
@@ -83,19 +89,16 @@ collections:
     editor:
       preview: false
     files:
-      - name: 'general'
-        label: 'Site Settings'
-        file: 'client/assets/content/settings.json'
-        description: 'General Site Settings'
+      - name: 'category'
+        label: 'Category'
+        format: 'json'
+        file: 'client/assets/content/category.json'
+        description: 'サポーターがどんな職種なのかを示すカテゴリー'
         fields:
-          - label: 'Master Settings'
-            name: master
-            widget: 'object'
+          - name: categories
+            label: Categories
+            label_singular: 'Category'
+            widget: list
             fields:
-              - {
-                label: "Tags",
-                name: "tags",
-                widget: "list",
-                allow_add: false,
-                default: ["news"],
-              }
+              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
