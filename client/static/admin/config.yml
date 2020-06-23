@@ -68,38 +68,51 @@ collections:
       - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: "Category", name: "category", widget: "relation", collection: "category.categories", searchFields: ["value"], valueField: "value", displayFields: ["label"] }
+      - {
+        label: "Category",
+        name: "category",
+        widget: "relation",
+        collection: "settings",
+        file: "category", 
+        searchFields: ["categories.*.value"],
+        valueField: "categories.*.value",
+        displayFields: ["categories.*.label"],
+        multiple: true
+      }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
-  - name: 'category'
-    label: 'Category'
-    description: >
-      ユーザーの職種をカテゴリーとして設定します。
+  - name: 'settings'
+    label: 'Settings'
     format: 'json'
-    file: 'client/assets/content/category.json'
     delete: false # Prevent users from deleting documents in this collection
     editor:
       preview: false
-    fields:
-      - name: categories
-        label: Categories
-        label_singular: 'Category'
-        widget: list
+    files:
+      - name: 'category'
+        label: 'Category'
+        format: 'json'
+        file: 'client/assets/content/category.json'
+        delete: false # Prevent users from deleting documents in this collection
+        editor:
+          preview: false
         fields:
-          - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
-          - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+          - name: categories
+            label: Categories
+            label_singular: 'Category'
+            widget: list
+            fields:
+              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
               
-  - name: 'hashtag'
-    label: 'Hashtag'
-    description: >
-      タグを設定します。
-    format: 'json'
-    file: 'client/assets/content/hashtag.json'
-    fields:
-      - name: hashtags
-        label: Hashtags
-        label_singular: 'Hashtag'
-        widget: list
+      - name: 'hashtag'
+        label: 'Hashtag'
+        format: 'json'
+        file: 'client/assets/content/hashtag.json'
         fields:
-          - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
-          - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+          - name: hashtags
+            label: Hashtags
+            label_singular: 'Hashtag'
+            widget: list
+            fields:
+              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
