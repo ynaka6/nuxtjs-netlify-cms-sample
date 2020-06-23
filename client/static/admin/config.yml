@@ -68,76 +68,38 @@ collections:
       - { label: "Username", name: "username", widget: "string" }
       - { label: "Name", name: "title", widget: "string" }
       - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: "Category", name: "category", widget: "relation", collection: "settings", file: "category", searchFields: ["category.*.value"], valueField: "category.*.value", displayFields: ["category.*.label"] }
+      - { label: "Category", name: "category", widget: "relation", collection: "category.categories", searchFields: ["value"], valueField: "value", displayFields: ["label"] }
       - { label: 'Body', name: 'body', widget: 'markdown' }
 
-  - name: posts
-    label: Posts
-    label_singular: 'Post'
-    folder: content/posts
-    create: true
-    fields:
-      - label: Title
-        name: title
-        widget: string
-      - label: Relation
-        name: relation
-        widget: relation
-        collection: files
-        valueField: categories.*.id
-        searchFields: [categories.*.name] # not really used
-        displayFields: [categories.*.name]
-        file: categories
-  
-  - name: files
-    label: Files
-    label_singular: 'File'
-    files:
-      - label: Categories
-        name: categories
-        file: client/assets/content/test_category.json
-        fields:
-          - label: Categories
-            name: categories
-            widget: list
-            allow_add: true
-            fields:
-              - label: Name
-                name: name
-                widget: string
-              - label: Id
-                name: id
-                widget: string
-
-  - name: 'settings'
-    label: 'Settings'
+  - name: 'category'
+    label: 'Category'
+    description: >
+      ユーザーの職種をカテゴリーとして設定します。
     format: 'json'
+    file: 'client/assets/content/category.json'
     delete: false # Prevent users from deleting documents in this collection
     editor:
       preview: false
-    files:
-      - name: 'category'
-        label: 'Category'
-        format: 'json'
-        file: 'client/assets/content/category.json'
+    fields:
+      - name: categories
+        label: Categories
+        label_singular: 'Category'
+        widget: list
         fields:
-          - name: categories
-            label: Categories
-            label_singular: 'Category'
-            widget: list
-            fields:
-              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
-              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+          - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+          - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
               
-      - name: 'hashtag'
-        label: 'Hashtag'
-        format: 'json'
-        file: 'client/assets/content/hashtag.json'
+  - name: 'hashtag'
+    label: 'Hashtag'
+    description: >
+      タグを設定します。
+    format: 'json'
+    file: 'client/assets/content/hashtag.json'
+    fields:
+      - name: hashtags
+        label: Hashtags
+        label_singular: 'Hashtag'
+        widget: list
         fields:
-          - name: hashtags
-            label: Hashtags
-            label_singular: 'Hashtag'
-            widget: list
-            fields:
-              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
-              - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+          - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
+          - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
