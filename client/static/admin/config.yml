@@ -8,24 +8,6 @@ media_folder: static/img
 public_folder: /img
 
 collections:  
-  - name: "author"
-    identifier_field: username
-    label: "Author"
-    description: >
-      サポートするメンターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
-    format: 'json'
-    folder: "client/assets/content/author"
-    create: true
-    slug: "{{slug}}"
-    editor:
-      preview: false
-    fields:
-      - { label: "Username", name: "username", widget: "string" }
-      - { label: "Name", name: "title", widget: "string" }
-      - { label: "Profile Picture", name: "profilePicture", widget: "image" }
-      - { label: "Category", name: "category", widget: "relation", collection: "settings.category.categories", searchFields: ["label"], valueField: "{{value}}", displayFields: ["{{label}}"] }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-
   - name: 'blog'
     label: 'Blog'
     description: >
@@ -71,6 +53,24 @@ collections:
         multiple: true
       }
 
+  - name: "author"
+    identifier_field: username
+    label: "Author"
+    description: >
+      サポートするメンターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
+    format: 'json'
+    folder: "client/assets/content/author"
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Username", name: "username", widget: "string" }
+      - { label: "Name", name: "title", widget: "string" }
+      - { label: "Profile Picture", name: "profilePicture", widget: "image" }
+      - { label: "Category", name: "category", widget: "relation", collection: "settings", file: category, target_field: categories, searchFields: ["label"], valueField: "{{value}}", displayFields: ["{{label}}"] }
+      - { label: 'Body', name: 'body', widget: 'markdown' }
+
   - name: 'settings'
     label: 'Settings'
     format: 'json'
@@ -90,6 +90,7 @@ collections:
             fields:
               - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
               - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+              
       - name: 'hashtag'
         label: 'Hashtag'
         format: 'json'
