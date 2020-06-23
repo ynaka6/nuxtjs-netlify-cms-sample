@@ -42,14 +42,14 @@ collections:
       - { label: 'Body', name: 'body', widget: 'markdown' }
       - { label: "Author", name: "author", widget: "relation", collection: "author", searchFields: ["title"], valueField: "{{slug}}", displayFields: ["{{title}} - {{username}}"]}
       - {
-        label: 'Hashtag',
-        name: 'hashtag',
-        widget: 'select',
-        options: [
-          { label: "Laravel", value: "laravel" },
-          { label: "コードレビュー", value: "reviewCode" },
-          { label: "エラー解決", value: "solvedError" }
-        ],
+        label: "Hashtag",
+        name: "hashtag",
+        widget: "relation",
+        collection: "settings",
+        file: "hashtag", 
+        searchFields: ["hashtags.*.value"],
+        valueField: "hashtags.*.value",
+        displayFields: ["hashtags.*.label"],
         multiple: true
       }
 
