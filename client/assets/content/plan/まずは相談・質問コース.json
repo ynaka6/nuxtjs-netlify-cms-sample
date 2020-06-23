@@ -3,5 +3,10 @@
   "title": "まずは相談・質問コース",
   "status": "Active",
   "body": "現状で困っている悩みや相談にのります。\\\nお試し契約にも利用できますので気軽にご相談ください。\n\n※ 解決できない場合などキャンセルも受け付けています。Mentaの規定通りにキャンセル対応させて頂きます。",
-  "description": "Laravelの開発を手助けします。"
+  "description": "Laravelの開発を手助けします。",
+  "hashtag": [
+    "laravel",
+    "reviewCode",
+    "solvedError"
+  ]
 }
