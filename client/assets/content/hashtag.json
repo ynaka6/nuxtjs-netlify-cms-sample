@@ -3,6 +3,14 @@
     {
       "label": "Laravel",
       "value": "laravel"
+    },
+    {
+      "label": "PHP",
+      "value": "php"
+    },
+    {
+      "label": "コードレビュー",
+      "value": "code_review"
     }
   ]
 }
