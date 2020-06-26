@@ -34,6 +34,8 @@ export interface Plan {
     slug: string;
     description: string;
     body: string;
+    sku: string;
+    price: Number;
     hashtags: Hashtag[];
     author: Author;
 }

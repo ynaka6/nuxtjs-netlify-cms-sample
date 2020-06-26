@@ -47,6 +47,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/markdownit',
   ],
   /*
    ** Axios module configuration
@@ -58,4 +59,22 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+
+  markdownit: {
+    injected: true,
+  },
+
+
+  generate: {
+    routes: function() {
+      const fs = require('fs');
+      const path = require('path');
+      return fs.readdirSync('./client/assets/content/author').map(file => {
+        return {
+          route: `/users/${path.parse(file).name}`,
+          payload: { author: require(`./client/assets/content/author/${file}`) },
+        };
+      });
+    },
+  },
 }

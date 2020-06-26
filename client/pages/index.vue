@@ -6,7 +6,14 @@
         :key="index"
         :plan="plan"
         @click-hashtag="onClickHashtag"
-      />
+      >
+        <template v-slot:header>
+          <div class="flex items-center mb-2">
+            <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
+            <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
+          </div>
+        </template>
+      </plan-card>
     </div>
   </div>
 </template>

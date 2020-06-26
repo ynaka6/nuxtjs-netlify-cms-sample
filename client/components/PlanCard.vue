@@ -1,9 +1,6 @@
 <template>
   <div class="bg-white shadow-md hover:shadow-2xl rounded-lg p-4 mb-6">
-    <div class="flex items-center mb-2">
-      <img :src="author.profilePicture" :alt="author.title" class="h-10 w-10 block rounded-full" />
-      <p class="ml-2 font-semibold text-xs text-gray-800" v-text="author.title" />
-    </div>
+    <slot name="header" />
     <p class="text-lg font-bold mb-1" v-text="plan.title" />
     <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
     <div class="mb-4">
@@ -17,11 +14,13 @@
     </div>
     <div class="flex justify-between items-center">
       <div>
-        <p class="font-semibold text-4xl text-gray-800"><span class="mr-1">¥</span>
-          3,000
+        <p class="font-semibold text-4xl text-gray-800">
+          <span class="mr-1">¥</span>
+          <span v-text="plan.price" />
         </p>
       </div>
     </div>
+    <slot name="footer" />
   </div>
 </template>
 
