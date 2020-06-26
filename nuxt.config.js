@@ -69,12 +69,28 @@ export default {
     routes: function() {
       const fs = require('fs');
       const path = require('path');
-      return fs.readdirSync('./client/assets/content/author').map(file => {
+
+      const categories = require(`./client/assets/content/category.json`).categories;
+      const hashtags = require(`./client/assets/content/hashtag.json`).hashtags;
+      const authors = fs.readdirSync('./client/assets/content/author').map(file => {
+        const author = require(`./client/assets/content/author/${file}`);
+        author.categories = author.categories.map((str) => categories.find((c) => c.value === str))
         return {
           route: `/users/${path.parse(file).name}`,
-          payload: { author: require(`./client/assets/content/author/${file}`) },
+          payload: { author },
         };
       });
+      const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
+        const plan = require(`./client/assets/content/plan/${file}`);
+        plan.author = authors.find(a => a.username === plan.author)
+        plan.hashtags = plan.hashtags.map(str => hashtags.find((h) => h.value === str))
+        return {
+          route: `/plans/${plan.sku}`,
+          payload: { plan },
+        };
+      });
+
+      return [ ...authors, ...plans ];
     },
   },
 }

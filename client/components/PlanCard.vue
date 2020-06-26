@@ -1,8 +1,10 @@
 <template>
   <div class="bg-white shadow-md hover:shadow-2xl rounded-lg p-4 mb-6">
     <slot name="header" />
-    <p class="text-lg font-bold mb-1" v-text="plan.title" />
-    <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
+    <nuxt-link :to="`/plans/${plan.sku}`">
+      <p class="text-lg font-bold mb-1" v-text="plan.title" />
+      <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
+    </nuxt-link>
     <div class="mb-4">
       <hashtag
         v-for="hashtag in hashtags"
