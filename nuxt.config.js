@@ -1,4 +1,9 @@
 export default {
+  env: {
+    baseUrl: process.env.BASE_URL || `http://localhost:3000`,
+    disqusShortname: process.env.DISQUS_SHORTNAME || ``,
+  },
+
   srcDir: 'client/',
 
   /*
@@ -31,7 +36,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  plugins: ['~/plugins/disqus'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -75,22 +80,23 @@ export default {
       const authors = fs.readdirSync('./client/assets/content/author').map(file => {
         const author = require(`./client/assets/content/author/${file}`);
         author.categories = author.categories.map((str) => categories.find((c) => c.value === str))
-        return {
-          route: `/users/${path.parse(file).name}`,
-          payload: { author },
-        };
+        return author;
       });
       const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
         const plan = require(`./client/assets/content/plan/${file}`);
         plan.author = authors.find(a => a.username === plan.author)
         plan.hashtags = plan.hashtags.map(str => hashtags.find((h) => h.value === str))
-        return {
-          route: `/plans/${plan.sku}`,
-          payload: { plan },
-        };
+        return plan;
       });
 
-      return [ ...authors, ...plans ];
+      return [
+        ...authors.map(author => {
+          return { route: `/users/${author.username}`, payload: { author }};
+        }),
+        ...plans.map(plan => {
+          return { route: `/plans/${plan.sku}`, payload: { plan }};
+        })
+      ];
     },
   },
 }
