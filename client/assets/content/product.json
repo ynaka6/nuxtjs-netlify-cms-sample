@@ -1,0 +1,14 @@
+{
+  "products": [
+    {
+      "price": 500,
+      "label": "単発 500円",
+      "value": "sku_HYg3wwvF4xhOcv"
+    },
+    {
+      "price": 1000,
+      "label": "単発 1,000円",
+      "value": "sku_HYg5ufjjkmvtSw"
+    }
+  ]
+}
