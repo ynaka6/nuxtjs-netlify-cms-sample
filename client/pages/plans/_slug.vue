@@ -69,7 +69,7 @@ export default Vue.extend({
   data(): DataType {
     return {
       baseUrl: "",
-      stripePublishableKey: "",
+      stripePublishableKey: process.env.baseUrl || "",
       plan: {} as Plan,
     };
   },
@@ -90,8 +90,8 @@ export default Vue.extend({
     });
     
     return {
-      baseUrl: process.env.baseUrl || '',
-      stripePublishableKey: process.env.baseUrl || '',
+      baseUrl: process.env.baseUrl || "",
+      stripePublishableKey: process.env.stripePublishableKey || "",
       ...data
     };
   },

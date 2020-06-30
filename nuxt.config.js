@@ -79,6 +79,7 @@ export default {
 
       const categories = require(`./client/assets/content/category.json`).categories;
       const hashtags = require(`./client/assets/content/hashtag.json`).hashtags;
+      const products = require(`./client/assets/content/product.json`).products;
       const authors = fs.readdirSync('./client/assets/content/author').map(file => {
         const author = require(`./client/assets/content/author/${file}`);
         author.categories = author.categories.map((str) => categories.find((c) => c.value === str))
@@ -87,6 +88,7 @@ export default {
       const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
         const plan = require(`./client/assets/content/plan/${file}`);
         plan.author = authors.find(a => a.username === plan.author)
+        plan.product = products.find(p => p.value === plan.product)
         plan.hashtags = plan.hashtags.map(str => hashtags.find((h) => h.value === str))
         return plan;
       });
