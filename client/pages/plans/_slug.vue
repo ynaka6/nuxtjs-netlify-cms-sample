@@ -1,17 +1,11 @@
 <template>
+<div>
   <div class="max-w-6xl mx-auto px-2">
     <div class="flex flex-col md:flex-row">
       <div class="w-full py-4 md:px-4">
-        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
+        <div class="bg-white shadow-md rounded-lg p-4">
           <div class="w-full">
             <div v-html="$md.render(plan.body)" />
-          </div>
-          <div class="border-b my-4" />
-          <div class="w-full">
-            <disqus
-              :identifier="`plan_${plan.slug}`"
-              :url="`${baseUrl}/plans/${plan.slug}`"
-            ></disqus>
           </div>
         </div>
       </div>
@@ -46,6 +40,15 @@
       </div>
     </div>
   </div>
+  <div class="w-full bg-white">
+    <div class="max-w-4xl mx-auto px-2 py-10">
+      <disqus
+        :identifier="`plan_${plan.slug}`"
+        :url="`${baseUrl}/plans/${plan.slug}`"
+      ></disqus>
+    </div>
+  </div>
+</div>
 </template>
 
 <script lang="ts">

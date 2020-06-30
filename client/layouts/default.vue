@@ -4,7 +4,7 @@
       <default-header />
       <div class="flex flex-grow">
         <div class="w-full">
-          <div class="w-full bg-gray-900 px-4 py-10 text-white text-center">
+          <div class="w-full bg-gray-900 px-4 py-24 text-white text-center">
             <h1 class="text-3xl mb-4" v-text="pageTitle" />
             <p class="text-xs" v-text="pageDescription" />
           </div>
