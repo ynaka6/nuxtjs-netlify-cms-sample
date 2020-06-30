@@ -91,7 +91,7 @@ export const actions: ActionTree<RootState, RootState> = {
     let planFiles = await require.context('~/assets/content/plan/', false, /\.json$/);
     let planPosts = planFiles.keys().map((key: string) => {
       let res = planFiles(key);
-      res.slug = `${res.author}-${res.product}-${res.uuid}`
+      res.slug = `${res.author}-${res.uuid}`
       res.product = products.find((p: Product) => p.value === res.product)
       res.author = authors.find((a: Author) => a.username === res.author)
       res.hashtags = res.hashtags.map((str: string) => hashtags.find((h: Hashtag) => h.value === str))

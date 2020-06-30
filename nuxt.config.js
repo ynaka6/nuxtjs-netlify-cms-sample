@@ -82,11 +82,13 @@ export default {
       const products = require(`./client/assets/content/product.json`).products;
       const authors = fs.readdirSync('./client/assets/content/author').map(file => {
         const author = require(`./client/assets/content/author/${file}`);
-        author.categories = author.categories.map((str) => categories.find((c) => c.value === str))
+        author.slug = author.username;
+        author.categories = author.categories.map((str) => categories.find((c) => c.value === str));
         return author;
       });
       const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
         const plan = require(`./client/assets/content/plan/${file}`);
+        plan.slug = `${plan.author}-${plan.uuid}`;
         plan.author = authors.find(a => a.username === plan.author)
         plan.product = products.find(p => p.value === plan.product)
         plan.hashtags = plan.hashtags.map(str => hashtags.find((h) => h.value === str))
@@ -95,10 +97,10 @@ export default {
 
       return [
         ...authors.map(author => {
-          return { route: `/users/${author.username}`, payload: { author }};
+          return { route: `/users/${author.slug}`, payload: { author }};
         }),
         ...plans.map(plan => {
-          return { route: `/plans/${plan.sku}`, payload: { plan }};
+          return { route: `/plans/${plan.slug}`, payload: { plan }};
         })
       ];
     },
