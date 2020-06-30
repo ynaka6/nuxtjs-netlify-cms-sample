@@ -127,3 +127,27 @@ collections:
             fields:
               - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
               - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+              
+      - name: 'product'
+        label: 'Product'
+        format: 'json'
+        file: 'client/assets/content/product.json'
+        fields:
+          - name: products
+            label: Products
+            label_singular: 'Product'
+            widget: list
+            fields:
+              - { label: 'Label', name: 'label', widget: 'string', hint: '表示する商品名を記入' }
+              - {
+                  label: "Price",
+                  name: "price",
+                  widget: "number",
+                  default: 100,
+                  valueType: "int",
+                  min: 100,
+                  max: 500000,
+                  step: 100,
+                  hint: 'Stripeで作成した金額'
+                }
+              - { label: 'Value', name: 'value', widget: 'string', hint: 'StripeのSKUのIDを記入' }
