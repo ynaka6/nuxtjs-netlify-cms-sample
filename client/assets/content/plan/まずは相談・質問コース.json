@@ -3,15 +3,13 @@
   "hashtags": [
     "laravel"
   ],
-  "price": 3000,
-  "author": "nakamu",
-  "hashtag": [
+  "authorId": "nakamu",
+  "hashtagIds": [
     "laravel"
   ],
-  "product": "sku_HYg5ufjjkmvtSw",
+  "productId": "sku_HYg5ufjjkmvtSw",
   "status": "Active",
   "title": "まずは相談・質問コース",
   "uuid": "00001",
-  "description": "Laravelの開発を手助けします。",
-  "sku": "sku_aaaaa"
+  "description": "Laravelの開発を手助けします。"
 }

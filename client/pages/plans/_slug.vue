@@ -82,8 +82,7 @@ export default Vue.extend({
       const plans = context.store.getters['planPosts'] || [];
       const plan = plans.find((p: Plan) => p.slug === slug);
       data = { plan };
-    }
-
+    }    
     context.store.dispatch('setPageInfo', {
       title: data.plan.title,
       description: data.plan.description

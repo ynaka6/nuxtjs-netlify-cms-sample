@@ -74,7 +74,7 @@ export const actions: ActionTree<RootState, RootState> = {
     let authors = authorFiles.keys().map((key: string) => {
       let res = authorFiles(key);
       res.slug = key.slice(2, -5);
-      res.categories = res.categories.map((str: string) => categories.find((c: Category) => c.value === str))
+      res.categories = res.categoryIds.map((str: string) => categories.find((c: Category) => c.value === str))
       return res;
     });
     await commit('SET_AUTHORS', authors);
@@ -83,7 +83,7 @@ export const actions: ActionTree<RootState, RootState> = {
     let blogPosts = blogFiles.keys().map((key: string) => {
       let res = blogFiles(key);
       res.slug = key.slice(2, -5);
-      res.author = authors.find(a => a.username === res.author)
+      res.author = authors.find(a => a.username === res.authorId)
       return res;
     });
     await commit('SET_BLOG_POSTS', blogPosts);
@@ -91,10 +91,10 @@ export const actions: ActionTree<RootState, RootState> = {
     let planFiles = await require.context('~/assets/content/plan/', false, /\.json$/);
     let planPosts = planFiles.keys().map((key: string) => {
       let res = planFiles(key);
-      res.slug = `${res.author}-${res.uuid}`
-      res.product = products.find((p: Product) => p.value === res.product)
-      res.author = authors.find((a: Author) => a.username === res.author)
-      res.hashtags = res.hashtags.map((str: string) => hashtags.find((h: Hashtag) => h.value === str))
+      res.slug = `${res.authorId}-${res.uuid}`
+      res.product = products.find((p: Product) => p.value === res.productId)
+      res.author = authors.find((a: Author) => a.username === res.authorId)
+      res.hashtags = res.hashtagIds.map((str: string) => hashtags.find((h: Hashtag) => h.value === str))
       return res;
     });
     await commit('SET_PLAN_POSTS', planPosts);

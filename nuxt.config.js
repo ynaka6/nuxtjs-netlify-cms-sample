@@ -83,15 +83,15 @@ export default {
       const authors = fs.readdirSync('./client/assets/content/author').map(file => {
         const author = require(`./client/assets/content/author/${file}`);
         author.slug = author.username;
-        author.categories = author.categories.map((str) => categories.find((c) => c.value === str));
+        author.categories = author.categoryIds.map((str) => categories.find((c) => c.value === str));
         return author;
       });
       const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
         const plan = require(`./client/assets/content/plan/${file}`);
-        plan.slug = `${plan.author}-${plan.uuid}`;
-        plan.author = authors.find(a => a.username === plan.author)
-        plan.product = products.find(p => p.value === plan.product)
-        plan.hashtags = plan.hashtags.map(str => hashtags.find((h) => h.value === str))
+        plan.slug = `${plan.authorId}-${plan.uuid}`;
+        plan.author = authors.find(a => a.username === plan.authorId)
+        plan.product = products.find(p => p.value === plan.productId)
+        plan.hashtags = plan.hashtagIds.map(str => hashtags.find((h) => h.value === str))
         return plan;
       });
 

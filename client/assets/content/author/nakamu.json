@@ -3,7 +3,7 @@
   "title": "なかむ",
   "profilePicture": "/img/e41f9f31e443fac9b71463fd6125b911.png",
   "body": "テストですテストですテストですテストですテストです\n\nテストですテストですテストですテストですテストです\n\nテストですテストですテストですテストですテストです",
-  "categories": [
+  "categoryIds": [
     "systemEnginner",
     "designer"
   ]
