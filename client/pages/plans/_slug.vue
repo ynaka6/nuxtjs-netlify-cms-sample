@@ -35,7 +35,12 @@
             </p>
           </div>
           <div class="border-b my-4" />
-          <button class="w-full bg-orange-500 rounded font-bold text-white p-4 hover:opacity-75 mb-4">購入手続きを行う</button>
+          <button
+            class="w-full bg-orange-500 rounded font-bold text-white p-4 hover:opacity-75 mb-4"
+            @click.prevent="goToCheckout"
+          >
+            購入手続きを行う
+          </button>
           <p class="text-gray-800 text-xs">※ 購入処理はStripeを利用してクレジットカード決済となります</p>
         </div>
       </div>
@@ -47,6 +52,13 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { Plan } from '../../types/entities'
+import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js';
+
+export type DataType = {
+  baseUrl: string;
+  stripePublishableKey: string;
+  plan: Plan;
+}
 
 export default Vue.extend({
   validate(context: Context): boolean {
@@ -54,7 +66,14 @@ export default Vue.extend({
     const plans = context.store.getters['planPosts'] || [];
     return plans.find((p: Plan) => p.slug === slug);
   },
-  async asyncData(context: Context) {
+  data(): DataType {
+    return {
+      baseUrl: "",
+      stripePublishableKey: "",
+      plan: {} as Plan,
+    };
+  },
+  async asyncData(context: Context): Promise<DataType> {
     let data = null;
     if (context.payload) {
       data = context.payload as { plan: Plan };
@@ -71,9 +90,24 @@ export default Vue.extend({
     });
     
     return {
-      baseUrl: process.env.baseUrl,
+      baseUrl: process.env.baseUrl || '',
+      stripePublishableKey: process.env.baseUrl || '',
       ...data
     };
+  },
+  methods: {
+    async goToCheckout(): Promise<void> {
+      const stripe = await loadStripe(this.stripePublishableKey);
+      if (stripe) {
+        stripe.redirectToCheckout({
+          successUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
+          cancelUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
+          items: [
+            { sku: this.plan.product.value, quantity: 1 }
+          ]
+        } as RedirectToCheckoutOptions);
+      }
+    }
   }
 })
 </script>
