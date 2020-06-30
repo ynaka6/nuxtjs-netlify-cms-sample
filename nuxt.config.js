@@ -2,6 +2,7 @@ export default {
   env: {
     baseUrl: process.env.BASE_URL || `http://localhost:3000`,
     disqusShortname: process.env.DISQUS_SHORTNAME || ``,
+    stripeClientId: process.env.STRIPE_CLIENT_ID || ``,
   },
 
   srcDir: 'client/',
