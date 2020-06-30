@@ -9,15 +9,15 @@
           <div class="border-b my-4" />
           <div class="w-full">
             <disqus
-              :identifier="`plan_${plan.sku}`"
-              :url="`${baseUrl}/plans/${plan.sku}`"
+              :identifier="`plan_${plan.slug}`"
+              :url="`${baseUrl}/plans/${plan.slug}`"
             ></disqus>
           </div>
         </div>
       </div>
       <div class="w-full md:w-5/12 py-4">
         <div class="bg-gray-100 px-4 py-2 mb-2">
-          <nuxt-link :to="`/users/${plan.author.username}`" class="flex items-center">
+          <nuxt-link :to="`/users/${plan.author.slug}`" class="flex items-center">
             <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
             <div>
               <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
@@ -30,7 +30,7 @@
             <p>Price</p>
             <p class="font-semibold text-2xl text-gray-800">
               <span class="mr-1">¥</span>
-              <span v-text="plan.price" />
+              <span v-text="plan.product.price.toLocaleString()" />
               <span class="text-sm">/ month</span>
             </p>
           </div>
@@ -50,18 +50,18 @@ import { Plan } from '../../types/entities'
 
 export default Vue.extend({
   validate(context: Context): boolean {
-    const sku = context.params['sku'];
+    const slug = context.params['slug'];
     const plans = context.store.getters['planPosts'] || [];
-    return plans.find((p: Plan) => p.sku === sku);
+    return plans.find((p: Plan) => p.slug === slug);
   },
   async asyncData(context: Context) {
     let data = null;
     if (context.payload) {
       data = context.payload as { plan: Plan };
     } else {
-      const sku = context.params['sku'];
+      const slug = context.params['slug'];
       const plans = context.store.getters['planPosts'] || [];
-      const plan = plans.find((p: Plan) => p.sku === sku);
+      const plan = plans.find((p: Plan) => p.slug === slug);
       data = { plan };
     }
 

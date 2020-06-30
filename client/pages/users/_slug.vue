@@ -33,21 +33,20 @@ import { Author } from '../../types/entities'
 
 export default Vue.extend({
   validate(context: Context): boolean {
-    const username = context.params['username'];
+    const slug = context.params['slug'];
     const authors = context.store.getters['authors'] || [];
-    return authors.find((a: Author) => a.username === username);
+    return authors.find((a: Author) => a.slug === slug);
   },
   async asyncData(context: Context) {
     let data = null;
     if (context.payload) {
       data = context.payload as { author: Author };
     } else {
-      const username = context.params['username'];
+      const slug = context.params['slug'];
       const authors = context.store.getters['authors'] || [];
-      const author = authors.find((a: Author) => a.username === username)
+      const author = authors.find((a: Author) => a.slug === slug)
       data = { author };
     }
-
     context.store.dispatch('setPageInfo', {
       title: data.author.title,
       description: `@${data.author.username}`

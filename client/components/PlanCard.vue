@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white shadow-md hover:shadow-2xl rounded-lg p-4 mb-6">
     <slot name="header" />
-    <nuxt-link :to="`/plans/${plan.sku}`">
+    <nuxt-link :to="`/plans/${plan.slug}`">
       <p class="text-lg font-bold mb-1" v-text="plan.title" />
       <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
     </nuxt-link>
@@ -18,7 +18,7 @@
       <div>
         <p class="font-semibold text-4xl text-gray-800">
           <span class="mr-1">¥</span>
-          <span v-text="plan.price" />
+          <span v-text="plan.product.price.toLocaleString()" />
         </p>
       </div>
     </div>

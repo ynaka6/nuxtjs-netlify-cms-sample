@@ -9,7 +9,7 @@
           @click-hashtag="onClickHashtag"
         >
           <template v-slot:header>
-            <nuxt-link :to="`/users/${plan.author.username}`" class="flex items-center mb-2">
+            <nuxt-link :to="`/users/${plan.author.slug}`" class="flex items-center mb-2">
               <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
               <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
             </nuxt-link>

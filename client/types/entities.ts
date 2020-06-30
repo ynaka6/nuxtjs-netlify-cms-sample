@@ -1,41 +1,48 @@
 export interface Category {
-    label: string;
-    value: string;
-    slug: string;
+    label: String;
+    value: String;
+    slug: String;
 }
 
 export interface Hashtag {
-    label: string;
-    value: string;
-    slug: string;
+    label: String;
+    value: String;
+    slug: String;
+}
+
+export interface Product {
+    label: String;
+    value: String;
+    price: Number;
+    slug: String;
 }
 
 export interface Author {
-    username: string;
-    title: string;
-    profilePicture: string;
-    body: string;
+    username: String;
+    title: String;
+    profilePicture: String;
+    body: String;
     categories: Hashtag[];
+    slug: String;
 }
 
 export interface Blog {
-    title: string;
-    date: string;
-    slug: string;
-    description: string;
-    body: string;
+    title: String;
+    date: String;
+    slug: String;
+    description: String;
+    body: String;
     hashtags: Hashtag[];
     author: Author;
 }
 
 export interface Plan {
-    title: string;
-    status: string;
-    slug: string;
-    description: string;
-    body: string;
-    sku: string;
-    price: Number;
+    title: String;
+    status: String;
+    slug: String;
+    description: String;
+    body: String;
+    product: Product;
     hashtags: Hashtag[];
     author: Author;
 }
