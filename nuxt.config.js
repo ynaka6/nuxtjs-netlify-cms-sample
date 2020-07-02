@@ -71,38 +71,42 @@ export default {
     injected: true,
   },
 
-
   generate: {
-    routes: function() {
-      const fs = require('fs');
-      const path = require('path');
+    routes: function () {
+      const fs = require('fs')
 
-      const categories = require(`./client/assets/content/category.json`).categories;
-      const hashtags = require(`./client/assets/content/hashtag.json`).hashtags;
-      const products = require(`./client/assets/content/product.json`).products;
-      const authors = fs.readdirSync('./client/assets/content/author').map(file => {
-        const author = require(`./client/assets/content/author/${file}`);
-        author.slug = author.username;
-        author.categories = author.categoryIds.map((str) => categories.find((c) => c.value === str));
-        return author;
-      });
-      const plans = fs.readdirSync('./client/assets/content/plan').map(file => {
-        const plan = require(`./client/assets/content/plan/${file}`);
-        plan.slug = `${plan.authorId}-${plan.uuid}`;
-        plan.author = authors.find(a => a.username === plan.authorId)
-        plan.product = products.find(p => p.value === plan.productId)
-        plan.hashtags = plan.hashtagIds.map(str => hashtags.find((h) => h.value === str))
-        return plan;
-      });
+      const categories = require(`./client/assets/content/category.json`).categories
+      const hashtags = require(`./client/assets/content/hashtag.json`).hashtags
+      const products = require(`./client/assets/content/product.json`).products
+      const authors = fs.readdirSync('./client/assets/content/author')
+        .map((file) => {
+          const author = require(`./client/assets/content/author/${file}`)
+          author.slug = author.username
+          author.categories = author.categoryIds.map((str) =>
+            categories.find((c) => c.value === str)
+          )
+          return author
+        })
+      const plans = fs.readdirSync('./client/assets/content/plan')
+        .map((file) => {
+          const plan = require(`./client/assets/content/plan/${file}`)
+          plan.slug = `${plan.authorId}-${plan.uuid}`
+          plan.author = authors.find((a) => a.username === plan.authorId)
+          plan.product = products.find((p) => p.value === plan.productId)
+          plan.hashtags = plan.hashtagIds.map((str) =>
+            hashtags.find((h) => h.value === str)
+          )
+          return plan
+        })
 
       return [
-        ...authors.map(author => {
-          return { route: `/users/${author.slug}`, payload: { author }};
+        ...authors.map((author) => {
+          return { route: `/users/${author.slug}`, payload: { author } }
         }),
-        ...plans.map(plan => {
-          return { route: `/plans/${plan.slug}`, payload: { plan }};
-        })
-      ];
+        ...plans.map((plan) => {
+          return { route: `/plans/${plan.slug}`, payload: { plan } }
+        }),
+      ]
     },
   },
 }
