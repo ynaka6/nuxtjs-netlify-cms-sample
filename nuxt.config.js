@@ -18,27 +18,43 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s | Growrescue',
+    htmlAttrs: {
+      lang: 'ja'
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || '',
+        content: ''
       },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: 'Growrescue'
+      },
+      {
+        hid: 'og:description',
+        name: 'og:description',
+        content: ''
+      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: ['~/plugins/disqus'],
+  plugins: [
+    '~/plugins/fontawesome',
+    '~/plugins/disqus'
+  ],
   /*
    ** Nuxt.js dev-modules
    */

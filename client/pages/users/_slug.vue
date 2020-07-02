@@ -29,7 +29,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Author } from '../../types/entities'
+import { Author, Breadcrumb } from '../../types/entities'
 
 export default Vue.extend({
   validate(context: Context): boolean {
@@ -47,9 +47,14 @@ export default Vue.extend({
       const author = authors.find((a: Author) => a.slug === slug)
       data = { author };
     }
+    const breadcrumbs = [
+      { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
+      { name: data.author.title, color: "text-gray-100" } as Breadcrumb,
+    ];
     context.store.dispatch('setPageInfo', {
       title: data.author.title,
-      description: `@${data.author.username}`
+      description: `@${data.author.username}`,
+      breadcrumbs
     });
     return data;
   }

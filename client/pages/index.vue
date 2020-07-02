@@ -25,6 +25,7 @@
               :key="index"
               class="text-gray-900"
             >
+              <font-awesome-icon :icon="['fas', 'tag']" class="mr-2" />
               {{ hashtag.label }}
             </li>
           </ul>
@@ -45,7 +46,10 @@ export default Vue.extend({
     PlanCard
   },
   fetch(context: Context) {
-    context.store.dispatch('setPageInfo', { title: "The best Programming Supporter.", description: "あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう" });
+    context.store.dispatch('setPageInfo', {
+      title: "The best Programming Supporter.",
+      description: "あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう"
+    })
   },
   computed: {
     ...mapGetters({

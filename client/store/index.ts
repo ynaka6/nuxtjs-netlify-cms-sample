@@ -1,9 +1,10 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Author, Blog, Category, Hashtag, Plan, Product } from '../types/entities'
+import { Author, Blog, Breadcrumb, Category, Hashtag, Plan, Product } from '../types/entities'
 
 export const state = () => ({
   pageTitle: `The best Programming Supporter.` as string,
   pageDescription: `あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう` as string,
+  breadcrumbs: [] as Breadcrumb[],
   categories: [] as Category[],
   hashtags: [] as Hashtag[],
   products: [] as Product[],
@@ -17,6 +18,7 @@ export type RootState = ReturnType<typeof state>
 export const getters: GetterTree<RootState, RootState> = {
   pageTitle: state => state.pageTitle,
   pageDescription: state => state.pageDescription,
+  breadcrumbs: state => state.breadcrumbs,
   categories: state => state.categories,
   hashtags: state => state.hashtags,
   products: state => state.products,
@@ -31,6 +33,9 @@ export const mutations: MutationTree<RootState> = {
   },
   SET_PAGE_DESCRIPTION(state, description) {
     state.pageDescription = description;
+  },
+  SET_BREADCRUMBS(state, list) {
+    state.breadcrumbs = list;
   },
   SET_CATEGORIES(state, list) {
     state.categories = list;
@@ -53,9 +58,11 @@ export const mutations: MutationTree<RootState> = {
 }
 
 export const actions: ActionTree<RootState, RootState> = {
-  setPageInfo({ commit }, { title, description }) {
+  setPageInfo({ commit }, { title, description, breadcrumbs }) {
+    console.log(breadcrumbs)
     commit('SET_PAGE_TITLE', title);
     commit('SET_PAGE_DESCRIPTION', description);
+    commit('SET_BREADCRUMBS', breadcrumbs || []);
   },
   async nuxtServerInit({ commit }) {
     const categoryJson = await require('~/assets/content/category.json');

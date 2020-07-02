@@ -54,7 +54,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Plan } from '../../types/entities'
+import { Breadcrumb, Plan } from '../../types/entities'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js';
 
 export type DataType = {
@@ -88,7 +88,12 @@ export default Vue.extend({
     }    
     context.store.dispatch('setPageInfo', {
       title: data.plan.title,
-      description: data.plan.description
+      description: data.plan.description,
+      breadcrumbs: [
+        { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
+        { to: `/users/${data.plan.author.slug}`, name: data.plan.author.title, color: "text-gray-100" } as Breadcrumb,
+        { name: data.plan.title, color: "text-gray-100" } as Breadcrumb,
+      ]
     });
     
     return {

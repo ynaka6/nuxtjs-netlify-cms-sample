@@ -46,3 +46,10 @@ export interface Plan {
     hashtags: Hashtag[];
     author: Author;
 }
+
+export interface Breadcrumb {
+    to?: String;
+    name?: String;
+    icon?: String[];
+    color: String;
+}
