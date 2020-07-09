@@ -117,7 +117,7 @@ export default {
 
       return [
         ...authors.map((author) => {
-          return { route: `/users/${author.slug}`, payload: { author } }
+          return { route: `/users/${author.slug}`, payload: { author, plans: plans.filter((plan) => plan.author.username === author.username) } }
         }),
         ...plans.map((plan) => {
           return { route: `/plans/${plan.slug}`, payload: { plan } }

@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="w-full md:w-5/12 py-4">
-        <div class="bg-gray-100 p-4">
+        <div class="bg-gray-100 p-4 mb-4">
           <p class="font-bold text-xl">Categories</p>
           <ul>
             <li
@@ -21,6 +21,11 @@
             </li>
           </ul>
         </div>
+        <plan-card 
+          v-for="(plan, index) in plans"
+          :key="index"
+          :plan="plan"
+        />
       </div>
     </div>
   </div>
@@ -30,8 +35,12 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { Author, Breadcrumb } from '../../types/entities'
+import PlanCard from '../../components/PlanCard.vue'
 
 export default Vue.extend({
+  components: {
+    PlanCard
+  },
   validate(context: Context): boolean {
     const slug = context.params['slug'];
     const authors = context.store.getters['authors'] || [];
@@ -45,7 +54,8 @@ export default Vue.extend({
       const slug = context.params['slug'];
       const authors = context.store.getters['authors'] || [];
       const author = authors.find((a: Author) => a.slug === slug)
-      data = { author };
+      const plans = context.store.getters['authorPlanPosts'](author) || [];
+      data = { author, plans };
     }
     const breadcrumbs = [
       { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
@@ -54,6 +64,7 @@ export default Vue.extend({
     context.store.dispatch('setPageInfo', {
       title: data.author.title,
       description: `@${data.author.username}`,
+      image: data.author.profilePicture,
       breadcrumbs
     });
     return data;

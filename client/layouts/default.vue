@@ -12,8 +12,13 @@
               >
                 <breadcrumb :breadcrumbs="breadcrumbs" />
               </div>
-              <h1 class="text-3xl mb-4" v-text="pageTitle" />
-              <p class="text-xs" v-text="pageDescription" />
+              <div class="flex items-center justify-center">
+                <img v-if="pageImage" :src="pageImage" :alt="pageTitle" class="h-24 w-24 block rounded-full mr-10" />
+                <div class="w-auto">
+                  <h1 class="text-3xl mb-4" v-text="pageTitle" />
+                  <p class="text-xs" v-text="pageDescription" />
+                </div>
+              </div>
             </div>
           </div>
           <nuxt />
@@ -41,6 +46,7 @@ export default Vue.extend({
     ...mapGetters({
         pageTitle: "pageTitle",
         pageDescription: "pageDescription",
+        pageImage: "pageImage",
         breadcrumbs: "breadcrumbs",
     })
   },
