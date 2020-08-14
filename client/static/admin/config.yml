@@ -92,6 +92,9 @@ collections:
         multiple: true
       }
       - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: "Website", name: "website", widget: "string", hint: 'ブログなどご自身のサイトのURLを記載' }
+      - { label: "Twitter", name: "twitter", widget: "string", hint: 'Twitterのユーザー名を指定してください' }
+      - { label: "Github", name: "github", widget: "string", hint: 'Githubのユーザー名を指定してください' }
 
   - name: 'settings'
     label: 'Settings'
