@@ -160,6 +160,6 @@ collections:
                   name: "interval",
                   widget: "select",
                   options:
-                    - { label: "月額", value: "monthly" }
-                    - { label: "単発", value: "charge" }
+                    - {label: "月額", value: "monthly"}
+                    - {label: "単発", value: "charge"}
               }
