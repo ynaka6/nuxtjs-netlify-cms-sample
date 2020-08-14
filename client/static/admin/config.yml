@@ -155,11 +155,4 @@ collections:
                   hint: 'Stripeで作成した金額'
                 }
               - { label: 'Value', name: 'value', widget: 'string', hint: 'StripeのSKUのIDを記入' }
-              - {
-                  label: "interval",
-                  name: "interval",
-                  widget: "select",
-                  options:
-                    - {label: "月額", value: "monthly"}
-                    - {label: "単発", value: "charge"}
-              }
+              - { label: "interval", name: "interval", widget: "select", options: [{label: "月額", value: "monthly"}, {label: "単発", value: "charge"}] }
