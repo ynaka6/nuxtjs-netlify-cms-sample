@@ -5,7 +5,7 @@
       <div class="w-full py-4 md:px-4">
         <div class="bg-white shadow-md rounded-lg p-4">
           <div class="w-full">
-            <div v-html="$md.render(plan.body)" />
+            <div v-html="$md.render(plan.body)" class="app-markdown" />
           </div>
         </div>
       </div>

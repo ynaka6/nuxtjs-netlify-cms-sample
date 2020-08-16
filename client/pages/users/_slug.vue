@@ -2,30 +2,76 @@
   <div class="max-w-6xl mx-auto px-2">
     <div class="flex flex-col md:flex-row">
       <div class="w-full py-4 md:px-4">
-        <div class="bg-white shadow-md rounded-lg p-4 mb-6">
-          <div>
-            <div v-html="$md.render(author.body)" />
+        <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1}"
+              @click="toggleTabs(1)"
+            >
+              Profile
+            </a>
+          </li>
+          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{'text-pink-600 bg-white': openTab !== 2, 'text-white bg-pink-600': openTab === 2}"
+              @click="toggleTabs(2)"
+            >
+              Plan
+            </a>
+          </li>
+          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+            <a
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              @click="toggleTabs(3)"
+              :class="{'text-pink-600 bg-white': openTab !== 3, 'text-white bg-pink-600': openTab === 3}"
+            >
+              Blog
+            </a>
+          </li>
+        </ul>
+        <div class="w-full mb-6">
+          <div class="tab-content tab-space">
+            <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
+              <div class="bg-white shadow-md rounded-lg p-4 mb-6">
+                <div>
+                  <div v-html="$md.render(author.body)" class="app-markdown" />
+                </div>
+              </div>
+            </div>
+            <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
+              <plan-card 
+                v-for="(plan, index) in plans"
+                :key="index"
+                :plan="plan"
+              />
+            </div>
+            <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
+            </div>
           </div>
         </div>
       </div>
       <div class="w-full md:w-5/12 py-4">
         <div class="bg-gray-100 p-4 mb-4">
-          <p class="font-bold text-xl">Categories</p>
-          <ul>
-            <li
-              v-for="(category, index) in author.categories"
-              :key="index"
-              class="text-gray-900"
+          <p class="font-bold text-xl mb-2">Share</p>
+          <div class="flex">
+            <a
+              :href="`https://twitter.com/intent/tweet?url=${url}&text=${shareText}`"
+              class="inline-block w-1/2 p-2 bg-twitter rounded text-white text-center mr-1 hover:opacity-75"
+              target="_blank"
             >
-              {{ category.label }}
-            </li>
-          </ul>
+              <font-awesome-icon :icon="['fab', 'twitter']" />
+            </a>
+            <a
+              :href="`https://www.facebook.com/share.php?u=${url}`"
+              class="inline-block w-1/2 p-2 bg-facebook rounded text-white text-center ml-1 hover:opacity-75"
+              target="_blank"
+            >
+              <font-awesome-icon :icon="['fab', 'facebook']" />
+            </a>
+          </div>
         </div>
-        <plan-card 
-          v-for="(plan, index) in plans"
-          :key="index"
-          :plan="plan"
-        />
       </div>
     </div>
   </div>
@@ -37,6 +83,12 @@ import { Context } from '@nuxt/types'
 import { Author, Breadcrumb } from '../../types/entities'
 import PlanCard from '../../components/PlanCard.vue'
 
+export type DataType = {
+  openTab: number;
+  url: string;
+  shareText: string;
+}
+
 export default Vue.extend({
   components: {
     PlanCard
@@ -45,6 +97,13 @@ export default Vue.extend({
     const slug = context.params['slug'];
     const authors = context.store.getters['authors'] || [];
     return authors.find((a: Author) => a.slug === slug);
+  },
+  data(): DataType {
+    return {
+      openTab: 1,
+      url: `${process.env.baseUrl}${this.$nuxt.$route.path}`,
+      shareText: ""
+    };
   },
   async asyncData(context: Context) {
     let data = null;
@@ -68,6 +127,11 @@ export default Vue.extend({
       breadcrumbs
     });
     return data;
+  },
+  methods: {
+    toggleTabs(tab: number): void {
+      this.openTab = tab
+    }
   }
 })
 </script>

@@ -14,6 +14,7 @@ export interface Product {
     label: String;
     value: String;
     price: Number;
+    interval: String;
     slug: String;
 }
 

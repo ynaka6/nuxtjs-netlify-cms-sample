@@ -6,3 +6,13 @@
 body {
     @apply bg-gray-200;
 }
+
+.app-markdown {
+    @apply leading-relaxed;
+}
+.app-markdown p {
+    @apply mb-2;
+}
+.app-markdown ul {
+    @apply list-disc list-inside mb-2;
+}

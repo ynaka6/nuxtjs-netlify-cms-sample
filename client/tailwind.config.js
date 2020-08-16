@@ -5,7 +5,14 @@
 ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
 */
 module.exports = {
-  theme: {},
+  theme: {
+    extend: {
+      colors: {
+        twitter: '#1DA1F2',
+        facebook: '#4267B2'
+      }
+    }
+  },
   variants: {},
   plugins: [],
   purge: {
