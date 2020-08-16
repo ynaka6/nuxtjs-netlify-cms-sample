@@ -15,31 +15,31 @@
     {
       "price": 2000,
       "label": "単発 2,000円",
-      "value": "sku_HYg5ufjjkmvtSw",
+      "value": "sku_HoXZ081eK4pv9I",
       "interval": "charge"
     },
     {
       "price": 3000,
       "label": "単発 3,000円",
-      "value": "sku_HYg5ufjjkmvtSw",
+      "value": "sku_HqXrlUuJLpDovd",
       "interval": "charge"
     },
     {
       "price": 4000,
       "label": "単発 4,000円",
-      "value": "sku_HYg5ufjjkmvtSw",
+      "value": "sku_HqXsN6osfD2V5f",
       "interval": "charge"
     },
     {
       "price": 5000,
       "label": "単発 5,000円",
-      "value": "sku_HYg5ufjjkmvtSw",
+      "value": "sku_HqXsXZoczb4SGD",
       "interval": "charge"
     },
     {
       "price": 6000,
       "label": "単発 6,000円",
-      "value": "sku_HYg5ufjjkmvtSw",
+      "value": "sku_HqXtcissmb0akg",
       "interval": "charge"
     }
   ]
