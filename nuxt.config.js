@@ -1,6 +1,6 @@
 export default {
   env: {
-    baseUrl: process.env.BASE_URL || `http://localhost:3000`,
+    baseUrl: process.env.BASE_URL || `/`,
     disqusShortname: process.env.DISQUS_SHORTNAME || ``,
     stripeClientId: process.env.STRIPE_CLIENT_ID || ``,
     stripePublishableKey: process.env.STRIPE_PUBLISHABLE_KEY || ``,
@@ -53,7 +53,8 @@ export default {
    */
   plugins: [
     '~/plugins/fontawesome',
-    '~/plugins/disqus'
+    '~/plugins/disqus',
+    { src: '~/plugins/netlify-identity-widget.ts', mode: 'client' }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -71,6 +72,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
+    '@nuxtjs/proxy'
   ],
   /*
    ** Axios module configuration
@@ -125,4 +127,9 @@ export default {
       ]
     },
   },
+  proxy: {
+    '/.netlify/functions': {
+      target: 'http://localhost:9000'
+    }
+  }
 }

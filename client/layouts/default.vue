@@ -1,7 +1,35 @@
 <template>
   <div class="flex flex-col">
     <div class="wrap-parent min-h-screen flex flex-col">
-      <default-header />
+      <default-header>
+        <template v-slot:headerRight>
+          <template v-if="user">
+            <a
+              href="#"
+              class="inline-block"
+              @click.prevent="onLogout"
+            >
+              Logout
+            </a>
+          </template>
+          <template v-else>
+            <a
+              href="#"
+              class="inline-block mr-2"
+              @click.prevent="openLogin"
+            >
+              Login
+            </a>
+            <a
+              href="#"
+              class="inline-block"
+              @click.prevent="openSignup"
+            >
+              Sign up
+            </a>
+          </template>
+        </template>
+      </default-header>
       <div class="flex flex-grow">
         <div class="w-full">
           <div class="w-full bg-gray-900 text-white text-center">
@@ -31,7 +59,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 import DefaultHeader from "./DefaultLayout/DefaultHeader.vue"
 import DefaultFooter from "./DefaultLayout/DefaultFooter.vue"
 import Breadcrumb from '../components/Breadcrumb.vue'
@@ -48,8 +76,24 @@ export default Vue.extend({
         pageDescription: "pageDescription",
         pageImage: "pageImage",
         breadcrumbs: "breadcrumbs",
+    }),
+    ...mapGetters({
+      user: 'auth/user'
     })
   },
+  methods: {
+    onLogout() {
+      this.logout()
+      if (this.$route.path !== '/') {
+        this.$router.push('/')
+      }
+    },
+    ...mapActions({
+      openLogin: 'auth/openLogin',
+      openSignup: 'auth/openSignup',
+      logout: 'auth/logout'
+    })
+  }
 })
 </script>
 

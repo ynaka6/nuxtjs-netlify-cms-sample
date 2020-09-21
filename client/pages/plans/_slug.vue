@@ -106,12 +106,18 @@ export default Vue.extend({
     async goToCheckout(): Promise<void> {
       const stripe = await loadStripe(this.stripePublishableKey);
       if (stripe) {
+        const session = await this.$axios.$post('/.netlify/functions/checkout_sessions', {
+          amount: this.plan.product.price,
+          success_url: `${this.baseUrl}/plans/${this.plan.slug}`,
+        })
+
         stripe.redirectToCheckout({
-          successUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
-          cancelUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
-          items: [
-            { sku: this.plan.product.value, quantity: 1 }
-          ]
+          sessionId: session.id
+          // successUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
+          // cancelUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
+          // items: [
+          //   { sku: this.plan.product.value, quantity: 1 }
+          // ]
         } as RedirectToCheckoutOptions);
       }
     }

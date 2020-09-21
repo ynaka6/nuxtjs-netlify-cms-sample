@@ -4,7 +4,7 @@
       <div class="flex flex-col lg:flex-row items-center justify-between">
         <nuxt-link
           to="/"
-          class="text-center p-3 pb-1 lg:pb-3 lg:text-left hover:opacity-75"
+          class="w-64 text-center p-3 pb-1 lg:pb-3 lg:text-left hover:opacity-75"
         >
           <h1 class="text-2xl font-leckerli-one">
             <span class="text-bland-500">Logo</span>
@@ -18,7 +18,8 @@
             </div>
           </div>
         </div>
-        <div class="w-16">
+        <div class="w-64 text-right">
+          <slot name="headerRight"></slot>
         </div>
       </div>
     </nav>
@@ -30,7 +31,7 @@
   @apply w-full bg-white z-10 shadow-xl;
 
   & > .nav {
-    @apply max-w-2xl mx-auto items-center justify-between flex-wrap;
+    @apply max-w-6xl mx-auto items-center justify-between flex-wrap;
   }
 }
 </style>
