@@ -6,8 +6,9 @@
     "dev": "nuxt-ts",
     "dev:functions": "netlify-lambda serve functions/api",
     "build": "nuxt-ts build",
+    "build:functions": "netlify-lambda build functions/api",
     "start": "nuxt-ts start",
-    "generate": "nuxt-ts generate",
+    "generate": "yarn build:functions && nuxt-ts generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "test": "jest"
