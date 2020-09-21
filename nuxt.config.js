@@ -1,3 +1,18 @@
+const modules = []
+const options = {}
+if (process.env.NODE_ENV !== 'production') {
+  modules.push(
+    ...[
+      '@nuxtjs/proxy'
+    ]
+  )
+  options['proxy'] = {
+    '/.netlify/functions': {
+      target: 'http://localhost:9000'
+    }
+  }
+}
+
 export default {
   env: {
     baseUrl: process.env.BASE_URL || `/`,
@@ -72,7 +87,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
-    '@nuxtjs/proxy'
+    ...modules
   ],
   /*
    ** Axios module configuration
@@ -127,9 +142,5 @@ export default {
       ]
     },
   },
-  proxy: {
-    '/.netlify/functions': {
-      target: 'http://localhost:9000'
-    }
-  }
+  ...options
 }
