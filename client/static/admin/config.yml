@@ -33,7 +33,7 @@ collections:
     format: 'json'
     folder: 'client/assets/content/plan'
     create: true
-    slug: '{{uuid}}'
+    slug: '{{fields.uuid}}'
     editor:
       preview: false
     fields:
