@@ -112,7 +112,6 @@ export default {
 
       const categories = require(`./client/assets/content/category.json`).categories
       const hashtags = require(`./client/assets/content/hashtag.json`).hashtags
-      const products = require(`./client/assets/content/product.json`).products
       const authors = fs.readdirSync('./client/assets/content/author')
         .map((file) => {
           const author = require(`./client/assets/content/author/${file}`)
@@ -127,7 +126,6 @@ export default {
           const plan = require(`./client/assets/content/plan/${file}`)
           plan.slug = `${plan.authorId}-${plan.uuid}`
           plan.author = authors.find((a) => a.username === plan.authorId)
-          plan.product = products.find((p) => p.value === plan.productId)
           plan.hashtags = plan.hashtagIds.map((str) =>
             hashtags.find((h) => h.value === str)
           )
