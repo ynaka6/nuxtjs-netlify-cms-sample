@@ -3,7 +3,6 @@
   "interval": "monthly",
   "authorId": "nakamu",
   "price": 10000,
-  "productId": "sku_HqXrlUuJLpDovd",
   "hashtagIds": [
     "laravel",
     "php"

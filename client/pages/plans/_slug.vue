@@ -21,11 +21,11 @@
         </div>
         <div class="bg-gray-100 px-4 py-2">
           <div class="flex justify-between items-center">
-            <p>Price</p>
+            <p>金額</p>
             <p class="font-semibold text-2xl text-gray-800">
               <span class="mr-1">¥</span>
-              <span v-text="plan.product.price.toLocaleString()" />
-              <span class="text-sm">/ month</span>
+              <span v-text="plan.price.toLocaleString()" />
+              <span v-show="isMonthly" class="text-sm">/ month</span>
             </p>
           </div>
           <div class="border-b my-4" />
@@ -102,12 +102,17 @@ export default Vue.extend({
       ...data
     };
   },
+  computed: {
+    isMonthly(): Boolean {
+      return this.plan.interval === "monthly"
+    }
+  },
   methods: {
     async goToCheckout(): Promise<void> {
       const stripe = await loadStripe(this.stripePublishableKey);
       if (stripe) {
         const session = await this.$axios.$post('/.netlify/functions/checkout_sessions', {
-          amount: this.plan.product.price,
+          uuid: this.plan.uuid,
           success_url: `${this.baseUrl}/plans/${this.plan.slug}`,
         })
 

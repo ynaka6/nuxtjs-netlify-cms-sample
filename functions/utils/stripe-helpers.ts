@@ -1,3 +1,9 @@
+export namespace StripeConst {
+  export namespace Currency {
+      export const JPY = 'jpy';
+  }
+}
+
 export function formatAmountForDisplay(
   amount: number,
   currency: string

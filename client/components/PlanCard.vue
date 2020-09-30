@@ -21,7 +21,8 @@
       <div>
         <p class="font-semibold text-4xl text-gray-800">
           <span class="mr-1">¥</span>
-          <span v-text="product.price.toLocaleString()" />
+          <span v-text="plan.price.toLocaleString()" />
+          <span v-show="isMonthly" class="text-sm">/ month</span>
         </p>
       </div>
     </div>
@@ -32,7 +33,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import Hashtag from '../elements/Hashtag.vue'
-import { Author, Hashtag as HashtagData, Product, Plan } from '../types/entities'
+import { Author, Hashtag as HashtagData, Plan } from '../types/entities'
 
 export default Vue.extend({
   components: {
@@ -45,14 +46,11 @@ export default Vue.extend({
     author(): Author {
       return this.plan.author;
     },
-    product(): Product {
-      return this.plan.product;
-    },
     hashtags(): HashtagData[] {
       return this.plan.hashtags;
     },
     isMonthly(): Boolean {
-      return this.product.interval === "monthly"
+      return this.plan.interval === "monthly"
     }
   },
   methods: {

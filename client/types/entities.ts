@@ -10,14 +10,6 @@ export interface Hashtag {
     slug: String;
 }
 
-export interface Product {
-    label: String;
-    value: String;
-    price: Number;
-    interval: String;
-    slug: String;
-}
-
 export interface Author {
     username: String;
     title: String;
@@ -38,12 +30,14 @@ export interface Blog {
 }
 
 export interface Plan {
+    uuid: String;
     title: String;
     status: String;
     slug: String;
     description: String;
     body: String;
-    product: Product;
+    price: Number;
+    interval: String;
     hashtags: Hashtag[];
     author: Author;
 }
