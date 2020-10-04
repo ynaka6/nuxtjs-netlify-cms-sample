@@ -11,6 +11,10 @@
     {
       "label": "コードレビュー",
       "value": "code_review"
+    },
+    {
+      "label": "転職",
+      "value": "4"
     }
   ]
 }
