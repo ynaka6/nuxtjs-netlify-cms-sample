@@ -19,12 +19,52 @@
           </div>
         </div>
         <div class="w-64 text-right">
-          <slot name="headerRight"></slot>
+          
+          <client-only placeholder="Loading...">
+            <template v-if="user">
+              <a
+                href="#"
+                class="inline-block"
+                @click.prevent="$emit('logout')"
+              >
+                Logout
+              </a>
+            </template>
+            <template v-else>
+              <a
+                href="#"
+                class="inline-block mr-2"
+                @click.prevent="$emit('login')"
+              >
+                Login
+              </a>
+              <a
+                href="#"
+                class="inline-block"
+                @click.prevent="$emit('signup')"
+              >
+                Sign up
+              </a>
+            </template>
+          </client-only>
+
+
         </div>
       </div>
     </nav>
   </header>
 </template>
+
+
+<script lang="ts">
+import Vue, { PropOptions } from 'vue'
+import { User } from 'netlify-identity-widget'
+export default Vue.extend({
+  props: {
+    user: { type: Object } as PropOptions<User>
+  }
+})
+</script>
 
 <style lang="postcss" scoped>
 .header {

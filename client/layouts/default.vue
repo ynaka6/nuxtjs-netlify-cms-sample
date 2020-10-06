@@ -1,35 +1,12 @@
 <template>
   <div class="flex flex-col">
     <div class="wrap-parent min-h-screen flex flex-col">
-      <default-header>
-        <template v-slot:headerRight>
-          <template v-if="user">
-            <a
-              href="#"
-              class="inline-block"
-              @click.prevent="onLogout"
-            >
-              Logout
-            </a>
-          </template>
-          <template v-else>
-            <a
-              href="#"
-              class="inline-block mr-2"
-              @click.prevent="openLogin"
-            >
-              Login
-            </a>
-            <a
-              href="#"
-              class="inline-block"
-              @click.prevent="openSignup"
-            >
-              Sign up
-            </a>
-          </template>
-        </template>
-      </default-header>
+      <default-header
+        :user="user"
+        @signup="openSignup"
+        @login="openLogin"
+        @logout="onLogout"
+      />
       <div class="flex flex-grow">
         <div class="w-full">
           <div class="w-full bg-gray-900 text-white text-center">

@@ -26,9 +26,11 @@
     "@stripe/stripe-js": "^1.7.0",
     "@types/netlify-identity-widget": "^1.4.2",
     "@types/node": "^14.0.13",
+    "@types/node-fetch": "^2.5.7",
     "@types/webpack": "^4.41.17",
     "@types/webpack-env": "^1.15.2",
     "netlify-identity-widget": "^1.9.1",
+    "node-fetch": "^2.6.1",
     "nuxt": "^2.13.0",
     "stripe": "^8.93.0",
     "vue-disqus": "^4.0.0"

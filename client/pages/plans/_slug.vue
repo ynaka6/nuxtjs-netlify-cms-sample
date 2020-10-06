@@ -56,6 +56,7 @@ import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { Breadcrumb, Plan } from '../../types/entities'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js';
+import { User } from 'netlify-identity-widget'
 
 export type DataType = {
   baseUrl: string;
@@ -103,6 +104,9 @@ export default Vue.extend({
     };
   },
   computed: {
+    user(): User {
+      return this.$store.getters['auth/user']
+    },
     isMonthly(): Boolean {
       return this.plan.interval === "monthly"
     }
@@ -111,19 +115,15 @@ export default Vue.extend({
     async goToCheckout(): Promise<void> {
       const stripe = await loadStripe(this.stripePublishableKey);
       if (stripe) {
+        if (this.user) {
+          const token = await this.user.jwt()
+          this.$axios.setHeader('Authorization', `Bearer ${token}`)
+        }
         const session = await this.$axios.$post('/.netlify/functions/checkout_sessions', {
           uuid: this.plan.uuid,
           success_url: `${this.baseUrl}/plans/${this.plan.slug}`,
         })
-
-        stripe.redirectToCheckout({
-          sessionId: session.id
-          // successUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
-          // cancelUrl: `${this.baseUrl}/plans/${this.plan.slug}`,
-          // items: [
-          //   { sku: this.plan.product.value, quantity: 1 }
-          // ]
-        } as RedirectToCheckoutOptions);
+        stripe.redirectToCheckout({sessionId: session.id} as RedirectToCheckoutOptions);
       }
     }
   }

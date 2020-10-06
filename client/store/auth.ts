@@ -34,7 +34,8 @@ export const actions: ActionTree<RootState, RootState> = {
       }
     })
     this.$netlifyIdentity.init({
-      APIUrl: process.env.NETLIFY_IDENTITY_ENDPOINT_URL
+      APIUrl: process.env.NETLIFY_IDENTITY_ENDPOINT_URL,
+      locale: 'ja',
     })
   },
   openSignup({ dispatch }) {

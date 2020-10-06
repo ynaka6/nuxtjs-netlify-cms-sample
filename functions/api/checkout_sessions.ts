@@ -1,5 +1,7 @@
-import { Context, APIGatewayEvent } from 'aws-lambda'
+import { APIGatewayEvent } from 'aws-lambda'
+import { Context, ClientContext, User } from '../utils/types'
 import { StripeConst } from '../utils/stripe-helpers'
+import faunaFetch from '../utils/fauna'
 
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -15,6 +17,44 @@ export async function handler(event: APIGatewayEvent, context: Context) {
     }
   }
 
+  let stripeID: string | undefined = undefined;
+  const clientContext: ClientContext | undefined = context.clientContext;
+  if (clientContext) {
+    const user: User = clientContext.user;
+    const result = await faunaFetch({
+      query: `
+        query ($netlifyID: ID!) {
+          getUserByNetlifyID(netlifyID: $netlifyID) {
+            stripeID
+          }
+        }
+      `,
+      variables: {
+        netlifyID: user.sub,
+      },
+    });
+    if (result.data) {
+      stripeID = result.data.getUserByNetlifyID.stripeID
+    } else {
+      const customer = await stripe.customers.create({ email: user.email } as Stripe.CustomerCreateParams);
+      await faunaFetch({
+        query: `
+          mutation ($netlifyID: ID!, $stripeID: ID!) {
+            createUser(data: { netlifyID: $netlifyID, stripeID: $stripeID }) {
+              netlifyID
+              stripeID
+            }
+          }
+        `,
+        variables: {
+          netlifyID: user.sub,
+          stripeID: customer.id,
+        },
+      });
+      stripeID = customer.id
+    }
+  }
+  
   const req = JSON.parse(event.body || '')
   const uuid = req.uuid
   const plan = require(`../../client/assets/content/plan/${uuid}.json`);
@@ -36,6 +76,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       ],
       success_url: event.headers.referer,
       cancel_url: event.headers.referer,
+      customer: stripeID,
     }
   } else {
     params = {
@@ -51,6 +92,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       ],
       success_url: event.headers.referer,
       cancel_url: event.headers.referer,
+      customer: stripeID,
     }
   }
 
