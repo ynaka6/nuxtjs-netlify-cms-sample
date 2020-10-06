@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 
 export interface Context {
     query: string;
@@ -8,14 +8,14 @@ export interface Context {
 }
 
 const faunaFetch = async (context: Context) => {
-    return await fetch('https://graphql.fauna.com/graphql', {
+    return await axios('https://graphql.fauna.com/graphql', {
             method: 'POST',
             headers: {
                 Authorization: `Bearer ${process.env.FAUNA_SERVER_KEY}`,
             },
-            body: JSON.stringify(context),
+            data: JSON.stringify(context),
         })
-        .then((res) => res.json())
+        .then((res) => res.data)
         .catch((err) => console.error(JSON.stringify(err, null, 2)))
     ;
 };
