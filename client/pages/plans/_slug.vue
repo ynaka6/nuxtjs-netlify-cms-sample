@@ -56,7 +56,6 @@ import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { Breadcrumb, Plan } from '../../types/entities'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js';
-import { User } from 'netlify-identity-widget'
 
 export type DataType = {
   baseUrl: string;
@@ -104,9 +103,6 @@ export default Vue.extend({
     };
   },
   computed: {
-    user(): User {
-      return this.$store.getters['auth/user']
-    },
     isMonthly(): Boolean {
       return this.plan.interval === "monthly"
     }
@@ -115,8 +111,8 @@ export default Vue.extend({
     async goToCheckout(): Promise<void> {
       const stripe = await loadStripe(this.stripePublishableKey);
       if (stripe) {
-        if (this.user) {
-          const token = await this.user.jwt()
+        if (this.$store.getters['auth/user']) {
+          const token = await this.$store.dispatch('auth/refresh')
           this.$axios.setHeader('Authorization', `Bearer ${token}`)
         }
         const session = await this.$axios.$post('/.netlify/functions/checkout_sessions', {

@@ -54,5 +54,8 @@ export const actions: ActionTree<RootState, RootState> = {
       commit('SET_USER', user)
       this.$netlifyIdentity.close()
     })
+  },
+  refresh() {
+    return this.$netlifyIdentity.refresh()
   }
 }
