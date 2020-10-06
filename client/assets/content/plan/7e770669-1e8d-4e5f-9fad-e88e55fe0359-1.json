@@ -1,0 +1,14 @@
+{
+  "body": "ぴったりなプランです。",
+  "interval": "charge",
+  "authorId": "mori",
+  "price": 1000,
+  "hashtagIds": [
+    "code_review",
+    "php"
+  ],
+  "status": "Active",
+  "title": "ぴったりプラン",
+  "uuid": "7e770669-1e8d-4e5f-9fad-e88e55fe0359",
+  "description": "おすすめのプラン"
+}
