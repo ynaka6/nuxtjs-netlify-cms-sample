@@ -19,7 +19,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
 
   let stripeID: string | undefined = undefined;
   const clientContext: ClientContext | undefined = context.clientContext;
-  if (clientContext) {
+  if (clientContext && clientContext.user) {
     const user: User = clientContext.user;
     const result = await faunaFetch({
       query: `
