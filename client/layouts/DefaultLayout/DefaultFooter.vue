@@ -17,7 +17,12 @@
             Q＆A
           </li>
           <li>
-            お問い合せ
+            <nuxt-link
+              to="/contact"
+              class="hover:opacity-75"
+            >
+              問い合わせ
+            </nuxt-link>
           </li>
         </ul>
       </div>
