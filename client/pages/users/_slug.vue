@@ -6,7 +6,7 @@
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              :class="{'text-pink-600 bg-white': openTab !== 1, 'text-white bg-pink-600': openTab === 1}"
+              :class="{'text-blue-400 bg-white': openTab !== 1, 'text-white bg-blue-400': openTab === 1}"
               @click="toggleTabs(1)"
             >
               Profile
@@ -15,7 +15,7 @@
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              :class="{'text-pink-600 bg-white': openTab !== 2, 'text-white bg-pink-600': openTab === 2}"
+              :class="{'text-blue-400 bg-white': openTab !== 2, 'text-white bg-blue-400': openTab === 2}"
               @click="toggleTabs(2)"
             >
               Plan
@@ -25,7 +25,7 @@
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
               @click="toggleTabs(3)"
-              :class="{'text-pink-600 bg-white': openTab !== 3, 'text-white bg-pink-600': openTab === 3}"
+              :class="{'text-blue-400 bg-white': openTab !== 3, 'text-white bg-blue-400': openTab === 3}"
             >
               Blog
             </a>

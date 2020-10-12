@@ -62,9 +62,18 @@ export default Vue.extend({
         const token = await this.$store.dispatch('auth/refresh')
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
       }
-      const url = await this.$axios.$post('/.netlify/functions/create_manage_link')
+
+      let url = null
+      try {
+        url = await this.$axios.$post('/.netlify/functions/create_manage_link')
+      } catch (err) {
+        console.error(err);
+      }
+
       if (url) {
         location.href = url
+      } else {
+        alert('定期決済の購入がない為、画面を表示することができませんでした')
       }
     },
     onLogout() {

@@ -48,7 +48,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { User } from 'netlify-identity-widget'
-import DropdownMenu from '@/components/DropdownMenu'
+import DropdownMenu from '../../components/DropdownMenu.vue'
 export default Vue.extend({
   components: {
     DropdownMenu
