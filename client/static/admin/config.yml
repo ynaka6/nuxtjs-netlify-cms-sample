@@ -2,7 +2,7 @@ backend:
   name: git-gateway
   branch: master
 
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 media_folder: client/static/img
 public_folder: /img
@@ -94,9 +94,9 @@ collections:
         multiple: true
       }
       - { label: 'Body', name: 'body', widget: 'markdown' }
-      - { label: "Website", name: "website", widget: "string", hint: 'ブログなどご自身のサイトのURLを記載' }
-      - { label: "Twitter", name: "twitter", widget: "string", hint: 'Twitterのユーザー名を指定してください' }
-      - { label: "Github", name: "github", widget: "string", hint: 'Githubのユーザー名を指定してください' }
+      - { label: "Website", name: "website", widget: "string", hint: 'ブログなどご自身のサイトのURLを記載', required: false }
+      - { label: "Twitter", name: "twitter", widget: "string", hint: 'Twitterのユーザー名を指定してください', required: false }
+      - { label: "Github", name: "github", widget: "string", hint: 'Githubのユーザー名を指定してください', required: false }
 
   - name: 'settings'
     label: 'Settings'
