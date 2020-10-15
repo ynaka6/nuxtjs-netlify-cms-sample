@@ -13,12 +13,12 @@
           </nuxt-link>
         </div>
         <div class="flex items-center text-right">
-          <a href="#" class="mr-6">
+          <nuxt-link to="/search" class="search-icon mr-6">
             <svg class="fill-current pointer-events-none text-gray-600 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path></svg>
-          </a>
+          </nuxt-link>
           <client-only placeholder="Loading...">
             <template v-if="user">
-              <dropdown-menu @logout="$emit('logout')">
+              <dropdown-menu :user="user" @logout="$emit('logout')">
               </dropdown-menu>
             </template>
             <template v-else>
@@ -61,10 +61,14 @@ export default Vue.extend({
 
 <style lang="postcss" scoped>
 .header {
-  @apply w-full bg-white z-10 shadow-xl;
+  @apply w-full bg-white z-10;
 
   & > .nav {
     @apply max-w-6xl mx-auto items-center justify-between flex-wrap;
   }
+}
+
+.search-icon.nuxt-link-exact-active.nuxt-link-active {
+  @apply hidden;
 }
 </style>

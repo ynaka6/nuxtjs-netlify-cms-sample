@@ -9,7 +9,7 @@
       />
       <div class="flex flex-grow">
         <div class="w-full">
-          <div v-if="pageTitle" class="w-full bg-gray-900 text-white text-center">
+          <div v-if="showPageTitle" class="w-full bg-gray-900 text-white text-center">
             <div class="relative max-w-6xl mx-auto px-4 py-16 lg:py-24">
               <div
                 v-if="breadcrumbs.length > 0"
@@ -48,6 +48,9 @@ export default Vue.extend({
     Breadcrumb
   },
   computed: {
+    showPageTitle() {
+      return this.$route.name !== "search"
+    },
     ...mapGetters({
         pageTitle: "pageTitle",
         pageDescription: "pageDescription",
@@ -60,15 +63,14 @@ export default Vue.extend({
   },
   methods: {
     onLogout() {
-      this.logout()
+      this.$store.dispatch('auth/logout')
       if (this.$route.path !== '/') {
         this.$router.push('/')
       }
     },
     ...mapActions({
       openLogin: 'auth/openLogin',
-      openSignup: 'auth/openSignup',
-      logout: 'auth/logout'
+      openSignup: 'auth/openSignup'
     })
   }
 })
