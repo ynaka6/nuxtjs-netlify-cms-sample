@@ -136,3 +136,4 @@ collections:
             fields:
               - { label: 'Label', name: 'label', widget: 'string', hint: '表示する名称を記入' }
               - { label: 'Value', name: 'value', widget: 'string', hint: 'キャメル型の英数字で値を記入' }
+              - { label: "Icon", name: "icon", widget: "image" }
