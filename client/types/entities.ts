@@ -16,6 +16,10 @@ export interface Author {
     profilePicture: String;
     body: String;
     categories: Hashtag[];
+    website: String | null;
+    github: String | null;
+    twitter: String | null;
+    email: String | null;
     slug: String;
 }
 

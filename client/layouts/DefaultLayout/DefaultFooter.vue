@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-black">
+  <footer class="bg-gray-800">
     <div class="max-w-6xl mx-auto flex justify-between text-white px-2 py-3">
       <div>
         <div class="flex justify-center text-xs">
@@ -11,7 +11,7 @@
         </div>
       </div>
       <div>
-        <p class="font-bold text-gray-400 mb-2">Support</p>
+        <p class="font-bold text-gray-400 mb-2">Links</p>
         <ul>
           <li>
             Q＆A

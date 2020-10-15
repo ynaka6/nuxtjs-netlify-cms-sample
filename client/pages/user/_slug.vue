@@ -74,6 +74,17 @@
         </div>
       </div>
     </div>
+    <div
+      v-if="author.email"
+      class="fixed right-0 bottom-0 mr-6 mb-32 lg:mr-10 lg:mb-10"
+    >
+      <a :href="`mailto:${author.email}`" class="rounded-full bg-black text-white px-6 py-4 hover:opacity-75">
+        <span class="mr-2">
+          <font-awesome-icon :icon="['fas', 'envelope']" />
+        </span>
+        CONTACT
+      </a>
+    </div>
   </div>
 </template>
 

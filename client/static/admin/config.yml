@@ -99,6 +99,7 @@ collections:
       - { label: "Website", name: "website", widget: "string", hint: 'ブログなどご自身のサイトのURLを記載', required: false }
       - { label: "Twitter", name: "twitter", widget: "string", hint: 'Twitterのユーザー名を指定してください', required: false }
       - { label: "Github", name: "github", widget: "string", hint: 'Githubのユーザー名を指定してください', required: false }
+      - { label: "E-Mail", name: "email", widget: "string", hint: '問い合わせ先のメールアドレスを入力してください', required: false }
 
   - name: 'settings'
     label: 'Settings'
