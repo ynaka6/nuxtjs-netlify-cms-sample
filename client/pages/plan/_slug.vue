@@ -11,7 +11,7 @@
       </div>
       <div class="w-full md:w-5/12 py-4">
         <div class="bg-gray-100 px-4 py-2 mb-2">
-          <nuxt-link :to="`/users/${plan.author.slug}`" class="flex items-center">
+          <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center">
             <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
             <div>
               <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
@@ -91,7 +91,7 @@ export default Vue.extend({
       description: data.plan.description,
       breadcrumbs: [
         { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
-        { to: `/users/${data.plan.author.slug}`, name: data.plan.author.title, color: "text-gray-100" } as Breadcrumb,
+        { to: `/user/${data.plan.author.slug}`, name: data.plan.author.title, color: "text-gray-100" } as Breadcrumb,
         { name: data.plan.title, color: "text-gray-100" } as Breadcrumb,
       ]
     });

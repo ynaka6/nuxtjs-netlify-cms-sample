@@ -107,6 +107,7 @@ export default {
   },
 
   generate: {
+    subFolders: false,
     routes: function () {
       const fs = require('fs')
 
@@ -134,10 +135,10 @@ export default {
 
       return [
         ...authors.map((author) => {
-          return { route: `/users/${author.slug}`, payload: { author, plans: plans.filter((plan) => plan.author.username === author.username) } }
+          return { route: `/user/${author.slug}`, payload: { author, plans: plans.filter((plan) => plan.author.username === author.username) } }
         }),
         ...plans.map((plan) => {
-          return { route: `/plans/${plan.slug}`, payload: { plan } }
+          return { route: `/plan/${plan.slug}`, payload: { plan } }
         }),
       ]
     },

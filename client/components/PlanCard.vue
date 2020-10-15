@@ -4,7 +4,7 @@
     :class="{ 'border-l-8 border-teal-500': isMonthly, 'border-l-8 border-blue-500': !isMonthly }"
   >
     <slot name="header" />
-    <nuxt-link :to="`/plans/${plan.slug}`">
+    <nuxt-link :to="`/plan/${plan.slug}`">
       <p class="text-lg font-bold mb-1" v-text="plan.title" />
       <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
     </nuxt-link>

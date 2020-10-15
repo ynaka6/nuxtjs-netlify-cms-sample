@@ -1,4 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
+import Fuse from 'fuse.js'
 import { Author, Blog, Breadcrumb, Category, Hashtag, Plan } from '../types/entities'
 
 export const state = () => ({
@@ -11,6 +12,8 @@ export const state = () => ({
   authors: [] as Author[],
   blogPosts: [] as Blog[],
   planPosts: [] as Plan[],
+
+  fusePlan: null as Fuse<Plan> | null
 })
 
 export type RootState = ReturnType<typeof state>
@@ -58,7 +61,7 @@ export const mutations: MutationTree<RootState> = {
   },
   SET_PLAN_POSTS(state, list) {
     state.planPosts = list;
-  },
+  }
 }
 
 export const actions: ActionTree<RootState, RootState> = {
@@ -67,6 +70,15 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('SET_PAGE_DESCRIPTION', description);
     commit('SET_PAGE_IMAGE', image || null);
     commit('SET_BREADCRUMBS', breadcrumbs || []);
+  },
+  search({ state }, q) {
+    if (!q || q.length === 0) {
+      return state.planPosts
+    } 
+    const fuse = new Fuse<Plan>(state.planPosts, {
+      keys: ['title', 'description', 'body', 'author.title', 'author.username']
+    })
+    return fuse.search(q).map(r => r.item)
   },
   async nuxtServerInit({ commit }) {
     const categoryJson = await require('~/assets/content/category.json');
@@ -104,6 +116,5 @@ export const actions: ActionTree<RootState, RootState> = {
       return res;
     });
     await commit('SET_PLAN_POSTS', planPosts);
-
   },
 }
