@@ -2,7 +2,8 @@
   "hashtags": [
     {
       "label": "Laravel",
-      "value": "laravel"
+      "value": "laravel",
+      "icon": "/img/laravel-2.png"
     },
     {
       "label": "PHP",
