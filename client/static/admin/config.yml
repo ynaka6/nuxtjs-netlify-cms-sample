@@ -1,7 +1,9 @@
 backend:
   name: git-gateway
   branch: master
-
+  accept_roles: #optional - accepts all users if left out
+    - Admin
+    - Mentor
 # publish_mode: editorial_workflow
 
 media_folder: client/static/img
