@@ -140,6 +140,9 @@ export default {
         ...plans.map((plan) => {
           return { route: `/plan/${plan.slug}`, payload: { plan } }
         }),
+        ...hashtags.map((tag) => {
+          return { route: `/tag/${tag.value}`, payload: { tag, planPosts: plans.filter((plan) => plan.hashtagIds.find(h => h === tag.value)) } }
+        }),
       ]
     },
   },

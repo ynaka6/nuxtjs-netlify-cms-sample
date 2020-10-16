@@ -1,13 +1,14 @@
 <template>
   <component
     :is="tagName"
+    :to="to"
     :href="href"
     :target="target"
     :rel="rel"
-    class="inline-block bg-blue-100  border rounded-full px-2 py-1 font-bold text-bland-500 text-xs"
+    class="inline-flex items-center  bg-gray-300 rounded-full font-bold text-gray-800 text-xs px-4 py-1 hover:shadow-xl"
     @click.prevent="onClick"
   >
-    {{ text }}
+    <slot />
   </component>
 </template>
 
@@ -21,9 +22,9 @@ export default Vue.extend({
       required: false,
       default: 'span'
     },
-    text: {
+    to: {
       type: String,
-      required: true,
+      required: false,
       default: null
     },
     href: {
@@ -44,7 +45,7 @@ export default Vue.extend({
   },
   methods: {
     onClick(): void {
-      this.$emit("click", this.text);
+      this.$emit("click");
     }
   }
 })

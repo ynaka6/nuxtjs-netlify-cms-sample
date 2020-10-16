@@ -1,32 +1,45 @@
 <template>
   <div class="max-w-6xl mx-auto px-2">
     <div class="flex flex-col md:flex-row">
-      <div class="w-full py-4 md:px-4">
-        <plan-card 
+      <div class="w-full md:w-9/12 flex flex-wrap p-4">
+        <div
           v-for="(plan, index) in planPosts"
           :key="index"
-          :plan="plan"
-          @click-hashtag="onClickHashtag"
+          class="w-full p-2"
         >
-          <template v-slot:header>
-            <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center mb-2">
-              <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
-              <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
-            </nuxt-link>
-          </template>
-        </plan-card>
+          <plan-card 
+            :plan="plan"
+          >
+            <template v-slot:header>
+              <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center mb-2">
+                <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-6 w-6 block rounded-full" />
+                <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
+              </nuxt-link>
+            </template>
+          </plan-card>
+        </div>
       </div>
-      <div class="w-full md:w-5/12 py-4">
+      <div class="w-full md:w-3/12 py-4">
         <div class="bg-gray-100 p-4">
-          <p class="font-bold text-xl">Hashtag</p>
+          <p class="font-bold text-xl">Tags</p>
+          <div class="border-b my-2" />
           <ul>
             <li
               v-for="(hashtag, index) in hashtags"
               :key="index"
-              class="text-gray-900"
+              class="font-bold text-gray-800 my-1"
             >
-              <font-awesome-icon :icon="['fas', 'tag']" class="mr-2" />
-              {{ hashtag.label }}
+              <hashtag
+                tag-name="nuxt-link"
+                :to="`/tag/${hashtag.value}`"
+                class="mr-2"
+              >
+                <div class="flex items-center justify-center mr-2">
+                  <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3">
+                  <font-awesome-icon v-else :icon="['fas', 'tag']" />
+                </div>
+                {{ hashtag.label }}
+              </hashtag>
             </li>
           </ul>
         </div>
@@ -39,10 +52,12 @@
 import Vue from 'vue'
 import { mapGetters } from "vuex"
 import { Context } from '@nuxt/types'
+import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
 
 export default Vue.extend({
   components: {
+    Hashtag,
     PlanCard
   },
   data() {
@@ -63,11 +78,6 @@ export default Vue.extend({
     ...mapGetters({
         hashtags: "hashtags"
     })
-  },
-  methods: {
-    onClickHashtag(hashtag: string): void {
-      alert(hashtag);
-    }
   }
 })
 </script>

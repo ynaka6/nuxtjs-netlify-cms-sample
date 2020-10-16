@@ -20,19 +20,23 @@
           </span>
           Plans
         </h3>
-        <plan-card 
+        <div
           v-for="(plan, index) in planPosts"
           :key="index"
-          :plan="plan"
-          @click-hashtag="onClickHashtag"
+          class="mb-2"
         >
-          <template v-slot:header>
-            <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center mb-2">
-              <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
-              <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
-            </nuxt-link>
-          </template>
-        </plan-card>
+          <plan-card 
+            :plan="plan"
+            @click-hashtag="onClickHashtag"
+          >
+            <template v-slot:header>
+              <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center mb-2">
+                <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-10 w-10 block rounded-full" />
+                <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
+              </nuxt-link>
+            </template>
+          </plan-card>
+        </div>
       </div>
     </div>
   </div>
