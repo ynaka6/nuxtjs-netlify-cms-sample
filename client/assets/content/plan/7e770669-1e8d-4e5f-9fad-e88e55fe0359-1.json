@@ -4,7 +4,7 @@
   "authorId": "mori",
   "price": 1000,
   "hashtagIds": [
-    "code_review",
+    "code-review",
     "php"
   ],
   "status": "Active",
