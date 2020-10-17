@@ -7,7 +7,8 @@
     },
     {
       "label": "PHP",
-      "value": "php"
+      "value": "php",
+      "icon": "/img/php.png"
     },
     {
       "label": "コードレビュー",
