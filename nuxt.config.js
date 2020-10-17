@@ -56,7 +56,10 @@ export default {
         content: ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: "cms-config-url", type: "text/yaml", href: "/admin/config.yml" }
+    ],
   },
   /*
    ** Global CSS

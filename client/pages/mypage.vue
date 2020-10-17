@@ -11,6 +11,13 @@
             定期決済を確認する
           </a>
           <nuxt-link
+            v-if="user.app_metadata.roles.includes('Mentor')"
+            to="/admin"
+            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
+          >
+            CMSを開く
+          </nuxt-link>
+          <nuxt-link
             to="/contact"
             class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
           >
