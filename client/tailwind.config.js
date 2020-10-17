@@ -26,8 +26,5 @@ module.exports = {
       'client/plugins/**/*.js',
       'nuxt.config.js'
     ]
-  },
-  corePlugins: {
-    outline: false,
   }
 }

@@ -4,7 +4,7 @@
       <div>
         <div class="flex justify-center text-xs">
           <p class="text-2xl font-leckerli-one">
-            <span class="text-bland-500">Logo</span>
+            <logo>Logo</logo>
           </p>
         </div>
         <div class="mt-1 flex justify-center text-xs">
@@ -14,9 +14,6 @@
         <p class="font-bold text-gray-400 mb-2">Links</p>
         <ul>
           <li>
-            Q＆A
-          </li>
-          <li>
             <nuxt-link
               to="/contact"
               class="hover:opacity-75"
@@ -24,8 +21,35 @@
               問い合わせ
             </nuxt-link>
           </li>
+          <li>
+            <nuxt-link
+              to="/terms"
+              class="hover:opacity-75"
+            >
+              利用規約
+            </nuxt-link>
+          </li>
+          <li>
+            <nuxt-link
+              to="/privacy/policy"
+              class="hover:opacity-75"
+            >
+              プライバシーポリシー
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </div>
   </footer>
 </template>
+
+
+<script lang="ts">
+import Vue from 'vue'
+import Logo from '../../elements/Logo.vue'
+export default Vue.extend({
+  components: {
+    Logo
+  }
+})
+</script>

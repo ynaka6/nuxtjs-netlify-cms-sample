@@ -1,11 +1,11 @@
 <template>
   <div class="max-w-6xl mx-auto px-2">
     <div class="flex flex-col md:flex-row">
-      <div class="w-full md:w-9/12 flex flex-wrap p-4">
+      <div class="w-full flex flex-wrap py-4 md:w-9/12 md:px-4">
         <div
           v-for="(plan, index) in planPosts"
           :key="index"
-          class="w-full p-2"
+          class="w-full py-2 md:px-2"
         >
           <plan-card 
             :plan="plan"

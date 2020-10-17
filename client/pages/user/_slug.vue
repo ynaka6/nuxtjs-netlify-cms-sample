@@ -41,11 +41,15 @@
               </div>
             </div>
             <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
-              <plan-card 
+              <div
                 v-for="(plan, index) in plans"
                 :key="index"
-                :plan="plan"
-              />
+                class="w-full p-2"
+              >
+                <plan-card 
+                  :plan="plan"
+                />
+              </div>
             </div>
             <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
             </div>

@@ -1,11 +1,11 @@
 <template>
   <div class="h-full bg-white">
-    <div class="max-w-6xl mx-auto px-2 pt-16 pb-6">
+    <div class="max-w-6xl mx-auto px-2 pt-6 pb-6 lg:pt-16">
       <div class="w-full relative flex justify-end items-center mb-4">
         <input
           v-model="q"
           type="text"
-          class="w-full text-3xl border-b form-input p-3 pl-4 pr-6"
+          class="w-full text-3xl border-b form-input p-3 pl-4 pr-6 focus:outline-none"
           placeholder="Seach"
           @input="search"
         >

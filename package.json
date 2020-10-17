@@ -40,7 +40,7 @@
     "@nuxtjs/eslint-config": "^3.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^2.0.0",
-    "@nuxtjs/tailwindcss": "^2.0.0",
+    "@nuxtjs/tailwindcss": "^3.1.0",
     "@types/aws-lambda": "^8.10.62",
     "@vue/test-utils": "^1.0.3",
     "babel-core": "7.0.0-bridge.0",

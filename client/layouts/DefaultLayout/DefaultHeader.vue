@@ -8,7 +8,7 @@
             class="block p-3 lg:text-left hover:opacity-75"
           >
             <h1 class="text-2xl font-leckerli-one">
-              <span class="text-bland-500">Logo</span>
+              <logo>Logo</logo>
             </h1>
           </nuxt-link>
         </div>
@@ -44,13 +44,14 @@
   </header>
 </template>
 
-
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import { User } from 'netlify-identity-widget'
+import Logo from '../../elements/Logo.vue'
 import DropdownMenu from '../../components/DropdownMenu.vue'
 export default Vue.extend({
   components: {
+    Logo,
     DropdownMenu
   },
   props: {
