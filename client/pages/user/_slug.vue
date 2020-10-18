@@ -151,7 +151,7 @@ export default Vue.extend({
     })
     return {
       openTab: 1,
-      url: `${process.env.baseUrl}${context.app.$route.path}`,
+      url: '',
       shareText: '',
       ...data,
     }
