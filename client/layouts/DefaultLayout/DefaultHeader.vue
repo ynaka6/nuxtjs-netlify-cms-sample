@@ -3,10 +3,7 @@
     <nav class="nav">
       <div class="flex items-center justify-between">
         <div class="">
-          <nuxt-link
-            to="/"
-            class="block p-3 lg:text-left hover:opacity-75"
-          >
+          <nuxt-link to="/" class="block p-3 lg:text-left hover:opacity-75">
             <h1 class="text-2xl font-leckerli-one">
               <logo>Logo</logo>
             </h1>
@@ -14,10 +11,18 @@
         </div>
         <div class="flex items-center text-right">
           <nuxt-link to="/search" class="search-icon mr-6">
-            <svg class="fill-current pointer-events-none text-gray-600 w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path></svg>
+            <svg
+              class="fill-current pointer-events-none text-gray-600 w-4 h-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path
+                d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"
+              ></path>
+            </svg>
           </nuxt-link>
           <client-only placeholder="Loading...">
-            <template v-if="user">
+            <template v-if="user.email">
               <dropdown-menu :user="user" @logout="$emit('logout')">
               </dropdown-menu>
             </template>
@@ -52,11 +57,11 @@ import DropdownMenu from '../../components/DropdownMenu.vue'
 export default Vue.extend({
   components: {
     Logo,
-    DropdownMenu
+    DropdownMenu,
   },
   props: {
-    user: { type: Object } as PropOptions<User>
-  }
+    user: { type: Object, required: true, deafult: null } as PropOptions<User>,
+  },
 })
 </script>
 

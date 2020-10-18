@@ -7,13 +7,21 @@
           :key="index"
           class="w-full py-2 md:px-2"
         >
-          <plan-card 
-            :plan="plan"
-          >
+          <plan-card :plan="plan">
             <template v-slot:header>
-              <nuxt-link :to="`/user/${plan.author.slug}`" class="flex items-center mb-2">
-                <img :src="plan.author.profilePicture" :alt="plan.author.title" class="h-6 w-6 block rounded-full" />
-                <p class="ml-2 font-semibold text-xs text-gray-800" v-text="plan.author.title" />
+              <nuxt-link
+                :to="`/user/${plan.author.slug}`"
+                class="flex items-center mb-2"
+              >
+                <img
+                  :src="plan.author.profilePicture"
+                  :alt="plan.author.title"
+                  class="h-6 w-6 block rounded-full"
+                />
+                <p
+                  class="ml-2 font-semibold text-xs text-gray-800"
+                  v-text="plan.author.title"
+                />
               </nuxt-link>
             </template>
           </plan-card>
@@ -35,7 +43,7 @@
                 class="mr-2"
               >
                 <div class="flex items-center justify-center mr-2">
-                  <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3">
+                  <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3" />
                   <font-awesome-icon v-else :icon="['fas', 'tag']" />
                 </div>
                 {{ hashtag.label }}
@@ -50,7 +58,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from "vuex"
+import { mapGetters } from 'vuex'
 import { Context } from '@nuxt/types'
 import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
@@ -58,29 +66,29 @@ import PlanCard from '../components/PlanCard.vue'
 export default Vue.extend({
   components: {
     Hashtag,
-    PlanCard
+    PlanCard,
+  },
+  asyncData(context: Context) {
+    context.store.dispatch('setPageInfo', {
+      title: 'The best Programming Supporter.',
+      description:
+        'あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう',
+    })
+    return {
+      planPosts: context.store.getters.planPosts,
+    }
   },
   data() {
     return {
-      planPosts: []
-    }
-  },
-  async asyncData(context: Context) {
-    context.store.dispatch('setPageInfo', {
-      title: "The best Programming Supporter.",
-      description: "あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう"
-    })
-    return {
-      planPosts: context.store.getters['planPosts']
+      planPosts: [],
     }
   },
   computed: {
     ...mapGetters({
-        hashtags: "hashtags"
-    })
-  }
+      hashtags: 'hashtags',
+    }),
+  },
 })
 </script>
 
-<style>
-</style>
+<style></style>

@@ -11,6 +11,7 @@
     "generate": "yarn build:functions && nuxt-ts generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest"
   },
   "dependencies": {

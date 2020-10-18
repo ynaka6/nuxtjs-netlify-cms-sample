@@ -1,15 +1,11 @@
 const modules = []
 const options = {}
 if (process.env.NODE_ENV !== 'production') {
-  modules.push(
-    ...[
-      '@nuxtjs/proxy'
-    ]
-  )
-  options['proxy'] = {
+  modules.push(...['@nuxtjs/proxy'])
+  options.proxy = {
     '/.netlify/functions': {
-      target: 'http://localhost:9000'
-    }
+      target: 'http://localhost:9000',
+    },
   }
 }
 
@@ -35,7 +31,7 @@ export default {
   head: {
     titleTemplate: '%s | Growrescue',
     htmlAttrs: {
-      lang: 'ja'
+      lang: 'ja',
     },
     meta: [
       { charset: 'utf-8' },
@@ -43,22 +39,22 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: ''
+        content: '',
       },
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'Growrescue'
+        content: 'Growrescue',
       },
       {
         hid: 'og:description',
         name: 'og:description',
-        content: ''
-      }
+        content: '',
+      },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: "cms-config-url", type: "text/yaml", href: "/admin/config.yml" }
+      { rel: 'cms-config-url', type: 'text/yaml', href: '/admin/config.yml' },
     ],
   },
   /*
@@ -72,7 +68,7 @@ export default {
   plugins: [
     '~/plugins/fontawesome',
     '~/plugins/disqus',
-    { src: '~/plugins/netlify-identity-widget.ts', mode: 'client' }
+    { src: '~/plugins/netlify-identity-widget.ts', mode: 'client' },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -90,7 +86,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
-    ...modules
+    ...modules,
   ],
   /*
    ** Axios module configuration
@@ -111,12 +107,14 @@ export default {
 
   generate: {
     subFolders: false,
-    routes: function () {
+    routes() {
       const fs = require('fs')
 
-      const categories = require(`./client/assets/content/category.json`).categories
+      const categories = require(`./client/assets/content/category.json`)
+        .categories
       const hashtags = require(`./client/assets/content/hashtag.json`).hashtags
-      const authors = fs.readdirSync('./client/assets/content/author')
+      const authors = fs
+        .readdirSync('./client/assets/content/author')
         .map((file) => {
           const author = require(`./client/assets/content/author/${file}`)
           author.slug = author.username
@@ -125,7 +123,8 @@ export default {
           )
           return author
         })
-      const plans = fs.readdirSync('./client/assets/content/plan')
+      const plans = fs
+        .readdirSync('./client/assets/content/plan')
         .map((file) => {
           const plan = require(`./client/assets/content/plan/${file}`)
           plan.slug = `${plan.authorId}-${plan.uuid}`
@@ -138,16 +137,32 @@ export default {
 
       return [
         ...authors.map((author) => {
-          return { route: `/user/${author.slug}`, payload: { author, plans: plans.filter((plan) => plan.author.username === author.username) } }
+          return {
+            route: `/user/${author.slug}`,
+            payload: {
+              author,
+              plans: plans.filter(
+                (plan) => plan.author.username === author.username
+              ),
+            },
+          }
         }),
         ...plans.map((plan) => {
           return { route: `/plan/${plan.slug}`, payload: { plan } }
         }),
         ...hashtags.map((tag) => {
-          return { route: `/tag/${tag.value}`, payload: { tag, planPosts: plans.filter((plan) => plan.hashtagIds.find(h => h === tag.value)) } }
+          return {
+            route: `/tag/${tag.value}`,
+            payload: {
+              tag,
+              planPosts: plans.filter((plan) =>
+                plan.hashtagIds.find((h) => h === tag.value)
+              ),
+            },
+          }
         }),
       ]
     },
   },
-  ...options
+  ...options,
 }

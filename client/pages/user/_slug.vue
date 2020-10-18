@@ -6,7 +6,10 @@
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              :class="{'text-blue-400 bg-white': openTab !== 1, 'text-white bg-blue-400': openTab === 1}"
+              :class="{
+                'text-blue-400 bg-white': openTab !== 1,
+                'text-white bg-blue-400': openTab === 1,
+              }"
               @click="toggleTabs(1)"
             >
               Profile
@@ -15,7 +18,10 @@
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              :class="{'text-blue-400 bg-white': openTab !== 2, 'text-white bg-blue-400': openTab === 2}"
+              :class="{
+                'text-blue-400 bg-white': openTab !== 2,
+                'text-white bg-blue-400': openTab === 2,
+              }"
               @click="toggleTabs(2)"
             >
               Plan
@@ -24,8 +30,11 @@
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a
               class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              :class="{
+                'text-blue-400 bg-white': openTab !== 3,
+                'text-white bg-blue-400': openTab === 3,
+              }"
               @click="toggleTabs(3)"
-              :class="{'text-blue-400 bg-white': openTab !== 3, 'text-white bg-blue-400': openTab === 3}"
             >
               Blog
             </a>
@@ -33,26 +42,23 @@
         </ul>
         <div class="w-full mb-6">
           <div class="tab-content tab-space">
-            <div v-bind:class="{'hidden': openTab !== 1, 'block': openTab === 1}">
+            <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <div class="bg-white shadow-md rounded-lg p-4 mb-6">
                 <div>
-                  <div v-html="$md.render(author.body)" class="app-markdown" />
+                  <div class="app-markdown" v-html="$md.render(author.body)" />
                 </div>
               </div>
             </div>
-            <div v-bind:class="{'hidden': openTab !== 2, 'block': openTab === 2}">
+            <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <div
                 v-for="(plan, index) in plans"
                 :key="index"
                 class="w-full p-2"
               >
-                <plan-card 
-                  :plan="plan"
-                />
+                <plan-card :plan="plan" />
               </div>
             </div>
-            <div v-bind:class="{'hidden': openTab !== 3, 'block': openTab === 3}">
-            </div>
+            <div :class="{ hidden: openTab !== 3, block: openTab === 3 }"></div>
           </div>
         </div>
       </div>
@@ -82,7 +88,10 @@
       v-if="author.email"
       class="fixed right-0 bottom-0 mr-6 mb-32 lg:mr-10 lg:mb-10"
     >
-      <a :href="`mailto:${author.email}`" class="rounded-full bg-black text-white px-6 py-4 hover:opacity-75">
+      <a
+        :href="`mailto:${author.email}`"
+        class="rounded-full bg-black text-white px-6 py-4 hover:opacity-75"
+      >
         <span class="mr-2">
           <font-awesome-icon :icon="['fas', 'envelope']" />
         </span>
@@ -95,61 +104,73 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Author, Breadcrumb } from '../../types/entities'
+import { Author, Breadcrumb, Plan } from '../../types/entities'
 import PlanCard from '../../components/PlanCard.vue'
 
 export type DataType = {
-  openTab: number;
-  url: string;
-  shareText: string;
+  openTab: number
+  url: string
+  shareText: string
+  author: Author
+  plans: Plan[]
 }
 
 export default Vue.extend({
   components: {
-    PlanCard
+    PlanCard,
   },
   validate(context: Context): boolean {
-    const slug = context.params['slug'];
-    const authors = context.store.getters['authors'] || [];
-    return authors.find((a: Author) => a.slug === slug);
+    const slug = context.params.slug
+    const authors = context.store.getters.authors || []
+    return authors.find((a: Author) => a.slug === slug)
+  },
+  asyncData(context: Context): DataType {
+    let data = null
+    if (context.payload) {
+      data = context.payload as { author: Author; plans: Plan[] }
+    } else {
+      const slug = context.params.slug
+      const authors = context.store.getters.authors || []
+      const author = authors.find((a: Author) => a.slug === slug)
+      const plans = context.store.getters.authorPlanPosts(author) || []
+      data = { author, plans }
+    }
+    const breadcrumbs = [
+      {
+        to: '/',
+        icon: ['fas', 'laptop-code'],
+        color: 'text-gray-100',
+      } as Breadcrumb,
+      { name: data.author.title, color: 'text-gray-100' } as Breadcrumb,
+    ]
+    context.store.dispatch('setPageInfo', {
+      title: data.author.title,
+      description: `@${data.author.username}`,
+      image: data.author.profilePicture,
+      breadcrumbs,
+    })
+    return {
+      openTab: 1,
+      url: `${process.env.baseUrl}${context.app.$route.path}`,
+      shareText: '',
+      ...data,
+    }
   },
   data(): DataType {
     return {
       openTab: 1,
       url: `${process.env.baseUrl}${this.$nuxt.$route.path}`,
-      shareText: ""
-    };
-  },
-  async asyncData(context: Context) {
-    let data = null;
-    if (context.payload) {
-      data = context.payload as { author: Author };
-    } else {
-      const slug = context.params['slug'];
-      const authors = context.store.getters['authors'] || [];
-      const author = authors.find((a: Author) => a.slug === slug)
-      const plans = context.store.getters['authorPlanPosts'](author) || [];
-      data = { author, plans };
+      shareText: '',
+      author: {} as Author,
+      plans: [] as Plan[],
     }
-    const breadcrumbs = [
-      { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
-      { name: data.author.title, color: "text-gray-100" } as Breadcrumb,
-    ];
-    context.store.dispatch('setPageInfo', {
-      title: data.author.title,
-      description: `@${data.author.username}`,
-      image: data.author.profilePicture,
-      breadcrumbs
-    });
-    return data;
   },
   methods: {
     toggleTabs(tab: number): void {
       this.openTab = tab
-    }
-  }
+    },
+  },
 })
 </script>
 
-<style>
-</style>
+<style></style>

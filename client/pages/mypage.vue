@@ -11,7 +11,7 @@
             定期決済を確認する
           </a>
           <nuxt-link
-            v-if="user.app_metadata.roles.includes('Mentor')"
+            v-if="user && user.app_metadata.roles.includes('Mentor')"
             to="/admin"
             class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
           >
@@ -38,25 +38,29 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters, mapActions } from "vuex"
-import { Breadcrumb } from '../types/entities'
+import { mapGetters, mapActions } from 'vuex'
 import { Context } from '@nuxt/types'
+import { Breadcrumb } from '../types/entities'
 
 export default Vue.extend({
   fetch(context: Context) {
     const breadcrumbs = [
-      { to: "/", icon: ["fas", "laptop-code"], color: "text-gray-100" } as Breadcrumb,
-      { name: 'マイページ', color: "text-gray-100" } as Breadcrumb,
-    ];
+      {
+        to: '/',
+        icon: ['fas', 'laptop-code'],
+        color: 'text-gray-100',
+      } as Breadcrumb,
+      { name: 'マイページ', color: 'text-gray-100' } as Breadcrumb,
+    ]
     context.store.dispatch('setPageInfo', {
-      title: "マイページ",
-      breadcrumbs
+      title: 'マイページ',
+      breadcrumbs,
     })
   },
   computed: {
     ...mapGetters({
-      user: 'auth/user'
-    })
+      user: 'auth/user',
+    }),
   },
   mounted() {
     if (!this.user) {
@@ -74,7 +78,8 @@ export default Vue.extend({
       try {
         url = await this.$axios.$post('/.netlify/functions/create_manage_link')
       } catch (err) {
-        console.error(err);
+        // eslint-disable-next-line no-console
+        console.error(err)
       }
 
       if (url) {
@@ -90,11 +95,8 @@ export default Vue.extend({
       }
     },
     ...mapActions({
-      logout: 'auth/logout'
-    })
-  }
+      logout: 'auth/logout',
+    }),
+  },
 })
 </script>
-
-<style>
-</style>

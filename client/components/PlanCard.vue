@@ -1,7 +1,10 @@
 <template>
   <div
     class="w-full bg-white shadow-md hover:shadow-2xl rounded-lg px-4 py-2"
-    :class="{ 'border-l-8 border-teal-500': isMonthly, 'border-l-8 border-blue-500': !isMonthly }"
+    :class="{
+      'border-l-8 border-teal-500': isMonthly,
+      'border-l-8 border-blue-500': !isMonthly,
+    }"
   >
     <slot name="header" />
     <nuxt-link :to="`/plan/${plan.slug}`">
@@ -17,7 +20,7 @@
         class="mr-2"
       >
         <div class="flex items-center justify-center mr-2">
-          <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3">
+          <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3" />
           <font-awesome-icon v-else :icon="['fas', 'tag']" />
         </div>
         {{ hashtag.label }}
@@ -43,26 +46,26 @@ import { Author, Hashtag as HashtagData, Plan } from '../types/entities'
 
 export default Vue.extend({
   components: {
-    Hashtag
+    Hashtag,
   },
   props: {
-    plan: { type: Object } as PropOptions<Plan>
+    plan: { type: Object, required: true, default: null } as PropOptions<Plan>,
   },
   computed: {
     author(): Author {
-      return this.plan.author;
+      return this.plan.author
     },
     hashtags(): HashtagData[] {
-      return this.plan.hashtags;
+      return this.plan.hashtags
     },
     isMonthly(): Boolean {
-      return this.plan.interval === "monthly"
-    }
+      return this.plan.interval === 'monthly'
+    },
   },
   methods: {
     onClickHashtag(hashtag: string): void {
-      this.$emit("click-hashtag", hashtag);
-    }
-  }
+      this.$emit('click-hashtag', hashtag)
+    },
+  },
 })
 </script>

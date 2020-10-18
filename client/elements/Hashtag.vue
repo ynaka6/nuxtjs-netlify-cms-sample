@@ -5,7 +5,7 @@
     :href="href"
     :target="target"
     :rel="rel"
-    class="inline-flex items-center  bg-gray-300 rounded-full font-bold text-gray-800 text-xs px-4 py-1 hover:shadow-xl"
+    class="inline-flex items-center bg-gray-300 rounded-full font-bold text-gray-800 text-xs px-4 py-1 hover:shadow-xl"
     @click.prevent="onClick"
   >
     <slot />
@@ -20,33 +20,33 @@ export default Vue.extend({
     tagName: {
       type: String,
       required: false,
-      default: 'span'
+      default: 'span',
     },
     to: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     href: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     target: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
     rel: {
       type: String,
       required: false,
-      default: null
-    }
+      default: null,
+    },
   },
   methods: {
     onClick(): void {
-      this.$emit("click");
-    }
-  }
+      this.$emit('click')
+    },
+  },
 })
 </script>
