@@ -36,6 +36,7 @@
     "netlify-identity-widget": "^1.9.1",
     "nuxt": "^2.13.0",
     "stripe": "^8.93.0",
+    "vee-validate": "^3.4.2",
     "vue-disqus": "^4.0.0"
   },
   "devDependencies": {
