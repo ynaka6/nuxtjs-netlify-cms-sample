@@ -11,12 +11,20 @@
             定期決済を確認する
           </a>
           <a
-            v-if="user && user.app_metadata.roles.includes('Mentor')"
+            v-if="isMentor"
             href="/admin"
             class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
             target="_blank"
           >
             CMSを開く
+          </a>
+          <a
+            v-if="isMentor"
+            href="#"
+            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
+            @click.prevent="goToStripeConnect"
+          >
+            本人確認（Stripe連携）
           </a>
           <nuxt-link
             to="/contact"
@@ -39,7 +47,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters, mapActions } from 'vuex'
 import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../types/entities'
 
@@ -59,9 +66,13 @@ export default Vue.extend({
     })
   },
   computed: {
-    ...mapGetters({
-      user: 'auth/user',
-    }),
+    user() {
+      return this.$store.getters['auth/user'];
+    },
+    isMentor() {
+      const user = this.$store.getters['auth/user'];
+      return user && user.app_metadata.roles.includes('Mentor')
+    },
   },
   mounted() {
     if (!this.user) {
@@ -70,7 +81,7 @@ export default Vue.extend({
   },
   methods: {
     async goToBillingPortal(): Promise<void> {
-      if (this.$store.getters['auth/user']) {
+      if (this.user) {
         const token = await this.$store.dispatch('auth/refresh')
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
       }
@@ -89,15 +100,32 @@ export default Vue.extend({
         alert('定期決済の購入がない為、画面を表示することができませんでした')
       }
     },
+    async goToStripeConnect(): Promise<void> {
+      if (!this.isMentor) {
+        return
+      }
+      let url = null
+      try {
+        const token = await this.$store.dispatch('auth/refresh')
+        this.$axios.setHeader('Authorization', `Bearer ${token}`)
+        url = await this.$axios.$post('/.netlify/functions/connect_sessions')
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err)
+      }
+
+      if (url) {
+        location.href = url
+      } else {
+        alert('本人確認ページに遷移することができません')
+      }
+    },
     onLogout() {
-      this.logout()
+      this.$store.dispatch('auth/logout')
       if (this.$route.path !== '/') {
         this.$router.push('/')
       }
     },
-    ...mapActions({
-      logout: 'auth/logout',
-    }),
   },
 })
 </script>

@@ -3,7 +3,14 @@ type User {
   stripeID: ID!
 }
 
+type Account {
+  netlifyID: ID!
+  stripeID: ID!
+}
+
 type Query {
   getUserByNetlifyID(netlifyID: ID!): User!
   getUserByStripeID(stripeID: ID!): User!
+  getAccountByNetlifyID(netlifyID: ID!): Account!
+  getAccountByStripeID(stripeID: ID!): Account!
 }

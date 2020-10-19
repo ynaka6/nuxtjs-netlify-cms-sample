@@ -69,7 +69,9 @@ import Vue, { PropOptions } from 'vue'
 import { User } from 'netlify-identity-widget'
 export default Vue.extend({
   props: {
-    user: { type: Object, required: true, default: {} as User } as PropOptions<User>,
+    user: { type: Object, required: true, default: {} as User } as PropOptions<
+      User
+    >,
   },
   data() {
     return {

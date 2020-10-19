@@ -22,7 +22,11 @@
                   >
                     名前
                   </label>
-                  <ValidationProvider v-slot="{ errors }" name="お名前" rules="required|max:40">
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    name="お名前"
+                    rules="required|max:40"
+                  >
                     <input
                       id="name"
                       v-model="form.name"
@@ -34,8 +38,8 @@
                     />
                     <p
                       v-if="errors.length > 0"
-                      v-text="errors[0]"
                       class="text-red-500 text-xs italic"
+                      v-text="errors[0]"
                     />
                   </ValidationProvider>
                 </div>
@@ -46,7 +50,11 @@
                   >
                     メールアドレス
                   </label>
-                  <ValidationProvider v-slot="{ errors }" name="メールアドレス" rules="required|email|max:40">
+                  <ValidationProvider
+                    v-slot="{ errors }"
+                    name="メールアドレス"
+                    rules="required|email|max:40"
+                  >
                     <input
                       id="email"
                       v-model="form.email"
@@ -58,14 +66,17 @@
                     />
                     <p
                       v-if="errors.length > 0"
-                      v-text="errors[0]"
                       class="text-red-500 text-xs italic"
+                      v-text="errors[0]"
                     />
                   </ValidationProvider>
                 </div>
               </div>
               <div class="mx-3 mb-6 px-3">
-                <label class="block text-gray-600 text-sm font-bold mb-2" for="category">
+                <label
+                  class="block text-gray-600 text-sm font-bold mb-2"
+                  for="category"
+                >
                   問い合わせ種別
                 </label>
                 <ValidationProvider v-slot="{ errors }" name="問い合わせ種別">
@@ -83,22 +94,39 @@
                         {{ cateogry }}
                       </option>
                     </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                      <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                    <div
+                      class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
+                    >
+                      <svg
+                        class="fill-current h-4 w-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                        />
+                      </svg>
                     </div>
                   </div>
                   <p
                     v-if="errors.length > 0"
-                    v-text="errors[0]"
                     class="text-red-500 text-xs italic"
+                    v-text="errors[0]"
                   />
                 </ValidationProvider>
               </div>
               <div class="mx-3 mb-6 px-3">
-                <label class="block text-gray-600 text-sm font-bold mb-2" for="content">
+                <label
+                  class="block text-gray-600 text-sm font-bold mb-2"
+                  for="content"
+                >
                   問い合わせ内容
                 </label>
-                <ValidationProvider v-slot="{ errors }" name="問い合わせ内容" rules="required|max:2000">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  name="問い合わせ内容"
+                  rules="required|max:2000"
+                >
                   <textarea
                     v-model="form.content"
                     name="content"
@@ -108,15 +136,17 @@
                   ></textarea>
                   <p
                     v-if="errors.length > 0"
-                    v-text="errors[0]"
                     class="text-red-500 text-xs italic"
+                    v-text="errors[0]"
                   />
                 </ValidationProvider>
               </div>
               <p
                 v-if="invalid"
                 class="text-center font-bold text-xs text-red-500 mb-2"
-              >全ての情報を入力してから送信してください</p>
+              >
+                全ての情報を入力してから送信してください
+              </p>
               <div class="flex items-center justify-center">
                 <button
                   type="submit"
@@ -138,8 +168,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb } from '../../types/entities'
 import { mapGetters } from 'vuex'
+import { Breadcrumb } from '../../types/entities'
 
 const categories: String[] = [
   'サービスの詳細を知りたい',
@@ -172,7 +202,7 @@ export default Vue.extend({
         email: '',
         category: categories[0],
         content: '',
-      }
+      },
     }
   },
   computed: {
@@ -185,7 +215,7 @@ export default Vue.extend({
       this.form.name = this.user.user_metadata.full_name
       this.form.email = this.user.email
     }
-  }
+  },
 })
 </script>
 
