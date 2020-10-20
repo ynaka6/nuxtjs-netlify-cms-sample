@@ -13,7 +13,7 @@
               class="bg-white border shadow-md rounded lg:px-8 pt-6 pb-8 mt-5 mb-10"
             >
               <input type="hidden" name="form-name" value="contact" />
-              <input type="hidden" name="id" :value="user.id" />
+              <input type="hidden" name="id" :value="user && user.id" />
               <div class="flex flex-wrap mx-3 mb-6">
                 <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                   <label

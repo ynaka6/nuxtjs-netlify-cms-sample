@@ -1,17 +1,17 @@
 <template>
   <div class="h-full bg-white">
-    <div class="max-w-6xl mx-auto px-2 pt-6 pb-6 lg:pt-16">
+    <div class="max-w-6xl mx-auto px-2 pt-2 pb-6 lg:pt-16">
       <div class="w-full relative flex justify-end items-center mb-4">
         <input
           v-model="q"
           type="text"
-          class="w-full text-3xl border-b form-input p-3 pl-4 pr-6 focus:outline-none"
-          placeholder="Seach"
+          class="w-full text-xl border-b form-input p-3 pl-4 pr-6 focus:outline-none lg:text-3xl"
+          placeholder="Search..."
           @input="search"
         />
         <span class="absolute mr-3">
           <svg
-            class="fill-current pointer-events-none text-gray-600 w-8 h-8"
+            class="fill-current pointer-events-none text-gray-600 w-5 h-5 lg:w-8 lg:h-8"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
           >
@@ -22,7 +22,7 @@
         </span>
       </div>
       <div v-if="planPosts.length > 0" class="">
-        <h3 class="font-bold text-2xl text-gray-800 mb-4">
+        <h3 class="font-bold text-lg text-gray-800 mb-4 lg:text-2xl">
           <span class="mr-2">
             <font-awesome-icon :icon="['fas', 'rocket']" />
           </span>

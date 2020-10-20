@@ -3,42 +3,79 @@
     <div class="flex flex-col md:flex-row">
       <div class="w-full py-4 md:px-4">
         <client-only placeholder="Loading...">
-          <a
-            href="#"
-            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
-            @click.prevent="goToBillingPortal"
-          >
-            定期決済を確認する
-          </a>
-          <a
-            v-if="isMentor"
-            href="/admin"
-            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
-            target="_blank"
-          >
-            CMSを開く
-          </a>
-          <a
-            v-if="isMentor"
-            href="#"
-            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
-            @click.prevent="goToStripeConnect"
-          >
-            本人確認（Stripe連携）
-          </a>
-          <nuxt-link
-            to="/contact"
-            class="block w-full bg-blue-100 border border-blue-500 text-xl text-blue-500 text-center p-3 rounded-full mb-4 hover:opacity-75"
-          >
-            問い合わせ
-          </nuxt-link>
-          <a
-            href="#"
-            class="block w-full bg-red-100 border border-red-500 text-xl text-red-500 text-center p-3 rounded-full hover:opacity-75"
-            @click.prevent="onLogout"
-          >
-            ログアウト
-          </a>
+          <nav class="bg-white border">
+            <a
+              href="#"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+              @click.prevent="goToBillingPortal"
+            >
+              <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `money-check` ]" />
+              </span>
+              定期決済を確認する
+              <sup class="text-xs">
+                <font-awesome-icon :icon="[ `fas`, `external-link-alt` ]" />
+              </sup>
+            </a>
+            <a
+              v-if="isMentor"
+              href="/admin/"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+              target="_blank"
+            >
+              <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `laptop-code` ]" />
+              </span>
+              CMSを開く
+              <sup class="text-xs">
+                <font-awesome-icon :icon="[ `fas`, `external-link-alt` ]" />
+              </sup>
+            </a>
+            <a
+              v-if="isMentor"
+              href="#"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+              @click.prevent="goToStripeConnect"
+            >
+              <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `key` ]" />
+              </span>
+              本人確認（Stripe連携）
+              <sup class="text-xs">
+                <font-awesome-icon :icon="[ `fas`, `external-link-alt` ]" />
+              </sup>
+            </a>
+            <a
+              v-if="isMentor"
+              href="#"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+              @click.prevent="openBackForm"
+            >
+              <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `university` ]" />
+              </span>
+              銀行登録
+            </a>
+            <nuxt-link
+              to="/contact"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+            >
+              <span class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `envelope` ]" />
+              </span>
+              問い合わせ
+            </nuxt-link>
+            <a
+              href="#"
+              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
+              @click.prevent="onLogout"
+            >
+              <span class="inline-flex items-center justify-center bg-red-100 text-red-500 border border-red-500 rounded-full w-12 h-12 mr-2">
+                <font-awesome-icon :icon="[ `fas`, `sign-out-alt` ]" />
+              </span>
+              ログアウト
+            </a>
+          </nav>
         </client-only>
       </div>
     </div>
@@ -120,7 +157,10 @@ export default Vue.extend({
         alert('本人確認ページに遷移することができません')
       }
     },
-    onLogout() {
+    openBackForm(): void {
+      alert('銀行設定')
+    },
+    onLogout(): void {
       this.$store.dispatch('auth/logout')
       if (this.$route.path !== '/') {
         this.$router.push('/')
