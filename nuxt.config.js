@@ -90,6 +90,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
+    'portal-vue/nuxt',
     ...modules,
   ],
   /*

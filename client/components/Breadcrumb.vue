@@ -27,8 +27,12 @@ import { Breadcrumb } from '../types/entities'
 
 export default Vue.extend({
   props: {
-    breadcrumbs: <PropOptions<Breadcrumb[]>> { type: Array }
-  }
+    breadcrumbs: {
+      type: Array,
+      required: true,
+      default: () => [],
+    } as PropOptions<Breadcrumb[]>,
+  },
 })
 </script>
 
