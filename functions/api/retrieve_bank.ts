@@ -48,7 +48,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   }
 
   const list = account.external_accounts as Stripe.ApiList<Stripe.BankAccount>
-  if (!list || !list.data) {
+  if (!list || !list.data || !list.data[0]) {
     return { statusCode: 200 };
   }
   const { bank_name, country, last4 } = list.data[0] as Stripe.BankAccount
