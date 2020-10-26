@@ -29,14 +29,14 @@
             <template v-else>
               <a
                 href="#"
-                class="px-4 py-2 bg-blue-400 text-white rounded-full mr-2"
+                class="px-4 py-2 bg-indigo-600 text-white rounded-full mr-2"
                 @click.prevent="$emit('login')"
               >
                 Login
               </a>
               <a
                 href="#"
-                class="px-4 py-2 border border-blue-400 text-blue-400 rounded-full mr-2"
+                class="px-4 py-2 border border-indigo-600 text-indigo-600 rounded-full mr-2"
                 @click.prevent="$emit('signup')"
               >
                 Sign up
