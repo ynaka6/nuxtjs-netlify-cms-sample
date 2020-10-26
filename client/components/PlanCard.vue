@@ -1,38 +1,36 @@
 <template>
   <div
-    class="w-full bg-white shadow-md hover:shadow-2xl rounded-lg px-4 py-2"
-    :class="{
-      'border-l-8 border-teal-500': isMonthly,
-      'border-l-8 border-blue-500': !isMonthly,
-    }"
+    class="w-full bg-white md:shadow-md md:hover:shadow-2xl md:rounded-lg px-4 py-2"
   >
     <slot name="header" />
-    <nuxt-link :to="`/plan/${plan.slug}`">
-      <p class="text-lg font-bold" v-text="plan.title" />
-      <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
-    </nuxt-link>
-    <div class="mb-2">
-      <hashtag
-        v-for="hashtag in hashtags"
-        :key="hashtag.value"
-        tag-name="nuxt-link"
-        :to="`/tag/${hashtag.value}`"
-        class="mr-2"
-      >
-        <div class="flex items-center justify-center mr-2">
-          <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3" />
-          <font-awesome-icon v-else :icon="['fas', 'tag']" />
+    <div class="pl-8">
+      <nuxt-link :to="`/plan/${plan.slug}`">
+        <p class="text-lg font-bold hover:text-indigo-600" v-text="plan.title" />
+        <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
+      </nuxt-link>
+      <div class="mb-2">
+        <hashtag
+          v-for="hashtag in hashtags"
+          :key="hashtag.value"
+          tag-name="nuxt-link"
+          :to="`/tag/${hashtag.value}`"
+          class="mr-2"
+        >
+          <div class="flex items-center justify-center mr-2">
+            <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3" />
+            <font-awesome-icon v-else :icon="['fas', 'tag']" />
+          </div>
+          {{ hashtag.label }}
+        </hashtag>
+      </div>
+      <div class="flex justify-between items-center">
+        <div>
+          <p class="font-semibold text-xl text-gray-800">
+            <span class="mr-1">¥</span>
+            <span v-text="plan.price.toLocaleString()" />
+            <span v-show="isMonthly" class="text-sm">/ 月</span>
+          </p>
         </div>
-        {{ hashtag.label }}
-      </hashtag>
-    </div>
-    <div class="flex justify-between items-center">
-      <div>
-        <p class="font-semibold text-xl text-gray-800">
-          <span class="mr-1">¥</span>
-          <span v-text="plan.price.toLocaleString()" />
-          <span v-show="isMonthly" class="text-sm">/ 月</span>
-        </p>
       </div>
     </div>
     <slot name="footer" />

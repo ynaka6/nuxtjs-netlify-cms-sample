@@ -1,13 +1,13 @@
 <template>
-  <div class="max-w-6xl mx-auto px-2">
+  <div class="max-w-6xl mx-auto">
     <div class="flex flex-col md:flex-row">
       <div class="w-full flex flex-wrap py-4 md:w-9/12 md:px-4">
         <div
           v-for="(plan, index) in planPosts"
           :key="index"
-          class="w-full py-2 md:px-2"
+          class="w-full md:pb-2 md:px-2"
         >
-          <plan-card :plan="plan">
+          <plan-card :plan="plan" class="border-b">
             <template v-slot:header>
               <nuxt-link
                 :to="`/user/${plan.author.slug}`"

@@ -1,11 +1,11 @@
 <template>
-  <div class="max-w-6xl mx-auto px-2">
+  <div class="max-w-6xl mx-auto">
     <div class="flex flex-col md:flex-row">
       <div class="w-full py-4 md:px-4">
         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <li class="-mb-px md:mr-2 last:mr-0 flex-auto text-center">
             <a
-              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg border-r md:border-none md:rounded block leading-normal"
               :class="{
                 'text-blue-400 bg-white': openTab !== 1,
                 'text-white bg-blue-400': openTab === 1,
@@ -15,9 +15,9 @@
               Profile
             </a>
           </li>
-          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <li class="-mb-px md:mr-2 last:mr-0 flex-auto text-center">
             <a
-              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg border-r md:border-none md:rounded block leading-normal"
               :class="{
                 'text-blue-400 bg-white': openTab !== 2,
                 'text-white bg-blue-400': openTab === 2,
@@ -27,9 +27,9 @@
               Plan
             </a>
           </li>
-          <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <li class="-mb-px md:mr-2 last:mr-0 flex-auto text-center">
             <a
-              class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+              class="text-xs font-bold uppercase px-5 py-3 shadow-lg md:rounded block leading-normal"
               :class="{
                 'text-blue-400 bg-white': openTab !== 3,
                 'text-white bg-blue-400': openTab === 3,
@@ -53,9 +53,9 @@
               <div
                 v-for="(plan, index) in plans"
                 :key="index"
-                class="w-full p-2"
+                class="w-full md:pb-2 md:px-2"
               >
-                <plan-card :plan="plan" />
+                <plan-card :plan="plan" class="border-b" />
               </div>
             </div>
             <div :class="{ hidden: openTab !== 3, block: openTab === 3 }"></div>
