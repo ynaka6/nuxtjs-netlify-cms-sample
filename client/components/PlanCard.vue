@@ -5,7 +5,10 @@
     <slot name="header" />
     <div class="pl-8">
       <nuxt-link :to="`/plan/${plan.slug}`">
-        <p class="text-lg font-bold hover:text-indigo-600" v-text="plan.title" />
+        <p
+          class="text-lg font-bold hover:text-indigo-600"
+          v-text="plan.title"
+        />
         <p class="text-xs text-gray-700 mb-1" v-text="plan.description" />
       </nuxt-link>
       <div class="mb-2">

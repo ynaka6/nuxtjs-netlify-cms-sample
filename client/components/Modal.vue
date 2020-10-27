@@ -38,7 +38,9 @@
           </div>
         </div>
       </div>
-      <div class="absolute bottom-0 right-0 mr-4 mb-4 flex justify-end pt-2 z-50">
+      <div
+        class="absolute bottom-0 right-0 mr-4 mb-4 flex justify-end pt-2 z-50"
+      >
         <button
           v-if="actionText"
           class="inline-flex items-center bg-orange-500 rounded font-bold text-white text-md px-8 py-2 mr-2 hover:shadow-xl lg:mr-4 lg:text-xl lg:px-10 lg:py-2"
@@ -95,7 +97,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      open: false
+      open: false,
     }
   },
   computed: {
@@ -103,12 +105,10 @@ export default Vue.extend({
       return this.size === 'md' ? 'lg:max-w-3xl' : 'lg:max-w-3xl'
     },
   },
-  mounted() {
-    document.body.classList.add('overflow-hidden')
-  },
   methods: {
     show() {
       this.open = true
+      document.body.classList.add('overflow-hidden')
     },
     hide() {
       this.open = false
@@ -122,10 +122,12 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.modal-enter-active, .modal-leave-active {
-  transition: opacity .5s;
+.modal-enter-active,
+.modal-leave-active {
+  transition: opacity 0.5s;
 }
-.modal-enter, .modal-leave-to {
+.modal-enter,
+.modal-leave-to {
   opacity: 0;
 }
 </style>

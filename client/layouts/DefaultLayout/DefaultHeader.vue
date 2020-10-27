@@ -5,7 +5,7 @@
         <div class="">
           <nuxt-link to="/" class="block p-3 lg:text-left hover:opacity-75">
             <h1 class="text-2xl font-leckerli-one">
-              <logo>Logo</logo>
+              <logo>Growrescue</logo>
             </h1>
           </nuxt-link>
         </div>

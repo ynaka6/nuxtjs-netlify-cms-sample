@@ -39,6 +39,7 @@
                 <span class="mr-1">¥</span>
                 <span v-text="plan.price.toLocaleString()" />
                 <span v-show="isMonthly" class="text-sm">/ 月</span>
+                <span class="text-gray-800 text-sm">（税込み）</span>
               </p>
             </div>
             <div class="border-b my-4" />
@@ -48,9 +49,24 @@
             >
               購入手続きを行う
             </button>
-            <p class="text-gray-800 text-xs">
-              ※ 購入処理はStripeを利用してクレジットカード決済となります
+          </div>
+
+          <div class="bg-red-100 shadow-xl border-red-500 mt-6 px-4 py-2">
+            <p class="font-bold text-red-600 text-sm mb-2">
+              <font-awesome-icon :icon="[`fas`, `exclamation-triangle`]" />
+              注意事項
             </p>
+            <ul class="pl-4 list-disc text-red-500 text-xs">
+              <li class="my-1">
+                単発、月額課金は、よくご確認の上でご契約ください。
+              </li>
+              <li class="my-1">
+                二重課金等のこちらの不手際以外は、原則返金対応はいたしません
+              </li>
+              <li class="my-1">
+                契約予定のプラン以外を誤ってご契約しても、返金対応はいたしません。
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -88,10 +104,14 @@
         title="Stripeの購入画面に遷移します"
         close-text="閉じる"
       >
-        <div class="p-4">
-          <p class="max-w-xl mx-auto text-center text-gray-700 text-xs">
+        <div class="py-4 md:px-4">
+          <p class="max-w-xl mx-auto text-center text-gray-700 text-xs mb-4">
             本サービスでは
-            <a href="https://stripe.com/ja-hk/payments/checkout" target="_blank" class="text-blue-500 underline">
+            <a
+              href="https://stripe.com/ja-hk/payments/checkout"
+              target="_blank"
+              class="text-blue-500 underline"
+            >
               Stripe Checkout
               <sup>
                 <font-awesome-icon :icon="[`fas`, `external-link-alt`]" />
@@ -100,7 +120,11 @@
             を利用して購入手続きを行います。
             決済データや個人情報はStripeにて安全に管理され、運営が確認できるデータも制限されます。
             詳細は、Stripeの
-            <a href="https://stripe.com/jp/privacy" target="_blank" class="text-blue-500 underline">
+            <a
+              href="https://stripe.com/jp/privacy"
+              target="_blank"
+              class="text-blue-500 underline"
+            >
               プライバシーポリシー
               <sup>
                 <font-awesome-icon :icon="[`fas`, `external-link-alt`]" />
@@ -108,19 +132,45 @@
             </a>
             をご確認ください。
           </p>
-          <div class="flex flex-col justify-center items-center my-4">
-            <p class="font-semibold text-4xl text-gray-800">
+          <div class="bg-gray-100 border flex flex-col p-4">
+            <nuxt-link
+              :to="`/user/${plan.author.slug}`"
+              class="flex items-center mb-2"
+            >
+              <img
+                :src="plan.author.profilePicture"
+                :alt="plan.author.title"
+                class="h-6 w-6 block rounded-full"
+              />
+              <div>
+                <p
+                  class="ml-2 font-semibold text-xs text-gray-800"
+                  v-text="plan.author.title"
+                />
+              </div>
+            </nuxt-link>
+            <p class="font-bold text-lg" v-text="plan.title" />
+            <p class="font-semibold text-3xl text-gray-800">
               <span class="mr-1">¥</span>
               <span v-text="plan.price.toLocaleString()" />
               <span v-show="isMonthly" class="text-sm">/ 月</span>
-            </p>
-            <p v-show="isMonthly" class="text-red-500 text-xs">
-              ※ 定期契約（サブスクリプション）のプランになります。毎月自動で課金されるのにご注意ください。
+              <span class="text-gray-800 text-sm">（税込み）</span>
             </p>
           </div>
-          <div class="w-full mt-6 lg:w-1/2 lg:mx-auto">
+          <div class="w-full mt-6 text-center lg:w-1/2 lg:mx-auto">
+            <label
+              class="flex justify-center items-center text-gray-800 font-bold mb-2"
+            >
+              <input v-model="agree" type="checkbox" class="mr-2" />
+              <span class="text-sm"> 規約に同意して購入する </span>
+            </label>
             <button
-              class="w-full bg-indigo-700 rounded font-bold text-white p-4 hover:opacity-75"
+              class="w-full bg-indigo-700 rounded font-bold text-white p-4"
+              :class="{
+                'cursor-not-allowed opacity-50': !agree,
+                'hover:opacity-75': agree,
+              }"
+              :disabled="!agree"
               @click.prevent="goToCheckout"
             >
               購入手続きを行う
@@ -143,6 +193,7 @@ export type DataType = {
   baseUrl: string
   stripePublishableKey: string
   plan: Plan
+  agree: Boolean
 }
 
 export default Vue.extend({
@@ -185,6 +236,7 @@ export default Vue.extend({
     return {
       baseUrl: process.env.baseUrl || '',
       stripePublishableKey: process.env.stripePublishableKey || '',
+      agree: false,
       ...data,
     }
   },
@@ -193,6 +245,7 @@ export default Vue.extend({
       baseUrl: '',
       stripePublishableKey: process.env.baseUrl || '',
       plan: {} as Plan,
+      agree: false,
     }
   },
   computed: {
@@ -207,7 +260,7 @@ export default Vue.extend({
         : (this.$refs as any).authModal.show()
     },
     goToLogin(): void {
-      (this.$refs as any).authModal.hide()
+      ;(this.$refs as any).authModal.hide()
       this.$store.dispatch('auth/openLogin')
     },
     async goToCheckout(): Promise<void> {
@@ -226,7 +279,7 @@ export default Vue.extend({
           sessionId: session.id,
         } as RedirectToCheckoutOptions)
       }
-    }
+    },
   },
 })
 </script>

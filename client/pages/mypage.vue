@@ -92,15 +92,8 @@
       </div>
     </div>
     <portal to="modal">
-      <modal
-        ref="retrieveBank"
-        title="銀行情報"
-        close-text="閉じる"
-      >
-        <div
-          v-if="bank"
-          class="py-4 text-center max-w-lg mx-auto"
-        >
+      <modal ref="retrieveBank" title="銀行情報" close-text="閉じる">
+        <div v-if="bank" class="py-4 text-center max-w-lg mx-auto">
           <div class="font-bold bg-gray-300 border p-2">銀行名</div>
           <div class="border border-t-none p-2">
             {{ bank.bank_name }}
@@ -338,7 +331,9 @@ export default Vue.extend({
         const token = await this.$store.dispatch('auth/refresh')
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
         this.bank = await this.$axios.$post('/.netlify/functions/retrieve_bank')
-        this.bank ? (this.$refs as any).retrieveBank.show() : (this.$refs as any).createBank.show()
+        this.bank
+          ? (this.$refs as any).retrieveBank.show()
+          : (this.$refs as any).createBank.show()
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err)
@@ -363,7 +358,7 @@ export default Vue.extend({
         // eslint-disable-next-line no-console
         console.error(err)
       } finally {
-        (this.$refs as any).createBank.hide()
+        ;(this.$refs as any).createBank.hide()
         this.$nuxt.$loading.finish()
       }
     },
