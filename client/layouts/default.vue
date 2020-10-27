@@ -14,7 +14,7 @@
               v-if="showPageTitle"
               class="w-full bg-gray-900 text-white text-center"
             >
-              <div class="relative max-w-6xl mx-auto px-4 py-16 lg:py-24">
+              <div class="relative max-w-6xl mx-auto px-4 py-16">
                 <div
                   v-if="breadcrumbs.length > 0"
                   class="absolute inset-0 mt-4"
