@@ -171,5 +171,8 @@ export default {
       ]
     },
   },
+  render: {
+    fallback: false
+  },
   ...options,
 }

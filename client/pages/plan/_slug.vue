@@ -15,10 +15,10 @@
               :to="`/user/${plan.author.slug}`"
               class="flex items-center"
             >
-              <img
+              <profile-icon
                 :src="plan.author.profilePicture"
                 :alt="plan.author.title"
-                class="h-10 w-10 block rounded-full"
+                class="h-10 w-10"
               />
               <div>
                 <p
@@ -137,10 +137,10 @@
               :to="`/user/${plan.author.slug}`"
               class="flex items-center mb-2"
             >
-              <img
+              <profile-icon
                 :src="plan.author.profilePicture"
                 :alt="plan.author.title"
-                class="h-6 w-6 block rounded-full"
+                class="h-6 w-6"
               />
               <div>
                 <p
@@ -188,6 +188,7 @@ import { Context } from '@nuxt/types'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js'
 import { Breadcrumb, Plan } from '../../types/entities'
 import Modal from '../../components/Modal.vue'
+import ProfileIcon from '../../components/ProfileIcon.vue'
 
 export type DataType = {
   baseUrl: string
@@ -199,6 +200,7 @@ export type DataType = {
 export default Vue.extend({
   components: {
     Modal,
+    ProfileIcon,
   },
   validate(context: Context): boolean {
     const slug = context.params.slug

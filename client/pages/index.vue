@@ -13,10 +13,10 @@
                 :to="`/user/${plan.author.slug}`"
                 class="flex items-center mb-2"
               >
-                <img
+                <profile-icon
                   :src="plan.author.profilePicture"
                   :alt="plan.author.title"
-                  class="h-6 w-6 block rounded-full"
+                  class="h-6 w-6"
                 />
                 <p
                   class="ml-2 font-semibold text-xs text-gray-800"
@@ -62,11 +62,13 @@ import { mapGetters } from 'vuex'
 import { Context } from '@nuxt/types'
 import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
+import ProfileIcon from '../components/ProfileIcon.vue'
 
 export default Vue.extend({
   components: {
     Hashtag,
     PlanCard,
+    ProfileIcon,
   },
   asyncData(context: Context) {
     context.store.dispatch('setPageInfo', {

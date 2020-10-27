@@ -22,11 +22,11 @@
                   <breadcrumb :breadcrumbs="breadcrumbs" />
                 </div>
                 <div class="flex items-center justify-center">
-                  <img
+                  <profile-icon
                     v-if="pageImage"
                     :src="pageImage"
                     :alt="pageTitle"
-                    class="h-24 w-24 block rounded-full mr-10"
+                    class="h-24 w-24 mr-10"
                   />
                   <div class="w-auto">
                     <h1 class="text-xl lg:text-3xl" v-text="pageTitle" />
@@ -55,12 +55,14 @@ import { mapGetters, mapActions } from 'vuex'
 import Breadcrumb from '../components/Breadcrumb.vue'
 import DefaultHeader from './DefaultLayout/DefaultHeader.vue'
 import DefaultFooter from './DefaultLayout/DefaultFooter.vue'
+import ProfileIcon from '../components/ProfileIcon.vue'
 
 export default Vue.extend({
   components: {
     DefaultHeader,
     DefaultFooter,
     Breadcrumb,
+    ProfileIcon,
   },
   computed: {
     showPageTitle() {
