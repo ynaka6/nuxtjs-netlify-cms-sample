@@ -62,7 +62,7 @@ import ProfileIcon from '../components/ProfileIcon.vue'
 export default Vue.extend({
   components: {
     PlanCard,
-    ProfileIcon
+    ProfileIcon,
   },
   asyncData(context: Context) {
     context.store.dispatch('setPageInfo', {

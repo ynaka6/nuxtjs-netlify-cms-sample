@@ -2,6 +2,9 @@ export namespace StripeConst {
   export namespace Currency {
       export const JPY = 'jpy';
   }
+  export namespace Country {
+    export const JP = 'jp';
+}
 }
 
 export function formatAmountForDisplay(

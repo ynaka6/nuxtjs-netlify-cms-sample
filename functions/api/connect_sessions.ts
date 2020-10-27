@@ -1,5 +1,6 @@
 import { APIGatewayEvent } from 'aws-lambda'
 import { Context, ClientContext, User } from '../utils/types'
+import { StripeConst } from '../utils/stripe-helpers'
 import faunaFetch from '../utils/fauna'
 
 import Stripe from 'stripe'
@@ -44,7 +45,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   } else {
     const account = await stripe.accounts.create({
       type: 'custom',
-      country: 'JP',
+      country: StripeConst.Country.JP,
       email: user.email,
       requested_capabilities: [ 'card_payments', 'transfers' ]
     } as Stripe.AccountCreateParams);

@@ -82,18 +82,18 @@
 
     <div class="sticky bottom-0 bg-indigo-100 border-t p-4">
       <div class="w-full flex justify-between lg:justify-end">
-          <p class="font-semibold text-2xl text-gray-800 mr-5">
-            <span class="mr-1">¥</span>
-            <span v-text="plan.price.toLocaleString()" />
-            <span v-show="isMonthly" class="text-sm">/ 月</span>
-            <span class="text-gray-800 text-sm">（税込み）</span>
-          </p>
-          <button
-            class="bg-orange-500 rounded font-bold text-white px-4 py-2 hover:opacity-75"
-            @click.prevent="showModal"
-          >
-            購入する
-          </button>
+        <p class="font-semibold text-2xl text-gray-800 mr-5">
+          <span class="mr-1">¥</span>
+          <span v-text="plan.price.toLocaleString()" />
+          <span v-show="isMonthly" class="text-sm">/ 月</span>
+          <span class="text-gray-800 text-sm">（税込み）</span>
+        </p>
+        <button
+          class="bg-orange-500 rounded font-bold text-white px-4 py-2 hover:opacity-75"
+          @click.prevent="showModal"
+        >
+          購入する
+        </button>
       </div>
     </div>
     <portal to="modal">
@@ -203,9 +203,9 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js'
-import { Breadcrumb, Plan } from '../../types/entities'
-import Modal from '../../components/Modal.vue'
-import ProfileIcon from '../../components/ProfileIcon.vue'
+import { Breadcrumb, Plan } from '../../../types/entities'
+import Modal from '../../../components/Modal.vue'
+import ProfileIcon from '../../../components/ProfileIcon.vue'
 
 export type DataType = {
   baseUrl: string

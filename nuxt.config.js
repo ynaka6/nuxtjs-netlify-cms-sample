@@ -172,7 +172,7 @@ export default {
     },
   },
   render: {
-    fallback: false
+    fallback: false,
   },
   ...options,
 }

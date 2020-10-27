@@ -53,9 +53,9 @@
 import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
 import Breadcrumb from '../components/Breadcrumb.vue'
+import ProfileIcon from '../components/ProfileIcon.vue'
 import DefaultHeader from './DefaultLayout/DefaultHeader.vue'
 import DefaultFooter from './DefaultLayout/DefaultFooter.vue'
-import ProfileIcon from '../components/ProfileIcon.vue'
 
 export default Vue.extend({
   components: {

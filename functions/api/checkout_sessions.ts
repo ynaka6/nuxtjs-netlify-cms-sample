@@ -19,45 +19,50 @@ export async function handler(event: APIGatewayEvent, context: Context) {
 
   let stripeID: string | undefined = undefined;
   const clientContext: ClientContext | undefined = context.clientContext;
-  if (clientContext && clientContext.user) {
-    const user: User = clientContext.user;
-    const result = await faunaFetch({
+  if (!clientContext || !clientContext.user) {
+    return {
+      statusCode: 401,
+      body: 'Forbidden'
+    }
+  }
+  const user: User = clientContext.user;
+  const result = await faunaFetch({
+    query: `
+      query ($netlifyID: ID!) {
+        getUserByNetlifyID(netlifyID: $netlifyID) {
+          stripeID
+        }
+      }
+    `,
+    variables: {
+      netlifyID: user.sub,
+    },
+  });
+  if (result.data) {
+    stripeID = result.data.getUserByNetlifyID.stripeID
+  } else {
+    const customer = await stripe.customers.create({ email: user.email } as Stripe.CustomerCreateParams);
+    await faunaFetch({
       query: `
-        query ($netlifyID: ID!) {
-          getUserByNetlifyID(netlifyID: $netlifyID) {
+        mutation ($netlifyID: ID!, $stripeID: ID!) {
+          createUser(data: { netlifyID: $netlifyID, stripeID: $stripeID }) {
+            netlifyID
             stripeID
           }
         }
       `,
       variables: {
         netlifyID: user.sub,
+        stripeID: customer.id,
       },
     });
-    if (result.data) {
-      stripeID = result.data.getUserByNetlifyID.stripeID
-    } else {
-      const customer = await stripe.customers.create({ email: user.email } as Stripe.CustomerCreateParams);
-      await faunaFetch({
-        query: `
-          mutation ($netlifyID: ID!, $stripeID: ID!) {
-            createUser(data: { netlifyID: $netlifyID, stripeID: $stripeID }) {
-              netlifyID
-              stripeID
-            }
-          }
-        `,
-        variables: {
-          netlifyID: user.sub,
-          stripeID: customer.id,
-        },
-      });
-      stripeID = customer.id
-    }
+    stripeID = customer.id
   }
   
   const req = JSON.parse(event.body || '')
   const uuid = req.uuid
   const plan = require(`../../client/assets/content/plan/${uuid}.json`);
+  const author = require(`../../client/assets/content/author/${plan.authorId}.json`);
   let params: Stripe.Checkout.SessionCreateParams;
   if (plan.interval === "monthly") {
     const price = await stripe.prices.create({
@@ -65,7 +70,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       currency: StripeConst.Currency.JPY,
       recurring: { interval: 'month' },
       product_data: {
-        name: 'Price Testing'
+        name: `${author.title} - ${plan.title}`
       }
     });
     params = {
@@ -74,7 +79,7 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       line_items: [
         { price: price.id, quantity: 1 },
       ],
-      success_url: event.headers.referer,
+      success_url: `${event.headers.referer}/thanks`,
       cancel_url: event.headers.referer,
       customer: stripeID,
     }
@@ -84,13 +89,13 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       payment_method_types: ['card'],
       line_items: [
         {
-          name: 'Custom amount pay',
+          name: `${author.title} - ${plan.title}`,
           amount: plan.price,
           currency: StripeConst.Currency.JPY,
           quantity: 1,
         },
       ],
-      success_url: event.headers.referer,
+      success_url: `${event.headers.referer}/thanks`,
       cancel_url: event.headers.referer,
       customer: stripeID,
     }

@@ -1,5 +1,5 @@
 <template>
-  <img      
+  <img
     :src="url"
     :alt="alt"
     class="block rounded-full"
@@ -17,7 +17,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      url: this.src
+      url: this.src,
     }
   },
   methods: {
