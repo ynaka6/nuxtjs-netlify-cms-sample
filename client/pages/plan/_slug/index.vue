@@ -68,6 +68,24 @@
               </li>
             </ul>
           </div>
+
+          <div class="bg-blue-100 shadow-xl border-blue-500 mt-6 px-4 py-2">
+            <p class="font-bold text-blue-600 text-sm mb-2">
+              <font-awesome-icon :icon="[`fas`, `money-check-alt`]" />
+              決済手段
+            </p>
+            <ul class="pl-4 list-disc text-blue-500 text-xs mb-2">
+              <li class="my-1">
+                Stripeを利用してクレジットカード決済となります。
+              </li>
+            </ul>
+            <div class="flex items-center ml-4">
+              <img src="~/assets/img/creditcard/visa.png" alt="VISA" class="w-12 mr-2" />
+              <img src="~/assets/img/creditcard/mastercard.png" alt="MasterCard" class="w-12 mr-2" />
+              <img src="~/assets/img/creditcard/amex.png" alt="American Express" class="w-12" />
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
