@@ -47,7 +47,7 @@
               class="w-full bg-orange-500 rounded font-bold text-white p-4 hover:opacity-75 mb-4"
               @click.prevent="showModal"
             >
-              購入手続きを行う
+              購入する
             </button>
           </div>
 
@@ -77,6 +77,23 @@
           :identifier="`plan_${plan.slug}`"
           :url="`${baseUrl}/plans/${plan.slug}`"
         ></disqus>
+      </div>
+    </div>
+
+    <div class="sticky bottom-0 bg-indigo-100 border-t p-4">
+      <div class="w-full flex justify-between lg:justify-end">
+          <p class="font-semibold text-2xl text-gray-800 mr-5">
+            <span class="mr-1">¥</span>
+            <span v-text="plan.price.toLocaleString()" />
+            <span v-show="isMonthly" class="text-sm">/ 月</span>
+            <span class="text-gray-800 text-sm">（税込み）</span>
+          </p>
+          <button
+            class="bg-orange-500 rounded font-bold text-white px-4 py-2 hover:opacity-75"
+            @click.prevent="showModal"
+          >
+            購入する
+          </button>
       </div>
     </div>
     <portal to="modal">
