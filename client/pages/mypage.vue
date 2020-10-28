@@ -269,7 +269,10 @@ export default Vue.extend({
     },
     isMentor() {
       const user = this.$store.getters['auth/user']
-      return user && user.app_metadata.roles.includes('Mentor')
+      return user
+        && user.app_metadata
+        && user.app_metadata.roles
+        && user.app_metadata.roles.includes('Mentor')
     },
   },
   mounted() {
