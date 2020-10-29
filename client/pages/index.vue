@@ -3,7 +3,7 @@
     <div class="flex flex-col md:flex-row">
       <div class="w-full flex flex-wrap py-4 md:w-9/12 md:px-4">
         <div
-          v-for="(plan, index) in planPosts"
+          v-for="(plan, index) in plans"
           :key="index"
           class="w-full md:pb-2 md:px-2"
         >
@@ -63,6 +63,7 @@ import { Context } from '@nuxt/types'
 import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
 import ProfileIcon from '../components/ProfileIcon.vue'
+import { Hashtag as HashtagData, Plan } from '../types/entities'
 
 export default Vue.extend({
   components: {
@@ -70,25 +71,25 @@ export default Vue.extend({
     PlanCard,
     ProfileIcon,
   },
-  asyncData(context: Context) {
+  asyncData(context: Context): { plans: Plan[] } {
     context.store.dispatch('setPageInfo', {
       title: 'The best Programming Supporter.',
       description:
         'あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう',
     })
     return {
-      planPosts: context.store.getters.planPosts,
+      plans: context.store.getters['plan/plans'],
     }
   },
-  data() {
+  data(): { plans: Plan[] }  {
     return {
-      planPosts: [],
+      plans: [],
     }
   },
   computed: {
-    ...mapGetters({
-      hashtags: 'hashtags',
-    }),
+    hashtags(): HashtagData[] {
+      return this.$store.getters['hashtag/hashtags']
+    }
   },
 })
 </script>

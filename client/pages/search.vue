@@ -21,15 +21,15 @@
           </svg>
         </span>
       </div>
-      <div v-if="planPosts.length > 0" class="">
+      <div v-if="plans.length > 0" class="">
         <h3 class="font-bold text-lg text-gray-800 mb-4 lg:text-2xl">
           <span class="mr-2">
             <font-awesome-icon :icon="['fas', 'rocket']" />
           </span>
           Plans
         </h3>
-        <div v-for="(plan, index) in planPosts" :key="index" class="mb-2">
-          <plan-card :plan="plan" @click-hashtag="onClickHashtag">
+        <div v-for="(plan, index) in plans" :key="index" class="mb-2">
+          <plan-card :plan="plan">
             <template v-slot:header>
               <nuxt-link
                 :to="`/user/${plan.author.slug}`"
@@ -77,13 +77,13 @@ export default Vue.extend({
   data() {
     return {
       q: '',
-      planPosts: [],
+      plans: [],
     }
   },
   methods: {
     search(): void {
-      this.$store.dispatch('search', this.q).then((res) => {
-        this.planPosts = this.q.length > 0 ? res : []
+      this.$store.dispatch('plan/search', this.q).then((res) => {
+        this.plans = this.q.length > 0 ? res : []
       })
     },
   },

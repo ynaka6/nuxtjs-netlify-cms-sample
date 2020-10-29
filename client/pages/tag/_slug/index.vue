@@ -44,7 +44,7 @@ export default Vue.extend({
   },
   validate(context: Context): boolean {
     const slug = context.params.slug
-    const hashtags = context.store.getters.hashtags || []
+    const hashtags = context.store.getters['hashtag/hashtags'] || []
     return hashtags.find((h: Hashtag) => h.value === slug)
   },
   asyncData(context: Context): DataType {
@@ -53,7 +53,7 @@ export default Vue.extend({
       data = context.payload as { tag: Hashtag; planPosts: Plan[] }
     } else {
       const slug = context.params.slug
-      const hashtags = context.store.getters.hashtags || []
+      const hashtags = context.store.getters['hashtag/hashtags'] || []
       const tag = hashtags.find((h: Hashtag) => h.value === slug)
       const planPosts = context.store.getters.planPosts.filter((p: Plan) =>
         p.hashtags.map((h: Hashtag) => h.value).includes(tag.value)

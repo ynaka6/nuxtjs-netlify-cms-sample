@@ -61,8 +61,8 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   
   const req = JSON.parse(event.body || '')
   const uuid = req.uuid
-  const plan = require(`../../client/assets/content/plan/${uuid}.json`);
-  const author = require(`../../client/assets/content/author/${plan.authorId}.json`);
+  const plan = require(`../../client/content/plan/${uuid}.json`);
+  const author = require(`../../client/content/author/${plan.authorId}.json`);
   let params: Stripe.Checkout.SessionCreateParams;
   if (plan.interval === "monthly") {
     const price = await stripe.prices.create({

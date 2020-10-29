@@ -239,7 +239,7 @@ export default Vue.extend({
   },
   validate(context: Context): boolean {
     const slug = context.params.slug
-    const plans = context.store.getters.planPosts || []
+    const plans = context.store.getters['plan/plans'] || []
     return plans.find((p: Plan) => p.slug === slug)
   },
   asyncData(context: Context): DataType {
@@ -248,7 +248,7 @@ export default Vue.extend({
       data = context.payload as { plan: Plan }
     } else {
       const slug = context.params.slug
-      const plans = context.store.getters.planPosts || []
+      const plans = context.store.getters['plan/plans'] || []
       const plan = plans.find((p: Plan) => p.slug === slug)
       data = { plan }
     }

@@ -15,7 +15,7 @@ collections:
     description: >
       技術情報を共有するためのブログ。メンターとしてのアピールや説明に利用してください。
     format: 'json'
-    folder: 'client/assets/content/blog'
+    folder: 'client/content/blog'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
@@ -33,7 +33,7 @@ collections:
     description: >
       ユーザーに販売するプランの詳細を登録します。
     format: 'json'
-    folder: 'client/assets/content/plan'
+    folder: 'client/content/plan'
     create: true
     slug: '{{fields.uuid}}'
     editor:
@@ -75,7 +75,7 @@ collections:
     description: >
       サポートするメンターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
     format: 'json'
-    folder: "client/assets/content/author"
+    folder: "client/content/author"
     create: true
     slug: "{{slug}}"
     editor:
@@ -111,7 +111,7 @@ collections:
       - name: 'category'
         label: 'Category'
         format: 'json'
-        file: 'client/assets/content/category.json'
+        file: 'client/content/category.json'
         delete: false # Prevent users from deleting documents in this collection
         editor:
           preview: false
@@ -127,7 +127,7 @@ collections:
       - name: 'hashtag'
         label: 'Hashtag'
         format: 'json'
-        file: 'client/assets/content/hashtag.json'
+        file: 'client/content/hashtag.json'
         fields:
           - name: hashtags
             label: Hashtags

@@ -121,7 +121,7 @@ export default Vue.extend({
   },
   validate(context: Context): boolean {
     const slug = context.params.slug
-    const authors = context.store.getters.authors || []
+    const authors = context.store.getters['author/authors'] || []
     return authors.find((a: Author) => a.slug === slug)
   },
   asyncData(context: Context): DataType {
@@ -130,9 +130,9 @@ export default Vue.extend({
       data = context.payload as { author: Author; plans: Plan[] }
     } else {
       const slug = context.params.slug
-      const authors = context.store.getters.authors || []
+      const authors = context.store.getters['author/authors'] || []
       const author = authors.find((a: Author) => a.slug === slug)
-      const plans = context.store.getters.authorPlanPosts(author) || []
+      const plans = context.store.getters['plan/authorPlanPosts'](author) || []
       data = { author, plans }
     }
     const breadcrumbs = [
