@@ -39,8 +39,9 @@ export const actions: ActionTree<RootState, RootState> = {
     commit('SET_PAGE_IMAGE', image || null);
     commit('SET_BREADCRUMBS', breadcrumbs || []);
   },
-  async nuxtServerInit({ dispatch, commit }) {
+  async nuxtServerInit({ dispatch }) {
     await dispatch('terms/init');
+    await dispatch('privacy/init');
     const categories = await dispatch('category/init');
     const hashtags = await dispatch('hashtag/init');
     const authors = await dispatch('author/init', { categories });

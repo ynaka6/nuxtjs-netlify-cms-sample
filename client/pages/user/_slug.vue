@@ -45,6 +45,7 @@
             <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <div class="bg-white shadow-md rounded-lg p-4 mb-6">
                 <div>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
                   <div class="app-markdown" v-html="$md.render(author.body)" />
                 </div>
               </div>

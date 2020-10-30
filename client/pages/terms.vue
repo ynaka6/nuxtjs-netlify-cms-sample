@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-4xl mx-auto py-4">
     <div class="bg-white rounded-xl p-6 text-sm text-gray-800">
-      <document :html="term"/>
+      <document :html="term" />
     </div>
   </div>
 </template>
@@ -14,7 +14,7 @@ import Document from '../elements/Document.vue'
 
 export default Vue.extend({
   components: {
-    Document
+    Document,
   },
   asyncData(context: Context): { term: string } {
     const breadcrumbs = [
@@ -34,4 +34,3 @@ export default Vue.extend({
   },
 })
 </script>
-

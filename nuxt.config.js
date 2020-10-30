@@ -117,30 +117,25 @@ export default {
     routes() {
       const fs = require('fs')
 
-      const categories = require(`./client/content/category.json`)
-        .categories
+      const categories = require(`./client/content/category.json`).categories
       const hashtags = require(`./client/content/hashtag.json`).hashtags
-      const authors = fs
-        .readdirSync('./client/content/author')
-        .map((file) => {
-          const author = require(`./client/content/author/${file}`)
-          author.slug = author.username
-          author.categories = author.categoryIds.map((str) =>
-            categories.find((c) => c.value === str)
-          )
-          return author
-        })
-      const plans = fs
-        .readdirSync('./client/content/plan')
-        .map((file) => {
-          const plan = require(`./client/content/plan/${file}`)
-          plan.slug = `${plan.authorId}-${plan.uuid}`
-          plan.author = authors.find((a) => a.username === plan.authorId)
-          plan.hashtags = plan.hashtagIds.map((str) =>
-            hashtags.find((h) => h.value === str)
-          )
-          return plan
-        })
+      const authors = fs.readdirSync('./client/content/author').map((file) => {
+        const author = require(`./client/content/author/${file}`)
+        author.slug = author.username
+        author.categories = author.categoryIds.map((str) =>
+          categories.find((c) => c.value === str)
+        )
+        return author
+      })
+      const plans = fs.readdirSync('./client/content/plan').map((file) => {
+        const plan = require(`./client/content/plan/${file}`)
+        plan.slug = `${plan.authorId}-${plan.uuid}`
+        plan.author = authors.find((a) => a.username === plan.authorId)
+        plan.hashtags = plan.hashtagIds.map((str) =>
+          hashtags.find((h) => h.value === str)
+        )
+        return plan
+      })
 
       return [
         ...authors.map((author) => {

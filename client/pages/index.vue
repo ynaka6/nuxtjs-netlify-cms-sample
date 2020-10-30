@@ -58,7 +58,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapGetters } from 'vuex'
 import { Context } from '@nuxt/types'
 import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
@@ -81,7 +80,7 @@ export default Vue.extend({
       plans: context.store.getters['plan/plans'],
     }
   },
-  data(): { plans: Plan[] }  {
+  data(): { plans: Plan[] } {
     return {
       plans: [],
     }
@@ -89,7 +88,7 @@ export default Vue.extend({
   computed: {
     hashtags(): HashtagData[] {
       return this.$store.getters['hashtag/hashtags']
-    }
+    },
   },
 })
 </script>

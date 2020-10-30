@@ -5,6 +5,7 @@
         <div class="w-full py-4 md:px-4">
           <div class="bg-white shadow-md rounded-lg p-4">
             <div class="w-full">
+              <!-- eslint-disable-next-line vue/no-v-html -->
               <div class="app-markdown" v-html="$md.render(plan.body)" />
             </div>
           </div>
@@ -80,12 +81,23 @@
               </li>
             </ul>
             <div class="flex items-center ml-4">
-              <img src="~/assets/img/creditcard/visa.png" alt="VISA" class="w-12 mr-2" />
-              <img src="~/assets/img/creditcard/mastercard.png" alt="MasterCard" class="w-12 mr-2" />
-              <img src="~/assets/img/creditcard/amex.png" alt="American Express" class="w-12" />
+              <img
+                src="~/assets/img/creditcard/visa.png"
+                alt="VISA"
+                class="w-12 mr-2"
+              />
+              <img
+                src="~/assets/img/creditcard/mastercard.png"
+                alt="MasterCard"
+                class="w-12 mr-2"
+              />
+              <img
+                src="~/assets/img/creditcard/amex.png"
+                alt="American Express"
+                class="w-12"
+              />
             </div>
           </div>
-
         </div>
       </div>
     </div>
