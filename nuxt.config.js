@@ -152,6 +152,9 @@ export default {
         ...plans.map((plan) => {
           return { route: `/plan/${plan.slug}`, payload: { plan } }
         }),
+        ...plans.map((plan) => {
+          return { route: `/plan/${plan.slug}/thanks`, payload: { plan } }
+        }),
         ...hashtags.map((tag) => {
           return {
             route: `/tag/${tag.value}`,
