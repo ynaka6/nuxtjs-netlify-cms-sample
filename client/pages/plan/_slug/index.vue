@@ -309,24 +309,29 @@ export default Vue.extend({
         : (this.$refs as any).authModal.show()
     },
     goToLogin(): void {
-      ;(this.$refs as any).authModal.hide()
+      (this.$refs as any).authModal.hide()
       this.$store.dispatch('auth/openLogin')
     },
     async goToCheckout(): Promise<void> {
       const stripe = await loadStripe(this.stripePublishableKey)
       if (stripe) {
-        const token = await this.$store.dispatch('auth/refresh')
-        this.$axios.setHeader('Authorization', `Bearer ${token}`)
-        const session = await this.$axios.$post(
-          '/.netlify/functions/checkout_sessions',
-          {
-            uuid: this.plan.uuid,
-            success_url: `${this.baseUrl}/plans/${this.plan.slug}`,
-          }
-        )
-        stripe.redirectToCheckout({
-          sessionId: session.id,
-        } as RedirectToCheckoutOptions)
+        try {
+          this.$nuxt.$loading.start()
+          const token = await this.$store.dispatch('auth/refresh')
+          this.$axios.setHeader('Authorization', `Bearer ${token}`)
+          const session = await this.$axios.$post(
+            '/.netlify/functions/checkout_sessions',
+            {
+              uuid: this.plan.uuid,
+              success_url: `${this.baseUrl}/plans/${this.plan.slug}`,
+            }
+          )
+          stripe.redirectToCheckout({
+            sessionId: session.id,
+          } as RedirectToCheckoutOptions)
+        } finally {
+          this.$nuxt.$loading.finish()
+        }
       }
     },
   },

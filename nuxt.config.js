@@ -172,5 +172,6 @@ export default {
   render: {
     fallback: false,
   },
+  loading: '~/components/Loading.vue',
   ...options,
 }
