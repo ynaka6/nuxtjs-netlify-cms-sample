@@ -1,7 +1,7 @@
 {
   "username": "morispring",
   "title": "モリハル",
-  "body": "テストしますね\n\nチェックします。",
+  "body": "```\nテストしますね\n\nチェックします。\n```",
   "profilePicture": "/img/mori.png",
   "categoryIds": [
     "Programmer"
