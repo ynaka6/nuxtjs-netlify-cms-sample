@@ -1,5 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Author, Category } from '../types/entities'
+import Fuse from 'fuse.js'
 
 export const state = () => ({
   authors: [] as Author[],
@@ -30,5 +31,14 @@ export const actions: ActionTree<RootState, RootState> = {
     await commit('SET_AUTHORS', authors);
 
     return authors;
+  },
+  search({ state }, q) {
+    if (!q || q.length === 0) {
+      return []
+    } 
+    const fuse = new Fuse<Author>(state.authors, {
+      keys: ['username', 'title', 'body']
+    })
+    return fuse.search(q).map(r => r.item)
   },
 }

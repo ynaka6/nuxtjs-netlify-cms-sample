@@ -1,6 +1,6 @@
 <template>
   <div class="h-full bg-white">
-    <div class="max-w-6xl mx-auto px-2 pt-2 pb-6 lg:pt-16">
+    <div class="max-w-6xl mx-auto pt-2 pb-6 lg:pt-16">
       <div class="w-full relative flex justify-end items-center mb-4">
         <input
           v-model="q"
@@ -21,12 +21,35 @@
           </svg>
         </span>
       </div>
-      <div v-if="plans.length > 0" class="">
-        <h3 class="font-bold text-lg text-gray-800 mb-4 lg:text-2xl">
-          <span class="mr-2">
-            <font-awesome-icon :icon="['fas', 'rocket']" />
+      <div v-if="authors.length > 0" class="mb-10">
+        <h3 class="flex items-center font-bold px-2 mb-4 text-xl">
+          <span
+            class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-10 h-10 mr-2"
+          >
+            <font-awesome-icon :icon="[`fas`, `users`]" />
           </span>
-          Plans
+          <div>
+            <p class="text-base text-gray-800">メンター</p>
+            <p class="text-xs text-gray-700">プログラミングの課題や問題を解決するメンター</p>
+          </div>
+        </h3>
+        <div class="flex flex-wrap border-t lg:border-none lg:px-1">
+          <div v-for="(author, index) in authors" :key="index" class="w-full lg:w-1/3 lg:mb-2 lg:px-1">
+            <author-card :author="author" />
+          </div>
+        </div>
+      </div>
+      <div v-if="plans.length > 0" class="">
+        <h3 class="flex items-center font-bold px-2 mb-4 text-xl">
+          <span
+            class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-10 h-10 mr-2"
+          >
+            <font-awesome-icon :icon="[`fas`, `seedling`]" />
+          </span>
+          <div>
+            <p class="text-base text-gray-800">プラン</p>
+            <p class="text-xs text-gray-700">課題/問題を解決するプランを見つけよう</p>
+          </div>
         </h3>
         <div v-for="(plan, index) in plans" :key="index" class="mb-2">
           <plan-card :plan="plan">
@@ -56,11 +79,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
+import AuthorCard from '../components/AuthorCard.vue'
 import PlanCard from '../components/PlanCard.vue'
 import ProfileIcon from '../components/ProfileIcon.vue'
 
 export default Vue.extend({
   components: {
+    AuthorCard,
     PlanCard,
     ProfileIcon,
   },
@@ -72,16 +97,22 @@ export default Vue.extend({
     })
     return {
       q: '',
+      authors: [],
+      plans: [],
     }
   },
   data() {
     return {
       q: '',
+      authors: [],
       plans: [],
     }
   },
   methods: {
     search(): void {
+      this.$store.dispatch('author/search', this.q).then((res) => {
+        this.authors = this.q.length > 0 ? res : []
+      })
       this.$store.dispatch('plan/search', this.q).then((res) => {
         this.plans = this.q.length > 0 ? res : []
       })

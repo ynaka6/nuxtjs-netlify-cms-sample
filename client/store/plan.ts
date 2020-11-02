@@ -37,7 +37,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   search({ state }, q) {
     if (!q || q.length === 0) {
-      return state.plans
+      return []
     } 
     const fuse = new Fuse<Plan>(state.plans, {
       keys: ['title', 'description', 'body', 'author.title', 'author.username']

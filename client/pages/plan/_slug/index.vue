@@ -101,15 +101,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full bg-white">
-      <div class="max-w-4xl mx-auto px-2 py-10">
-        <disqus
-          :identifier="`plan_${plan.slug}`"
-          :url="`${baseUrl}/plans/${plan.slug}`"
-        ></disqus>
-      </div>
-    </div>
-
+    
     <div class="sticky bottom-0 bg-indigo-100 border-t p-4">
       <div class="w-full flex justify-between lg:justify-end">
         <p class="font-semibold text-2xl text-gray-800 mr-5">

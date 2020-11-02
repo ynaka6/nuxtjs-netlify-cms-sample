@@ -17,7 +17,7 @@
           :key="hashtag.value"
           tag-name="nuxt-link"
           :to="`/tag/${hashtag.value}`"
-          class="mr-2"
+          class="mb-1 mr-2"
         >
           <div class="flex items-center justify-center mr-2">
             <img v-if="hashtag.icon" :src="hashtag.icon" class="h-3" />
@@ -61,11 +61,6 @@ export default Vue.extend({
     },
     isMonthly(): Boolean {
       return this.plan.interval === 'monthly'
-    },
-  },
-  methods: {
-    onClickHashtag(hashtag: string): void {
-      this.$emit('click-hashtag', hashtag)
     },
   },
 })
