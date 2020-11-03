@@ -1,6 +1,6 @@
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
-  <div class="doc-content" v-html="html" />
+  <div class="doc-content lg:doc-content" v-html="html" />
 </template>
 
 <script lang="ts">
@@ -19,7 +19,7 @@ export default Vue.extend({
 
 <style lang="postcss">
 .doc-content h2 {
-  @apply mt-10 mb-2 font-bold text-2xl;
+  @apply mt-10 mb-2 font-bold text-xl;
 }
 .doc-content p {
   @apply leading-6 mb-4;
@@ -32,5 +32,10 @@ export default Vue.extend({
 }
 .doc-content a {
   @apply text-blue-500;
+}
+@screen lg {
+  .doc-content h2 {
+    @apply text-2xl;
+  }
 }
 </style>

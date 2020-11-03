@@ -2,7 +2,7 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { Breadcrumb } from '../types/entities'
 
 export const state = () => ({
-  pageTitle: `The best Programming Supporter.` as string,
+  pageTitle: `The Best Programming Supporter.` as string,
   pageDescription: `あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう` as string,
   pageImage: null as string | null,
   breadcrumbs: [] as Breadcrumb[],
@@ -41,6 +41,7 @@ export const actions: ActionTree<RootState, RootState> = {
   },
   async nuxtServerInit({ dispatch }) {
     await dispatch('terms/init');
+    await dispatch('law/init');
     await dispatch('privacy/init');
     const categories = await dispatch('category/init');
     const hashtags = await dispatch('hashtag/init');
