@@ -3,7 +3,7 @@
     <div class="max-w-6xl mx-auto px-2">
       <div class="flex flex-col md:flex-row">
         <div class="w-full py-4 md:px-4">
-          <div class="bg-white shadow-md rounded-lg p-4">
+          <div class="h-full bg-white shadow-md rounded-lg p-4">
             <div class="w-full">
               <!-- eslint-disable-next-line vue/no-v-html -->
               <div class="app-markdown" v-html="$md.render(plan.body)" />

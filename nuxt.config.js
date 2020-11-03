@@ -9,6 +9,61 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
+const generateRoute = () => {
+  const fs = require('fs')
+  const categories = require(`./client/content/category.json`).categories
+  const hashtags = require(`./client/content/hashtag.json`).hashtags
+  const authors = fs.readdirSync('./client/content/author').map((file) => {
+    const author = require(`./client/content/author/${file}`)
+    author.slug = author.username
+    author.categories = author.categoryIds.map((str) =>
+      categories.find((c) => c.value === str)
+    )
+    return author
+  })
+  const plans = fs.readdirSync('./client/content/plan').map((file) => {
+    const plan = require(`./client/content/plan/${file}`)
+    plan.slug = `${plan.authorId}-${plan.uuid}`
+    plan.author = authors.find((a) => a.username === plan.authorId)
+    plan.hashtags = plan.hashtagIds.map((str) =>
+      hashtags.find((h) => h.value === str)
+    )
+    return plan
+  })
+
+  return [
+    ...authors.map((author) => {
+      return {
+        route: `/user/${author.slug}`,
+        payload: {
+          author,
+          plans: plans.filter(
+            (plan) => plan.author.username === author.username
+          ),
+        },
+      }
+    }),
+    ...plans.map((plan) => {
+      return { route: `/plan/${plan.slug}`, payload: { plan } }
+    }),
+    ...plans.map((plan) => {
+      return { route: `/plan/${plan.slug}/thanks`, payload: { plan } }
+    }),
+    ...hashtags.map((tag) => {
+      return {
+        route: `/tag/${tag.value}`,
+        payload: {
+          tag,
+          planPosts: plans.filter((plan) =>
+            plan.hashtagIds.find((h) => h === tag.value)
+          ),
+        },
+      }
+    }),
+  ]
+}
+const routes = generateRoute()
+
 export default {
   env: {
     baseUrl: process.env.BASE_URL || `/`,
@@ -90,6 +145,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
+    '@nuxtjs/sitemap',
     'portal-vue/nuxt',
     ...modules,
   ],
@@ -114,64 +170,23 @@ export default {
 
   generate: {
     subFolders: false,
-    routes() {
-      const fs = require('fs')
-
-      const categories = require(`./client/content/category.json`).categories
-      const hashtags = require(`./client/content/hashtag.json`).hashtags
-      const authors = fs.readdirSync('./client/content/author').map((file) => {
-        const author = require(`./client/content/author/${file}`)
-        author.slug = author.username
-        author.categories = author.categoryIds.map((str) =>
-          categories.find((c) => c.value === str)
-        )
-        return author
-      })
-      const plans = fs.readdirSync('./client/content/plan').map((file) => {
-        const plan = require(`./client/content/plan/${file}`)
-        plan.slug = `${plan.authorId}-${plan.uuid}`
-        plan.author = authors.find((a) => a.username === plan.authorId)
-        plan.hashtags = plan.hashtagIds.map((str) =>
-          hashtags.find((h) => h.value === str)
-        )
-        return plan
-      })
-
-      return [
-        ...authors.map((author) => {
-          return {
-            route: `/user/${author.slug}`,
-            payload: {
-              author,
-              plans: plans.filter(
-                (plan) => plan.author.username === author.username
-              ),
-            },
-          }
-        }),
-        ...plans.map((plan) => {
-          return { route: `/plan/${plan.slug}`, payload: { plan } }
-        }),
-        ...plans.map((plan) => {
-          return { route: `/plan/${plan.slug}/thanks`, payload: { plan } }
-        }),
-        ...hashtags.map((tag) => {
-          return {
-            route: `/tag/${tag.value}`,
-            payload: {
-              tag,
-              planPosts: plans.filter((plan) =>
-                plan.hashtagIds.find((h) => h === tag.value)
-              ),
-            },
-          }
-        }),
-      ]
-    },
+    routes,
   },
   render: {
     fallback: false,
   },
   loading: '~/components/Loading.vue',
+  sitemap: {
+    hostname: process.env.BASE_URL || `http://localhost:3000/`,
+    lastmod: '2020-11-03',
+    sitemaps: [
+      {
+        path: '/sitemap.xml',
+        routes: routes.map(r => r.route).filter(r => !r.match(/.*thanks$/)),
+        exclude: ['/admin', '/contact/thanks'],
+        gzip: true
+      }
+    ]
+  },
   ...options,
 }
