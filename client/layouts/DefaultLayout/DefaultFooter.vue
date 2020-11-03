@@ -38,6 +38,11 @@
               問い合わせ
             </nuxt-link>
           </li>
+          <li class="my-1">
+            <nuxt-link to="/sitemap" class="hover:opacity-75">
+              サイトマップ
+            </nuxt-link>
+          </li>
         </ul>
       </div>
     </div>

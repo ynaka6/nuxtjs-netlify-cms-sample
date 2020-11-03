@@ -183,7 +183,7 @@ export default {
       {
         path: '/sitemap.xml',
         routes: routes.map(r => r.route).filter(r => !r.match(/.*thanks$/)),
-        exclude: ['/admin', '/contact/thanks'],
+        exclude: ['/mypage', '/admin', '/contact/thanks'],
         gzip: true
       }
     ]
