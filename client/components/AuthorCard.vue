@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
-import { Author, Category } from '../types/entities'
+import { Author } from '../../core/entities/Author'
 import ProfileIcon from './ProfileIcon.vue'
 
 export default Vue.extend({
@@ -31,7 +31,9 @@ export default Vue.extend({
     ProfileIcon,
   },
   props: {
-    author: { type: Object, required: true, default: null } as PropOptions<Author>,
+    author: { type: Object, required: true, default: null } as PropOptions<
+      Author
+    >,
   },
 })
 </script>

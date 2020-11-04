@@ -7,18 +7,16 @@
         class="modal-overlay absolute w-full h-full bg-white opacity-50"
         @click.prevent="hide"
       />
-      <div
-        class="w-full mx-auto text-center z-50"
-      >
-          <font-awesome-icon :icon="['fas', 'spinner']" size="6x" spin />
-          <div class="mt-4">Loading...</div>
+      <div class="w-full mx-auto text-center z-50">
+        <font-awesome-icon :icon="['fas', 'spinner']" size="6x" spin />
+        <div class="mt-4">Loading...</div>
       </div>
     </div>
   </transition>
 </template>
 
 <script lang="ts">
-import Vue, { PropOptions } from 'vue'
+import Vue from 'vue'
 
 export default Vue.extend({
   data() {

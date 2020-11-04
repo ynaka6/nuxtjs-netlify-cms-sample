@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb } from '../types/entities'
+import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import Document from '../elements/Document.vue'
 
 export default Vue.extend({
@@ -29,7 +29,10 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: '特定商取引法に基づく表記', color: 'text-gray-100' } as Breadcrumb,
+      {
+        name: '特定商取引法に基づく表記',
+        color: 'text-gray-100',
+      } as Breadcrumb,
     ]
     context.store.dispatch('setPageInfo', {
       title: '特定商取引法に基づく表記',

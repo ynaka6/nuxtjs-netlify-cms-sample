@@ -10,15 +10,14 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
-import { Author, Category } from '../types/entities'
-import ProfileIcon from './ProfileIcon.vue'
 
 export default Vue.extend({
-  components: {
-    ProfileIcon,
-  },
   props: {
-    tagName: { type: String, required: false, default: "nuxt-link" } as PropOptions<String>,
+    tagName: {
+      type: String,
+      required: false,
+      default: 'nuxt-link',
+    } as PropOptions<String>,
     to: { type: String, required: false, default: null } as PropOptions<String>,
   },
 })

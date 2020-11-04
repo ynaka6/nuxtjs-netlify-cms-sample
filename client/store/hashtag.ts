@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Hashtag } from '../types/entities'
+import { Hashtag } from '../../core/entities/Hashtag'
 
 export const state = () => ({
   hashtags: [] as Hashtag[],

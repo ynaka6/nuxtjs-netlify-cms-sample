@@ -146,6 +146,7 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/markdownit',
     '@nuxtjs/sitemap',
+    '@nuxtjs/dayjs',
     'portal-vue/nuxt',
     ...modules,
   ],
@@ -182,11 +183,15 @@ export default {
     sitemaps: [
       {
         path: '/sitemap.xml',
-        routes: routes.map(r => r.route).filter(r => !r.match(/.*thanks$/)),
+        routes: routes.map((r) => r.route).filter((r) => !r.match(/.*thanks$/)),
         exclude: ['/mypage', '/admin', '/contact/thanks'],
-        gzip: true
-      }
-    ]
+        gzip: true,
+      },
+    ],
+  },
+  dayjs: {
+    locales: ['en', 'ja'],
+    defaultLocale: 'ja',
   },
   ...options,
 }

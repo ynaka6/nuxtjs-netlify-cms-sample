@@ -43,7 +43,9 @@
 <script lang="ts">
 import Vue, { PropOptions } from 'vue'
 import Hashtag from '../elements/Hashtag.vue'
-import { Author, Hashtag as HashtagData, Plan } from '../types/entities'
+import { Author } from '../../core/entities/Author'
+import { Hashtag as HashtagData } from '../../core/entities/Hashtag'
+import { Plan } from '../../core/entities/Plan'
 
 export default Vue.extend({
   components: {

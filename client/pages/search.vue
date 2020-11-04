@@ -30,11 +30,17 @@
           </span>
           <div>
             <p class="text-base text-gray-800">メンター</p>
-            <p class="text-xs text-gray-700">プログラミングの課題や問題を解決するメンター</p>
+            <p class="text-xs text-gray-700">
+              プログラミングの課題や問題を解決するメンター
+            </p>
           </div>
         </h3>
         <div class="flex flex-wrap border-t lg:border-none lg:px-1">
-          <div v-for="(author, index) in authors" :key="index" class="w-full lg:w-1/3 lg:mb-2 lg:px-1">
+          <div
+            v-for="(author, index) in authors"
+            :key="index"
+            class="w-full lg:w-1/3 lg:mb-2 lg:px-1"
+          >
             <author-card :author="author" />
           </div>
         </div>
@@ -48,7 +54,9 @@
           </span>
           <div>
             <p class="text-base text-gray-800">プラン</p>
-            <p class="text-xs text-gray-700">課題/問題を解決するプランを見つけよう</p>
+            <p class="text-xs text-gray-700">
+              課題/問題を解決するプランを見つけよう
+            </p>
           </div>
         </h3>
         <div v-for="(plan, index) in plans" :key="index" class="mb-2">

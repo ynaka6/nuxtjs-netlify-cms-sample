@@ -8,9 +8,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `home`]" />
           </span>
-          <span class="font-semibold text-sm">
-            HOME
-          </span>
+          <span class="font-semibold text-sm"> HOME </span>
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
@@ -20,9 +18,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `search`]" />
           </span>
-          <span class="font-semibold text-sm">
-            検索
-          </span>
+          <span class="font-semibold text-sm"> 検索 </span>
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
@@ -32,9 +28,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `envelope`]" />
           </span>
-          <span class="font-semibold text-sm">
-            問い合わせ
-          </span>
+          <span class="font-semibold text-sm"> 問い合わせ </span>
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
@@ -44,9 +38,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `file`]" />
           </span>
-          <span class="font-semibold text-sm">
-            利用規約
-          </span>
+          <span class="font-semibold text-sm"> 利用規約 </span>
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
@@ -56,9 +48,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `file`]" />
           </span>
-          <span class="font-semibold text-sm">
-            プライバシーポリシー
-          </span>
+          <span class="font-semibold text-sm"> プライバシーポリシー </span>
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
@@ -68,9 +58,7 @@
           >
             <font-awesome-icon :icon="[`fas`, `file`]" />
           </span>
-          <span class="font-semibold text-sm">
-            特定商取引法に基づく表記
-          </span>
+          <span class="font-semibold text-sm"> 特定商取引法に基づく表記 </span>
         </sitemap-card>
       </div>
     </div>
@@ -80,12 +68,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb } from '../types/entities'
+import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import SitemapCard from '../components/SitemapCard.vue'
 
 export default Vue.extend({
   components: {
-    SitemapCard
+    SitemapCard,
   },
   asyncData(context: Context): void {
     const breadcrumbs = [

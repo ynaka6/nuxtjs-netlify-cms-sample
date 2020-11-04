@@ -58,8 +58,6 @@ export async function handler(event: APIGatewayEvent, context: Context) {
         external_account: token.id,
       } as Stripe.ExternalAccountCreateParams
     )
-
-    console.log(account)
   } else {
     const account = await stripe.accounts.create({
       type: 'custom',
@@ -68,8 +66,6 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       requested_capabilities: [ 'card_payments', 'transfers' ],
       external_account: token.id
     } as Stripe.AccountCreateParams);
-
-    console.log(account)
 
     await faunaFetch({
       query: `

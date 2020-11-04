@@ -3,108 +3,40 @@
     <div class="flex flex-col md:flex-row">
       <div class="w-full py-4 md:px-4">
         <client-only placeholder="Loading...">
-          <nav class="bg-white border">
-            <a
-              href="#"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-              @click.prevent="goToBillingPortal"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `money-check`]" />
-              </span>
-              定期決済を確認する
-              <sup class="text-xs">
-                <font-awesome-icon :icon="[`fas`, `external-link-alt`]" />
-              </sup>
-            </a>
-            <a
-              v-if="isMentor"
-              href="/admin/"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-              target="_blank"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `laptop-code`]" />
-              </span>
-              CMSを開く
-              <sup class="text-xs">
-                <font-awesome-icon :icon="[`fas`, `external-link-alt`]" />
-              </sup>
-            </a>
-            <a
-              v-if="isMentor"
-              href="#"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-              @click.prevent="goToStripeConnect"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `key`]" />
-              </span>
-              本人確認（Stripe連携）
-              <sup class="text-xs">
-                <font-awesome-icon :icon="[`fas`, `external-link-alt`]" />
-              </sup>
-            </a>
-            <a
-              v-if="isMentor"
-              href="#"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-              @click.prevent="openBackForm"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `university`]" />
-              </span>
-              銀行登録
-            </a>
-            <nuxt-link
-              to="/contact"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-gray-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `envelope`]" />
-              </span>
-              問い合わせ
-            </nuxt-link>
-            <a
-              href="#"
-              class="block w-full border-b text-xl font-semibold text-gray-800 p-4 hover:opacity-75"
-              @click.prevent="onLogout"
-            >
-              <span
-                class="inline-flex items-center justify-center bg-red-100 text-red-500 border border-red-500 rounded-full w-12 h-12 mr-2"
-              >
-                <font-awesome-icon :icon="[`fas`, `sign-out-alt`]" />
-              </span>
-              ログアウト
-            </a>
+          <nav v-if="menu" class="bg-white border">
+            <div v-for="(item, index) in menu()" :key="index">
+              <mypage-menu-item
+                v-if="item.show"
+                :tag-name="item.tagName"
+                :href="item.href"
+                :to="item.to"
+                :label="item.label"
+                :icon="item.icon"
+                :external="item.external"
+                @click="item.handleClick"
+              />
+            </div>
           </nav>
         </client-only>
       </div>
     </div>
     <portal to="modal">
-      <modal ref="retrieveBank" title="銀行情報" close-text="閉じる">
-        <div v-if="bank" class="py-4 text-center max-w-lg mx-auto">
-          <div class="font-bold bg-gray-300 border p-2">銀行名</div>
-          <div class="border border-t-none p-2">
-            {{ bank.bank_name }}
-          </div>
-          <div class="font-bold bg-gray-300 border border-t-none p-2">
-            口座番号下４桁
-          </div>
-          <div class="border border-t-none p-2">
-            {{ bank.last4 }}
+      <modal ref="chargeList" title="課金履歴" close-text="閉じる">
+        <div class="flex flex-col">
+          <charge-table :charges="charges" />
+          <div v-if="hasMoreCharges" class="mt-6 mx-auto">
+            <a
+              href="#"
+              class="p-4 bg-orange-500 text-white rounded-full"
+              @click.prevent="fetchCharges($event, true)"
+            >
+              もっと見る
+            </a>
           </div>
         </div>
+      </modal>
+      <modal ref="retrieveBank" title="銀行情報" close-text="閉じる">
+        <bank-item-list v-if="bank" :bank="bank" />
       </modal>
       <modal
         ref="createBank"
@@ -231,12 +163,20 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb } from '../types/entities'
+import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import Modal from '../components/Modal.vue'
+import MypageMenuItem from '../components/MypageMenuItem.vue'
+import BankItemList from '../components/BankItemList.vue'
+import ChargeTable from '../components/ChargeTable.vue'
+import { ChargeList, Charge } from '../../core/entities/Charge'
+import { Bank } from '../../core/entities/Bank'
 
 export default Vue.extend({
   components: {
+    BankItemList,
+    ChargeTable,
     Modal,
+    MypageMenuItem,
   },
   fetch(context: Context) {
     const breadcrumbs = [
@@ -254,7 +194,9 @@ export default Vue.extend({
   },
   data() {
     return {
-      bank: null,
+      charges: [] as Charge[],
+      hasMoreCharges: false,
+      bank: null as Bank|null,
       form: {
         accountHolderName: null,
         accountNumber: null,
@@ -283,7 +225,99 @@ export default Vue.extend({
     }
   },
   methods: {
-    async goToBillingPortal(): Promise<void> {
+    menu() {
+      return [
+        {
+          tagName: 'a',
+          href: '#',
+          label: '課金履歴を確認する',
+          icon: 'money-check',
+          show: true,
+          handleClick: this.fetchCharges,
+        },
+        {
+          tagName: 'a',
+          href: '#',
+          label: '定期決済を確認する',
+          icon: 'money-check',
+          external: true,
+          show: true,
+          handleClick: this.goToBillingPortal,
+        },
+        {
+          tagName: 'a',
+          href: '/admin/',
+          label: 'CMSを開く',
+          icon: 'laptop-code',
+          external: true,
+          show: this.isMentor,
+          handleClick: () => {},
+        },
+        {
+          tagName: 'a',
+          href: '#',
+          label: '本人確認（Stripe連携）',
+          icon: 'key',
+          external: true,
+          show: this.isMentor,
+          handleClick: this.goToStripeConnect,
+        },
+        {
+          tagName: 'a',
+          href: '#',
+          label: '銀行登録',
+          icon: 'university',
+          show: this.isMentor,
+          handleClick: this.openBankForm,
+        },
+        {
+          tagName: 'nuxt-link',
+          to: '/contact',
+          label: '問い合わせ',
+          icon: 'envelope',
+          show: true,
+          handleClick: () => {},
+        },
+        {
+          tagName: 'a',
+          href: '#',
+          label: 'ログアウト',
+          icon: 'sign-out-alt',
+          show: true,
+          handleClick: this.onLogout,
+        },
+      ]
+    },
+    async fetchCharges(event: Event, next = false): Promise<void> {
+      event.preventDefault()
+      if (this.charges.length > 0 && !next) {
+        (this.$refs as any).chargeList.show()
+        return
+      }
+      this.$nuxt.$loading.start()
+      try {
+        const token = await this.$store.dispatch('auth/refresh')
+        this.$axios.setHeader('Authorization', `Bearer ${token}`)
+        const params = next
+          ? { startingAfter: this.charges[this.charges.length - 1].id }
+          : {}
+        const chargeData: ChargeList = await this.$axios.$post(
+          '/.netlify/functions/fetch_charges',
+          params
+        )
+        this.hasMoreCharges = chargeData.hasMore
+        this.charges = [...this.charges, ...chargeData.data] as Charge[]
+        (this.$refs as any).chargeList.show()
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err)
+        alert('決済データは見つかりませんでした')
+      } finally {
+        this.$nuxt.$loading.finish()
+      }
+    },
+    async goToBillingPortal(event: Event): Promise<void> {
+      event.preventDefault()
       if (this.user) {
         const token = await this.$store.dispatch('auth/refresh')
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
@@ -298,14 +332,15 @@ export default Vue.extend({
         console.error(err)
       }
 
-      this.$nuxt.$loading.finish()
       if (url) {
         location.href = url
       } else {
         alert('定期決済の購入がない為、画面を表示することができませんでした')
       }
+      this.$nuxt.$loading.finish()
     },
-    async goToStripeConnect(): Promise<void> {
+    async goToStripeConnect(event: Event): Promise<void> {
+      event.preventDefault()
       if (!this.isMentor) {
         return
       }
@@ -320,14 +355,15 @@ export default Vue.extend({
         console.error(err)
       }
 
-      this.$nuxt.$loading.finish()
       if (url) {
         location.href = url
       } else {
         alert('本人確認ページに遷移することができません')
       }
+      this.$nuxt.$loading.finish()
     },
-    async openBackForm(): Promise<void> {
+    async openBankForm(event: Event): Promise<void> {
+      event.preventDefault()
       if (!this.isMentor) {
         return
       }
@@ -367,7 +403,8 @@ export default Vue.extend({
         this.$nuxt.$loading.finish()
       }
     },
-    onLogout(): void {
+    onLogout(event: Event): void {
+      event.preventDefault()
       this.$store.dispatch('auth/logout')
       if (this.$route.path !== '/') {
         this.$router.push('/')

@@ -169,7 +169,7 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { mapGetters } from 'vuex'
-import { Breadcrumb } from '../../types/entities'
+import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 
 const categories: String[] = [
   'サービスの詳細を知りたい',

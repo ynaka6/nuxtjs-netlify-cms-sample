@@ -1,6 +1,7 @@
 import { APIGatewayEvent } from 'aws-lambda'
 import { Context, ClientContext, User } from '../utils/types'
 import faunaFetch from '../utils/fauna'
+import { Bank } from '../../core/entities/Bank'
 
 import Stripe from 'stripe'
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
@@ -54,6 +55,6 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   const { bank_name, country, last4 } = list.data[0] as Stripe.BankAccount
   return {
     statusCode: 200,
-    body: JSON.stringify({ bank_name, country, last4 })
+    body: JSON.stringify({ bankName: bank_name, country, last4 } as Bank)
   };
 }

@@ -101,7 +101,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="sticky bottom-0 bg-indigo-100 border-t p-4">
       <div class="w-full flex justify-between lg:justify-end">
         <p class="font-semibold text-2xl text-gray-800 mr-5">
@@ -225,7 +225,8 @@
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js'
-import { Breadcrumb, Plan } from '../../../types/entities'
+import { Breadcrumb } from '../../../../core/entities/Breadcrumb'
+import { Plan } from '../../../../core/entities/Plan'
 import Modal from '../../../components/Modal.vue'
 import ProfileIcon from '../../../components/ProfileIcon.vue'
 
@@ -301,7 +302,7 @@ export default Vue.extend({
         : (this.$refs as any).authModal.show()
     },
     goToLogin(): void {
-      (this.$refs as any).authModal.hide()
+      ;(this.$refs as any).authModal.hide()
       this.$store.dispatch('auth/openLogin')
     },
     async goToCheckout(): Promise<void> {

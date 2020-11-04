@@ -1,5 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Author, Blog } from '../types/entities'
+import { Author } from '../../core/entities/Author'
+import { Blog } from '../../core/entities/Blog'
 
 export const state = () => ({
   blogs: [] as Blog[],

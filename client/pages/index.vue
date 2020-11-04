@@ -62,7 +62,8 @@ import { Context } from '@nuxt/types'
 import Hashtag from '../elements/Hashtag.vue'
 import PlanCard from '../components/PlanCard.vue'
 import ProfileIcon from '../components/ProfileIcon.vue'
-import { Hashtag as HashtagData, Plan } from '../types/entities'
+import { Hashtag as HashtagData } from '../../core/entities/Hashtag'
+import { Plan } from '../../core/entities/Plan'
 
 export default Vue.extend({
   components: {

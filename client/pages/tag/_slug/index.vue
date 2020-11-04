@@ -28,7 +28,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb, Hashtag, Plan } from '../../../types/entities'
+import { Breadcrumb } from '../../../../core/entities/Breadcrumb'
+import { Plan } from '../../../../core/entities/Plan'
+import { Hashtag } from '../../../../core/entities/Hashtag'
 import PlanCard from '../../../components/PlanCard.vue'
 import ProfileIcon from '../../../components/ProfileIcon.vue'
 

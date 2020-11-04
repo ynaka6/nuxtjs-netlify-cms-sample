@@ -1,5 +1,6 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Author, Category } from '../types/entities'
+import { Author } from '../../core/entities/Author'
+import { Category } from '../../core/entities/Category'
 import Fuse from 'fuse.js'
 
 export const state = () => ({

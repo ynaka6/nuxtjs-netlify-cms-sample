@@ -31,7 +31,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Breadcrumb } from '../../types/entities'
+import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 
 export default Vue.extend({
   fetch(context: Context) {

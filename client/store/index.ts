@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Breadcrumb } from '../types/entities'
+import { Breadcrumb } from '../../core/entities/Breadcrumb'
 
 export const state = () => ({
   pageTitle: `The Best Programming Supporter.` as string,

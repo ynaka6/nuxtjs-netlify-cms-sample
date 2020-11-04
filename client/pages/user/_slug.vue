@@ -105,7 +105,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Context } from '@nuxt/types'
-import { Author, Breadcrumb, Plan } from '../../types/entities'
+import { Author } from '../../../core/entities/Author'
+import { Breadcrumb } from '../../../core/entities/Breadcrumb'
+import { Plan } from '../../../core/entities/Plan'
 import PlanCard from '../../components/PlanCard.vue'
 
 export type DataType = {

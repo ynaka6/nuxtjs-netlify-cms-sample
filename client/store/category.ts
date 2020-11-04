@@ -1,5 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Category } from '../types/entities'
+import { Category } from '../../core/entities/Category'
 
 export const state = () => ({
   categories: [] as Category[],

@@ -14,7 +14,7 @@ export default Vue.extend({
     }),
   },
   mounted() {
-    if (!this.user || !this.user.app_metadata.roles.includes('Mentor')) {
+    if (!this.user || !this.user.app_metadata.roles || !this.user.app_metadata.roles.includes('Mentor')) {
       this.$router.push('/')
       return
     }

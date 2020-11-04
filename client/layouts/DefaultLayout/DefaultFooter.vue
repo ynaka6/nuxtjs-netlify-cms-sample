@@ -1,12 +1,14 @@
 <template>
   <footer class="bg-gray-800 py-6">
-    <div class="max-w-6xl mx-auto flex flex-wrap justify-between text-white px-2 py-3">
+    <div
+      class="max-w-6xl mx-auto flex flex-wrap justify-between text-white px-2 py-3"
+    >
       <div class="w-full mb-10 lg:w-3/5">
         <p class="text-2xl font-leckerli-one mb-2">
           <logo>Growrescue</logo>
         </p>
         <div class="mt-1 flex text-xs">
-          メンター同士が成長し合えるコミュニティ「Growrescue」<br/>
+          メンター同士が成長し合えるコミュニティ「Growrescue」<br />
           プログラミングの課題や問題を解決する成長プラットフォームとなります
         </div>
       </div>

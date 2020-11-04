@@ -1,5 +1,7 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
-import { Author, Hashtag, Plan } from '../types/entities'
+import { Author } from '../../core/entities/Author'
+import { Plan } from '../../core/entities/Plan'
+import { Hashtag } from '../../core/entities/Hashtag'
 import Fuse from 'fuse.js'
 
 export const state = () => ({
