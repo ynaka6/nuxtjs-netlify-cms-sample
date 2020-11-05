@@ -11,7 +11,15 @@ export const state = () => ({
 export type RootState = ReturnType<typeof state>
 
 export const getters: GetterTree<RootState, RootState> = {
-    user: (state) => state.user
+    user: (state) => state.user,
+    isMentor: (state) => {
+      return (
+        state.user &&
+        state.user.app_metadata &&
+        state.user.app_metadata.roles &&
+        state.user.app_metadata.roles.includes('Mentor')
+      )
+    }
 }
 
 export const mutations: MutationTree<RootState> = {

@@ -6,7 +6,11 @@
       <div class="w-full mb-10 lg:w-3/5">
         <p class="text-2xl font-leckerli-one mb-2">
           <logo>
-            <img src="~/assets/img/favicon-32x32.png" alt="SUCSUC" class="w-6 mr-2" />
+            <img
+              src="~/assets/img/favicon-32x32.png"
+              alt="SUCSUC"
+              class="w-6 mr-2"
+            />
             SUCSUC
           </logo>
         </p>
@@ -38,6 +42,11 @@
       <div class="w-full lg:w-1/5">
         <p class="font-bold text-gray-400 mb-2">Links</p>
         <ul>
+          <li class="my-1">
+            <nuxt-link to="/plans" class="hover:opacity-75">
+              みんなのプラン
+            </nuxt-link>
+          </li>
           <li class="my-1">
             <nuxt-link to="/contact" class="hover:opacity-75">
               問い合わせ

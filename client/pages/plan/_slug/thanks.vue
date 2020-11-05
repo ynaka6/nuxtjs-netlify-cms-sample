@@ -31,13 +31,18 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../../../core/entities/Breadcrumb'
 import { Plan } from '../../../../core/entities/Plan'
 
-export type DataType = {
+interface DataType {
   plan: Plan
 }
+
+interface MethodType {}
+interface ComputedType {}
+interface PropType {}
 
 export default Vue.extend({
   validate(context: Context): boolean {
@@ -87,5 +92,25 @@ export default Vue.extend({
       plan: {} as Plan,
     }
   },
-})
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title: `${this.plan.title}の購入が完了しました`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `購入完了 - ${this.plan.description}`,
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: 'noindex',
+        },
+      ],
+    }
+  },
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>

@@ -33,6 +33,9 @@ import Vue from 'vue'
 import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 
+const title = '問い合わせ完了'
+const description = 'お問い合わせが完了しました。'
+
 export default Vue.extend({
   fetch(context: Context) {
     const breadcrumbs = [
@@ -48,10 +51,27 @@ export default Vue.extend({
       } as Breadcrumb,
       { name: '完了', color: 'text-gray-100' } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: '問い合わせ完了',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, breadcrumbs })
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: 'noindex',
+        },
+      ],
+    }
   },
 })
 </script>

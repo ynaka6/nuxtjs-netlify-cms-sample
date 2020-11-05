@@ -223,6 +223,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
 import { loadStripe, RedirectToCheckoutOptions } from '@stripe/stripe-js'
 import { Breadcrumb } from '../../../../core/entities/Breadcrumb'
@@ -230,12 +231,16 @@ import { Plan } from '../../../../core/entities/Plan'
 import Modal from '../../../components/Modal.vue'
 import ProfileIcon from '../../../components/ProfileIcon.vue'
 
-export type DataType = {
+interface DataType {
   baseUrl: string
   stripePublishableKey: string
   plan: Plan
   agree: Boolean
 }
+
+interface MethodType {}
+interface ComputedType {}
+interface PropType {}
 
 export default Vue.extend({
   components: {
@@ -290,6 +295,21 @@ export default Vue.extend({
       agree: false,
     }
   },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title: this.plan.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.plan.description,
+        },
+      ],
+    }
+  },
   computed: {
     isMonthly(): Boolean {
       return this.plan.interval === 'monthly'
@@ -328,5 +348,5 @@ export default Vue.extend({
       }
     },
   },
-})
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>

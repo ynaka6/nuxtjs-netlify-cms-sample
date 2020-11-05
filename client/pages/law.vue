@@ -18,6 +18,8 @@ import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import Document from '../elements/Document.vue'
 
+const title = '特定商取引法に基づく表記'
+
 export default Vue.extend({
   components: {
     Document,
@@ -30,16 +32,21 @@ export default Vue.extend({
         color: 'text-gray-100',
       } as Breadcrumb,
       {
-        name: '特定商取引法に基づく表記',
+        name: title,
         color: 'text-gray-100',
       } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: '特定商取引法に基づく表記',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, breadcrumbs })
     const law = context.store.getters['law/document']
     return { law }
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+    }
   },
 })
 </script>

@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../../../core/entities/Breadcrumb'
 import { Plan } from '../../../../core/entities/Plan'
@@ -34,10 +35,14 @@ import { Hashtag } from '../../../../core/entities/Hashtag'
 import PlanCard from '../../../components/PlanCard.vue'
 import ProfileIcon from '../../../components/ProfileIcon.vue'
 
-export type DataType = {
+interface DataType {
   tag: Hashtag
   planPosts: Plan[]
 }
+
+interface MethodType {}
+interface ComputedType {}
+interface PropType {}
 
 export default Vue.extend({
   components: {
@@ -57,7 +62,7 @@ export default Vue.extend({
       const slug = context.params.slug
       const hashtags = context.store.getters['hashtag/hashtags'] || []
       const tag = hashtags.find((h: Hashtag) => h.value === slug)
-      const planPosts = context.store.getters.planPosts.filter((p: Plan) =>
+      const planPosts = context.store.getters['plan/plans'].filter((p: Plan) =>
         p.hashtags.map((h: Hashtag) => h.value).includes(tag.value)
       )
       data = { tag, planPosts }
@@ -85,5 +90,20 @@ export default Vue.extend({
       planPosts: [] as Plan[],
     }
   },
-})
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title: this.tag.label,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.tag.label}に関する投稿を表示します`,
+        },
+      ],
+    }
+  },
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>

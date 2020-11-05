@@ -87,7 +87,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: '%s | SucSuc',
+    titleTemplate: '%s | スクスク（SucSuc）',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -102,7 +102,7 @@ export default {
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'SucSuc',
+        content: 'スクスク（SucSuc）',
       },
       {
         hid: 'og:description',
@@ -190,7 +190,7 @@ export default {
     ],
   },
   dayjs: {
-    locales: ['en', 'ja'],
+    locales: ['ja', 'en'],
     defaultLocale: 'ja',
   },
   ...options,

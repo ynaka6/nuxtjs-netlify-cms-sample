@@ -18,6 +18,8 @@ import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 import Document from '../../elements/Document.vue'
 
+const title = 'プライバシーポリシー'
+
 export default Vue.extend({
   components: {
     Document,
@@ -29,7 +31,7 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: 'プライバシーポリシー', color: 'text-gray-100' } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
     ]
     context.store.dispatch('setPageInfo', {
       title: 'プライバシーポリシー',
@@ -37,6 +39,14 @@ export default Vue.extend({
     })
     const primaryPolicy = context.store.getters['privacy/document']
     return { primaryPolicy }
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+    }
   },
 })
 </script>

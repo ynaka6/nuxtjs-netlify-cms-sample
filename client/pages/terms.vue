@@ -12,6 +12,8 @@ import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import Document from '../elements/Document.vue'
 
+const title = '利用規約'
+
 export default Vue.extend({
   components: {
     Document,
@@ -23,14 +25,19 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: '利用規約', color: 'text-gray-100' } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: '利用規約',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, breadcrumbs })
     const term = context.store.getters['terms/document']
     return { term }
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+    }
   },
 })
 </script>

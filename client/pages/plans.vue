@@ -64,10 +64,10 @@ import PlanCard from '../components/PlanCard.vue'
 import ProfileIcon from '../components/ProfileIcon.vue'
 import { Hashtag as HashtagData } from '../../core/entities/Hashtag'
 import { Plan } from '../../core/entities/Plan'
+import { Breadcrumb } from '../../core/entities/Breadcrumb'
 
-const title = 'The Best Supporter - SUCSUC'
-const description =
-  'あなたの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）を探しましょう'
+const title = 'みんなのプラン'
+const description = 'あなたの課題や問題を解決するプランを探しましょう'
 
 export default Vue.extend({
   components: {
@@ -76,7 +76,15 @@ export default Vue.extend({
     ProfileIcon,
   },
   asyncData(context: Context): { plans: Plan[] } {
-    context.store.dispatch('setPageInfo', { title, description })
+    const breadcrumbs = [
+      {
+        to: '/',
+        icon: ['fas', 'laptop-code'],
+        color: 'text-gray-100',
+      } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
+    ]
+    context.store.dispatch('setPageInfo', { title, description, breadcrumbs })
     return {
       plans: context.store.getters['plan/plans'],
     }
@@ -91,22 +99,5 @@ export default Vue.extend({
       return this.$store.getters['hashtag/hashtags']
     },
   },
-  head() {
-    return {
-      htmlAttrs: {
-        lang: 'ja',
-      },
-      title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: description,
-        },
-      ],
-    }
-  },
 })
 </script>
-
-<style></style>

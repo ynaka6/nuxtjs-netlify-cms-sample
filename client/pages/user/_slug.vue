@@ -104,19 +104,27 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
 import { Author } from '../../../core/entities/Author'
 import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 import { Plan } from '../../../core/entities/Plan'
 import PlanCard from '../../components/PlanCard.vue'
 
-export type DataType = {
+interface DataType {
   openTab: number
   url: string
   shareText: string
   author: Author
   plans: Plan[]
 }
+
+interface MethodType {
+  toggleTabs(tab: number): void
+}
+
+interface ComputedType {}
+interface PropType {}
 
 export default Vue.extend({
   components: {
@@ -168,12 +176,27 @@ export default Vue.extend({
       plans: [] as Plan[],
     }
   },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title: this.author.title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.author.title}に関するページを表示します`,
+        },
+      ],
+    }
+  },
   methods: {
     toggleTabs(tab: number): void {
       this.openTab = tab
     },
   },
-})
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>
 
 <style></style>

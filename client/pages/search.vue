@@ -86,10 +86,30 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
 import AuthorCard from '../components/AuthorCard.vue'
 import PlanCard from '../components/PlanCard.vue'
 import ProfileIcon from '../components/ProfileIcon.vue'
+import { Author } from '../../core/entities/Author'
+import { Plan } from '../../core/entities/Plan'
+
+const title = 'スクスク（SUCSUC）、プラン検索'
+const description =
+  'あなたのの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）、プランを探しましょう'
+
+interface DataType {
+  q: string
+  authors: Author[]
+  plans: Plan[]
+}
+
+interface MethodType {
+  search(): void
+}
+
+interface ComputedType {}
+interface PropType {}
 
 export default Vue.extend({
   components: {
@@ -97,19 +117,15 @@ export default Vue.extend({
     PlanCard,
     ProfileIcon,
   },
-  asyncData(context: Context) {
-    context.store.dispatch('setPageInfo', {
-      title: 'The best Programming Supporter.',
-      description:
-        'あなたのの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）を探しましょう',
-    })
+  asyncData(context: Context): DataType {
+    context.store.dispatch('setPageInfo', { title, description })
     return {
       q: '',
       authors: [],
       plans: [],
     }
   },
-  data() {
+  data(): DataType {
     return {
       q: '',
       authors: [],
@@ -118,15 +134,30 @@ export default Vue.extend({
   },
   methods: {
     search(): void {
-      this.$store.dispatch('author/search', this.q).then((res) => {
-        this.authors = this.q.length > 0 ? res : []
-      })
-      this.$store.dispatch('plan/search', this.q).then((res) => {
-        this.plans = this.q.length > 0 ? res : []
-      })
+      this.$store
+        .dispatch('author/search', this.q)
+        .then((res: Author[]) => (this.authors = res))
+      this.$store
+        .dispatch('plan/search', this.q)
+        .then((res: Plan[]) => (this.plans = res))
     },
   },
-})
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+      ],
+    }
+  },
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>
 
 <style></style>

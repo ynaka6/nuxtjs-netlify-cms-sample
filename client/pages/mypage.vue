@@ -162,7 +162,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 import { Context } from '@nuxt/types'
+import { User } from 'netlify-identity-widget'
 import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import Modal from '../components/Modal.vue'
 import MypageMenuItem from '../components/MypageMenuItem.vue'
@@ -170,6 +172,36 @@ import BankItemList from '../components/BankItemList.vue'
 import ChargeTable from '../components/ChargeTable.vue'
 import { ChargeList, Charge } from '../../core/entities/Charge'
 import { Bank } from '../../core/entities/Bank'
+
+const title = 'マイページ'
+
+interface DataType {
+  charges: Charge[]
+  hasMoreCharges: boolean
+  bank: Bank | null
+  form: {
+    accountHolderName: string
+    accountNumber: string
+    bankCode: string
+    branchCode: string
+  }
+}
+
+interface MethodType {
+  menu(): Array<any>
+  fetchCharges(event: Event, next: boolean): void
+  goToBillingPortal(event: Event): void
+  goToStripeConnect(event: Event): void
+  openBankForm(event: Event): void
+  submitBankModal(): void
+  onLogout(event: Event): void
+}
+
+interface ComputedType {
+  user(): User
+  isMentor(): boolean
+}
+interface PropType {}
 
 export default Vue.extend({
   components: {
@@ -185,38 +217,29 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: 'マイページ', color: 'text-gray-100' } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: 'マイページ',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, breadcrumbs })
   },
-  data() {
+  data(): DataType {
     return {
       charges: [] as Charge[],
       hasMoreCharges: false,
       bank: null as Bank | null,
       form: {
-        accountHolderName: null,
-        accountNumber: null,
-        bankCode: null,
-        branchCode: null,
+        accountHolderName: '',
+        accountNumber: '',
+        bankCode: '',
+        branchCode: '',
       },
     }
   },
   computed: {
-    user() {
+    user(): User {
       return this.$store.getters['auth/user']
     },
-    isMentor() {
-      const user = this.$store.getters['auth/user']
-      return (
-        user &&
-        user.app_metadata &&
-        user.app_metadata.roles &&
-        user.app_metadata.roles.includes('Mentor')
-      )
+    isMentor(): boolean {
+      return this.$store.getters['auth/isMentor']
     },
   },
   mounted() {
@@ -225,7 +248,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    menu() {
+    menu(): Array<any> {
       return [
         {
           tagName: 'a',
@@ -318,14 +341,12 @@ export default Vue.extend({
     },
     async goToBillingPortal(event: Event): Promise<void> {
       event.preventDefault()
-      if (this.user) {
-        const token = await this.$store.dispatch('auth/refresh')
-        this.$axios.setHeader('Authorization', `Bearer ${token}`)
-      }
 
       this.$nuxt.$loading.start()
       let url = null
       try {
+        const token = await this.$store.dispatch('auth/refresh')
+        this.$axios.setHeader('Authorization', `Bearer ${token}`)
         url = await this.$axios.$post('/.netlify/functions/create_manage_link')
       } catch (err) {
         // eslint-disable-next-line no-console
@@ -411,5 +432,13 @@ export default Vue.extend({
       }
     },
   },
-})
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+    }
+  },
+} as ThisTypedComponentOptionsWithRecordProps<Vue, DataType, MethodType, ComputedType, PropType>)
 </script>

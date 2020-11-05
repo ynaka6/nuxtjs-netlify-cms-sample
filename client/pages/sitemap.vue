@@ -22,6 +22,16 @@
         </sitemap-card>
       </div>
       <div class="w-full lg:w-1/2">
+        <sitemap-card to="/plans" class="border-l-none">
+          <span
+            class="inline-flex items-center justify-center bg-indigo-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
+          >
+            <font-awesome-icon :icon="[`fas`, `seedling`]" />
+          </span>
+          <span class="font-semibold text-sm"> みんなのプラン </span>
+        </sitemap-card>
+      </div>
+      <div class="w-full lg:w-1/2">
         <sitemap-card to="/contact" class="border-l-none">
           <span
             class="inline-flex items-center justify-center bg-indigo-100 text-gray-800 border border-gray-500 rounded-full w-12 h-12 mr-2"
@@ -71,6 +81,8 @@ import { Context } from '@nuxt/types'
 import { Breadcrumb } from '../../core/entities/Breadcrumb'
 import SitemapCard from '../components/SitemapCard.vue'
 
+const title = 'サイトマップ'
+
 export default Vue.extend({
   components: {
     SitemapCard,
@@ -82,12 +94,17 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: 'サイトマップ', color: 'text-gray-100' } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: 'サイトマップ',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, breadcrumbs })
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+    }
   },
 })
 </script>

@@ -173,10 +173,13 @@ import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 
 const categories: String[] = [
   'サービスの詳細を知りたい',
-  'スクスク（SUCSUC）として活動したい',
+  'サポーターとして活動したい',
   '不具合報告',
   'その他',
 ]
+
+const title = '問い合わせ'
+const description = 'サービスへのお問い合わせはこちらから'
 
 export default Vue.extend({
   fetch(context: Context) {
@@ -186,13 +189,9 @@ export default Vue.extend({
         icon: ['fas', 'laptop-code'],
         color: 'text-gray-100',
       } as Breadcrumb,
-      { name: '問い合わせ', color: 'text-gray-100' } as Breadcrumb,
+      { name: title, color: 'text-gray-100' } as Breadcrumb,
     ]
-    context.store.dispatch('setPageInfo', {
-      title: '問い合わせ',
-      description: 'サービスへのお問い合わせはこちらから',
-      breadcrumbs,
-    })
+    context.store.dispatch('setPageInfo', { title, description, breadcrumbs })
   },
   data() {
     return {
@@ -214,6 +213,26 @@ export default Vue.extend({
     if (this.user) {
       this.form.name = this.user.user_metadata.full_name
       this.form.email = this.user.email
+    }
+  },
+  head() {
+    return {
+      htmlAttrs: {
+        lang: 'ja',
+      },
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description,
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: 'noindex',
+        },
+      ],
     }
   },
 })

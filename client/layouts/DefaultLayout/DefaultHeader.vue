@@ -6,7 +6,11 @@
           <nuxt-link to="/" class="block p-3 lg:text-left hover:opacity-75">
             <h1 class="text-2xl font-leckerli-one">
               <logo>
-                <img src="~/assets/img/favicon-32x32.png" alt="SUCSUC" class="w-6 mr-2" />
+                <img
+                  src="~/assets/img/favicon-32x32.png"
+                  alt="SUCSUC"
+                  class="w-6 mr-2"
+                />
                 SUCSUC
               </logo>
             </h1>
