@@ -87,7 +87,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    titleTemplate: '%s | Growrescue',
+    titleTemplate: '%s | SucSuc',
     htmlAttrs: {
       lang: 'ja',
     },
@@ -102,7 +102,7 @@ export default {
       {
         hid: 'og:title',
         name: 'og:title',
-        content: 'Growrescue',
+        content: 'SucSuc',
       },
       {
         hid: 'og:description',

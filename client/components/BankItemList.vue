@@ -23,7 +23,7 @@ export default Vue.extend({
       type: Object,
       required: false,
       default: null,
-    } as PropOptions<Bank>
+    } as PropOptions<Bank>,
   },
 })
 </script>

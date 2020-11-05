@@ -196,7 +196,7 @@ export default Vue.extend({
     return {
       charges: [] as Charge[],
       hasMoreCharges: false,
-      bank: null as Bank|null,
+      bank: null as Bank | null,
       form: {
         accountHolderName: null,
         accountNumber: null,
@@ -291,7 +291,7 @@ export default Vue.extend({
     async fetchCharges(event: Event, next = false): Promise<void> {
       event.preventDefault()
       if (this.charges.length > 0 && !next) {
-        (this.$refs as any).chargeList.show()
+        ;(this.$refs as any).chargeList.show()
         return
       }
       this.$nuxt.$loading.start()
@@ -307,7 +307,7 @@ export default Vue.extend({
         )
         this.hasMoreCharges = chargeData.hasMore
         this.charges = [...this.charges, ...chargeData.data] as Charge[]
-        (this.$refs as any).chargeList.show()
+        ;(this.$refs as any).chargeList.show()
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err)

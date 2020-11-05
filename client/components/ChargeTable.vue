@@ -1,11 +1,7 @@
 <template>
   <div class="overflow-x-auto">
-    <div
-      class="py-2 inline-block min-w-full"
-    >
-      <div
-        class="overflow-hidden border-b border-gray-200 sm:rounded-lg"
-      >
+    <div class="py-2 inline-block min-w-full">
+      <div class="overflow-hidden border-b border-gray-200 sm:rounded-lg">
         <table class="min-w-full divide-y divide-gray-200">
           <thead>
             <tr>
@@ -30,12 +26,8 @@
           <tbody class="bg-white divide-y divide-gray-200">
             <tr v-for="(charge, index) in charges" :key="index">
               <td class="px-6 py-4 whitespace-no-wrap">
-                <div
-                  class="text-sm leading-5 font-medium text-gray-900"
-                >
-                  {{
-                    $dayjs(charge.created * 1000).format('YYYY/MM/DD')
-                  }}
+                <div class="text-sm leading-5 font-medium text-gray-900">
+                  {{ $dayjs(charge.created * 1000).format('YYYY/MM/DD') }}
                 </div>
               </td>
               <td class="px-6 py-4 whitespace-no-wrap">
@@ -88,7 +80,7 @@ export default Vue.extend({
       type: Array,
       required: false,
       default: null,
-    } as PropOptions<Charge[]>
+    } as PropOptions<Charge[]>,
   },
 })
 </script>

@@ -12,5 +12,6 @@
 
 .logo {
   font-family: ConcertOne;
+  @apply flex items-center;
 }
 </style>

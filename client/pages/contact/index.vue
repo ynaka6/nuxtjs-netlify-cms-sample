@@ -173,7 +173,7 @@ import { Breadcrumb } from '../../../core/entities/Breadcrumb'
 
 const categories: String[] = [
   'サービスの詳細を知りたい',
-  'メンターとして活動したい',
+  'スクスク（SUCSUC）として活動したい',
   '不具合報告',
   'その他',
 ]

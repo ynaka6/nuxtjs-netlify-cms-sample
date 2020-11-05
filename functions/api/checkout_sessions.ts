@@ -13,22 +13,16 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function handler(event: APIGatewayEvent, context: Context) {
   if (event.httpMethod !== 'POST') {
-    return {
-      statusCode: 405,
-      body: 'Method Not Allowed'
-    }
+    return { statusCode: 405, body: 'Method Not Allowed' }
   }
 
   let stripeID: string | undefined = undefined;
   const clientContext: ClientContext | undefined = context.clientContext;
   if (!clientContext || !clientContext.user) {
-    return {
-      statusCode: 401,
-      body: 'Forbidden'
-    }
+    return { statusCode: 401, body: 'Forbidden' }
   }
   const user: User = clientContext.user;
-  const result = await faunaFetch({
+  const customerData = await faunaFetch({
     query: `
       query ($netlifyID: ID!) {
         getUserByNetlifyID(netlifyID: $netlifyID) {
@@ -40,8 +34,8 @@ export async function handler(event: APIGatewayEvent, context: Context) {
       netlifyID: user.sub,
     },
   });
-  if (result.data) {
-    stripeID = result.data.getUserByNetlifyID.stripeID
+  if (customerData.data) {
+    stripeID = customerData.data.getUserByNetlifyID.stripeID
   } else {
     const customer = await stripe.customers.create({ email: user.email } as Stripe.CustomerCreateParams);
     await faunaFetch({
@@ -65,57 +59,66 @@ export async function handler(event: APIGatewayEvent, context: Context) {
   const uuid = req.uuid
   const plan = require(`../../client/content/plan/${uuid}.json`) as Plan;
   const author = require(`../../client/content/author/${plan.authorId}.json`) as Author;
-  let params: Stripe.Checkout.SessionCreateParams;
-  if (plan.interval === "monthly") {
-    const price = await stripe.prices.create({
-      unit_amount: (plan.price as number),
-      currency: StripeConst.Currency.JPY,
-      recurring: { interval: 'month' },
-      product_data: {
-        name: `${author.title} - ${plan.title}`
-      },
-      metadata: {
-        plan_uuid: uuid,
-        author_id: (plan.authorId as string)
+
+  const productData = await faunaFetch({
+    query: `
+      query ($uuid: ID!) {
+        getProductByUuid(uuid: $uuid) {
+          stripeID
+        }
       }
-    });
-    params = {
-      mode: 'subscription',
-      payment_method_types: ['card'],
-      line_items: [
-        { price: price.id, quantity: 1 },
-      ],
-      success_url: `${event.headers.referer}/thanks`,
-      cancel_url: event.headers.referer,
-      customer: stripeID,
-      metadata: {
-        plan_uuid: uuid,
-        author_id: (plan.authorId as string)
-      },
-    }
-  } else {
-    params = {
-      submit_type: 'pay',
-      payment_method_types: ['card'],
-      line_items: [
-        {
-          name: `${author.title} - ${plan.title}`,
-          amount: (plan.price as number),
-          currency: StripeConst.Currency.JPY,
-          quantity: 1,
-        },
-      ],
-      success_url: `${event.headers.referer}/thanks`,
-      cancel_url: event.headers.referer,
-      customer: stripeID,
-      metadata: {
-        plan_uuid: uuid,
-        author_id: (plan.authorId as string)
-      },
-    }
+    `,
+    variables: {
+      uuid: uuid,
+    },
+  });
+
+
+  const metadata = {
+    plan_uuid: uuid,
+    author_id: (plan.authorId as string)
   }
 
-  const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create(params)
+  const productParams = productData.data
+    ? { product: productData.data.getProductByUuid.stripeID }
+    : { product_data: { name: `${author.title} - ${plan.title}` } }
+
+  const price = await stripe.prices.create({
+    ...productParams,
+    unit_amount: (plan.price as number),
+    currency: StripeConst.Currency.JPY,
+    recurring: plan.interval === StripeConst.Interval.MONTHLY ? { interval: 'month' } : undefined,
+    metadata,
+  });
+
+  if (!productData.data && price.product) {
+    await faunaFetch({
+      query: `
+        mutation ($uuid: ID!, $stripeID: ID!) {
+          createProduct(data: { uuid: $uuid, stripeID: $stripeID }) {
+            uuid
+            stripeID
+          }
+        }
+      `,
+      variables: {
+        uuid: uuid,
+        stripeID: (price.product as string),
+      },
+    });
+  }
+
+  const checkoutSession: Stripe.Checkout.Session = await stripe.checkout.sessions.create({
+    mode: plan.interval === StripeConst.Interval.MONTHLY ? "subscription" : "payment",
+    line_items: [
+      { price: price.id, quantity: 1 },
+    ],
+    payment_method_types: ['card'],
+    success_url: `${event.headers.referer}/thanks`,
+    cancel_url: event.headers.referer,
+    customer: stripeID,
+    metadata,
+  } as Stripe.Checkout.SessionCreateParams)
   return {
     statusCode: 200,
     body: JSON.stringify(checkoutSession)

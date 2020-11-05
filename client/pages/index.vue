@@ -75,7 +75,7 @@ export default Vue.extend({
     context.store.dispatch('setPageInfo', {
       title: 'The best Programming Supporter.',
       description:
-        'あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう',
+        'あなたの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）を探しましょう',
     })
     return {
       plans: context.store.getters['plan/plans'],

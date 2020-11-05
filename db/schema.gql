@@ -8,9 +8,16 @@ type Account {
   stripeID: ID!
 }
 
+type Product {
+  stripeID: ID!
+  uuid: ID!
+}
+
 type Query {
   getUserByNetlifyID(netlifyID: ID!): User!
   getUserByStripeID(stripeID: ID!): User!
   getAccountByNetlifyID(netlifyID: ID!): Account!
   getAccountByStripeID(stripeID: ID!): Account!
+  getProductByUuid(uuid: ID!): Product!
+  getProductByStripeID(stripeID: ID!): Product!
 }

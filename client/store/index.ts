@@ -3,7 +3,7 @@ import { Breadcrumb } from '../../core/entities/Breadcrumb'
 
 export const state = () => ({
   pageTitle: `The Best Programming Supporter.` as string,
-  pageDescription: `あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう` as string,
+  pageDescription: `あなたの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）を探しましょう` as string,
   pageImage: null as string | null,
   breadcrumbs: [] as Breadcrumb[],
 })

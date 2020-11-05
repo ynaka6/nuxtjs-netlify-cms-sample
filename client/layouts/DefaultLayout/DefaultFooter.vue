@@ -5,11 +5,14 @@
     >
       <div class="w-full mb-10 lg:w-3/5">
         <p class="text-2xl font-leckerli-one mb-2">
-          <logo>Growrescue</logo>
+          <logo>
+            <img src="~/assets/img/favicon-32x32.png" alt="SUCSUC" class="w-6 mr-2" />
+            SUCSUC
+          </logo>
         </p>
         <div class="mt-1 flex text-xs">
-          メンター同士が成長し合えるコミュニティ「Growrescue」<br />
-          プログラミングの課題や問題を解決する成長プラットフォームとなります
+          ユーザー同士が課題解決し成長し合えるコミュニティ「SUCSUC」<br />
+          ユーザーの課題や問題を解決する成長プラットフォームとなります
         </div>
       </div>
       <div class="w-full mb-10 lg:w-1/5">

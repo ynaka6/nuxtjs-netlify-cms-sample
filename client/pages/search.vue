@@ -29,9 +29,9 @@
             <font-awesome-icon :icon="[`fas`, `users`]" />
           </span>
           <div>
-            <p class="text-base text-gray-800">メンター</p>
+            <p class="text-base text-gray-800">スクスク（SUCSUC）</p>
             <p class="text-xs text-gray-700">
-              プログラミングの課題や問題を解決するメンター
+              ユーザーの課題や問題を解決するサポーター
             </p>
           </div>
         </h3>
@@ -101,7 +101,7 @@ export default Vue.extend({
     context.store.dispatch('setPageInfo', {
       title: 'The best Programming Supporter.',
       description:
-        'あなたのプログラミングの課題や問題を解決し成長というゴールに導くメンターを探しましょう',
+        'あなたのの課題や問題を解決し成長というゴールに導くスクスク（SUCSUC）を探しましょう',
     })
     return {
       q: '',

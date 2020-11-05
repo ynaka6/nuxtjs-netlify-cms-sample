@@ -13,7 +13,7 @@ collections:
   - name: 'blog'
     label: 'Blog'
     description: >
-      技術情報を共有するためのブログ。メンターとしてのアピールや説明に利用してください。
+      技術情報を共有するためのブログ。サポーターとしてのアピールや説明に利用してください。
     format: 'json'
     folder: 'client/content/blog'
     create: true
@@ -73,7 +73,7 @@ collections:
     identifier_field: username
     label: "Author"
     description: >
-      サポートするメンターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
+      サポーターのユーザー情報を登録します。自分の情報のみ更新するようにしてください。
     format: 'json'
     folder: "client/content/author"
     create: true
