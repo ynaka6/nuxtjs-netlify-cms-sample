@@ -73,7 +73,7 @@
           <div class="bg-blue-100 shadow-xl border-blue-500 mt-6 px-4 py-2">
             <p class="font-bold text-blue-600 text-sm mb-2">
               <font-awesome-icon :icon="[`fas`, `money-check-alt`]" />
-              決済手段
+              支払い方法
             </p>
             <ul class="pl-4 list-disc text-blue-500 text-xs mb-2">
               <li class="my-1">

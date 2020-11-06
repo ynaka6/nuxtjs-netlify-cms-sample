@@ -21,6 +21,9 @@
                 >
                   <breadcrumb :breadcrumbs="breadcrumbs" />
                 </div>
+                <div class="absolute bottom-0 right-0 mt-4 mr-4 opacity-25">
+                  <font-awesome-icon :icon="['fas', 'seedling']" size="10x" />
+                </div>
                 <div class="flex items-center justify-center">
                   <profile-icon
                     v-if="pageImage"
